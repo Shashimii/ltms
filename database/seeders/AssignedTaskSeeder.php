@@ -16,8 +16,8 @@ class AssignedTaskSeeder extends Seeder
     public function run(): void
     {   
         // Create 10 duties, 7 officers, and 20 assigned duties
-        Task::factory(10)->create();
+        Task::factory(40)->create();
         User::factory(7)->create();
-        AssignedTask::factory(20)->create();
+        AssignedTask::factory(60)->create();
     }
 }
