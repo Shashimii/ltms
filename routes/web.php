@@ -33,10 +33,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', function () { 
         return Inertia::render('Admin/Dashboard'); 
     })->name('admin.dashboard');
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
@@ -46,12 +42,8 @@ Route::middleware(['auth', 'chief'])->group(function () {
         return Inertia::render('Chief/Dashboard'); 
     })->name('chief.dashboard');
 
-    Route::resource('/chief/assigned-task', TaskListController::class);
-    Route::resource('/chief/assigned-task', AssignedTaskController::class);
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('/chief/task', TaskListController::class)->names('chief.task');
+    Route::resource('/chief/assigned-task', AssignedTaskController::class)->names('chief.assigned-task');
 });
 
 
@@ -61,9 +53,16 @@ Route::middleware(['auth', 'officer'])->group(function () {
         return Inertia::render('Officer/Dashboard'); 
     })->name('officer.dashboard');
     
+    Route::resource('/officer/task', TaskListController::class)->names('officer.task');
+    Route::resource('/officer/assigned-task', AssignedTaskController::class)->names('officer.assigned-task');
+});
+
+// Profile
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/auth.php';
