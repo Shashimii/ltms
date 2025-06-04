@@ -40,14 +40,14 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    :href="route('chief.dashboard')"
-                                    :active="route().current('chief.dashboard')"
+                                    :href="route('chief.assigned-task.index')"
+                                    :active="route().current('chief.assigned-task.index')"
                                 >
                                     Assigned Tasks
                                 </NavLink>
                                 <NavLink
-                                    :href="route('chief.dashboard')"
-                                    :active="route().current('chief.dashboard')"
+                                    :href="route('chief.task.index')"
+                                    :active="route().current('chief.task.index')"
                                 >
                                     Task List
                                 </NavLink>
