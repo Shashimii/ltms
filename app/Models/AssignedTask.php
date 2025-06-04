@@ -14,14 +14,17 @@ class AssignedTask extends Model
         'is_done' => 'boolean',         // Format is_done as a boolean
     ];
 
+    // load the related officer and duty with assigned duty
+    protected $with = ['officer', 'task'];
+
     // Relationships
-    public function user()
+    public function officer()
     {
-    return $this->belongsTo(User::class, 'officer_id');
+    return $this->belongsTo(User::class);
     }
 
     public function task()
     {
-        return $this->belongsTo(Task::class, 'task_id');
+        return $this->belongsTo(Task::class);
     }
 }

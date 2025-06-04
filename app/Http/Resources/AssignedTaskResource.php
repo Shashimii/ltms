@@ -16,7 +16,7 @@ class AssignedTaskResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'officer' => UserResource::make($this->whenLoaded('user')),
+            'officer' => UserResource::make($this->whenLoaded('officer')),
             'task' => TaskResource::make($this->whenLoaded('task')),
             'odts_code' => $this->odts_code,
             'is_done' => $this->is_done,

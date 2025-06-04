@@ -16,7 +16,7 @@ class AssignedTaskController extends Controller
         $user = auth()->user();
 
         if ($user->role === User::ROLE_CHIEF) {
-            $assignedTasks = AssignedTaskResource::collection(AssignedTask::with(['user', 'task'])->paginate(10));
+            $assignedTasks = AssignedTaskResource::collection(AssignedTask::paginate(10));
             $officers = UserResource::collection(User::where('role', 0)->get());
 
             return Inertia::render('Chief/AssignedTask/Index', [
