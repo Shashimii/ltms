@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AssignedTaskController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,12 +46,12 @@ Route::middleware(['auth', 'chief'])->group(function () {
         return Inertia::render('Chief/Dashboard'); 
     })->name('chief.dashboard');
 
+    Route::resource('/chief/assigned-task', TaskListController::class);
+    Route::resource('/chief/assigned-task', AssignedTaskController::class);
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::resource('/chief/assigned-task', ChiefTaskListController::class);
-    Route::resource('/chief/assigned-task', ChiefAssignedTaskController::class);
 });
 
 
