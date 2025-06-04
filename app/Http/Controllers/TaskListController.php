@@ -22,6 +22,7 @@ class TaskListController extends Controller
                 'tasks' => $tasks,
             ]);
         }
-        
+
+        abort(403);
     }
 }
