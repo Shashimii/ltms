@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('assigned_tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('officer_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('duty_id')->constrained('tasks')->onDelete('cascade');
+            $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
             $table->string('odts_code');
             $table->date('assigned_at');
             $table->boolean('is_done')->default(false);

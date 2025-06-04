@@ -16,26 +16,26 @@ class AssignedTaskController extends Controller
         $user = auth()->user();
 
         if ($user->role === User::ROLE_CHIEF) {
-            $assignedDuties = AssignedTaskResource::collection(AssignedTask::paginate(10));
+            $assignedTasks = AssignedTaskResource::collection(AssignedTask::with(['user', 'task'])->paginate(10));
             $officers = UserResource::collection(User::where('role', 0)->get());
 
             return Inertia::render('Chief/AssignedTask/Index', [
                 'search' => $request->search ?? '',
                 'officer_id' => $request->officer_id ?? '',
                 'status_filter' => $request->status ?? '',
-                'assignedDuties' => $assignedDuties,
+                'assignedTasks' => $assignedTasks,
                 'officers' => $officers
             ]);
         }
 
         if ($user->role === User::ROLE_OFFICER) {
-            $assignedDuties = AssignedTaskResource::collection(AssignedTask::paginate(10));
+            $assignedTasks = AssignedTaskResource::collection(AssignedTask::paginate(10));
 
             return Inertia::render('Officer/AssignedTask/Index', [
                 'search' => $request->search ?? '',
                 'officer_id' => $request->officer_id ?? '',
                 'status_filter' => $request->status ?? '',
-                'assignedDuties' => $assignedDuties,
+                'assignedTasks' => $assignedTasks,
             ]);
         }
 

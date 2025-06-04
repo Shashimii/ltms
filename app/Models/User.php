@@ -19,7 +19,7 @@ class User extends Authenticatable
     const ROLE_ADMIN = 2;
 
     // Relationships
-    public function AssignedTask() {
+    public function assignedTask() {
         return $this->hasMany(AssignedTask::class, 'officer_id');
     }
 

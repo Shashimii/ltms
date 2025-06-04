@@ -11,6 +11,6 @@ class Task extends Model
 
     // Relationships    
     public function assignedTask() {
-        return $this->hasMany(AssignedTask::class, 'duty_id');
+        return $this->hasMany(AssignedTask::class, 'task_id');
     }
 }
