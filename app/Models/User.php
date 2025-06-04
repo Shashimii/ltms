@@ -18,6 +18,11 @@ class User extends Authenticatable
     const ROLE_CHIEF = 1;
     const ROLE_ADMIN = 2;
 
+    // Relationships
+    public function AssignedTask() {
+        return $this->hasMany(AssignedTask::class, 'officer_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
