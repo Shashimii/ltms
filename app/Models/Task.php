@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 class Task extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name'];
     
     // Relationships    
     public function assignedTask() {
