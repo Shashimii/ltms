@@ -6,12 +6,12 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import Modal from '@/Components/Modal.vue';
 import ModalForm from '@/Components/ModalForm.vue';
-import Pagination  from '@/Components/Pagination.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import Datepicker from '@/Components/Datepicker.vue';
 import Checkbox from '@/Components/Checkbox.vue';
+import Pagination  from '@/Components/Pagination.vue';
 import { Head, useForm, usePage, router } from '@inertiajs/vue3';
 import { ref, computed, watch } from 'vue';
 
