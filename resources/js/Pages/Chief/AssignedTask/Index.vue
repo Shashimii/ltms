@@ -190,14 +190,14 @@ watch(
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Assigned Tasks" />
 
     <ChiefLayout>
         <template #header>
             <h2
                 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
             >
-                Dashboard
+                Assigned Tasks
             </h2>
         </template>
 
