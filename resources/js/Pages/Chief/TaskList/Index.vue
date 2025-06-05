@@ -21,24 +21,43 @@ defineProps({
 });
 
 const showModalFormCreate = ref(false);
+const showModalFormEdit = ref(false);
 const showModalDelete = ref(false);
 
-const form = useForm({
+const createForm = useForm({
+    id: null,
+    name: ''
+});
+
+
+const editForm = useForm({
+    id: null,
+    name: ''
+});
+
+
+const deleteForm = useForm({
     id: null,
     name: ''
 });
 
 const openModalFormCreate = () => {
+    createForm.id = '';
+    createForm.name = '';
+
     showModalFormCreate.value = true;
 }
 
-const edit = (id) => {
-    router.get(route('duties.edit', id))
+const openModalFormEdit = (task) => {
+    editForm.id = task.id;
+    editForm.name = task.name;
+
+    showModalFormEdit.value = true;
 }
 
 const openDeleteModal = (task) => {
-    form.id = task.id;
-    form.name = task.name;
+    deleteForm.id = task.id;
+    deleteForm.name = task.name;
 
     showModalDelete.value = true;
 }
@@ -186,7 +205,7 @@ watch(
                                             <td
                                                 class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium space-x-2 sm:pr-6"
                                             >
-                                            <PrimaryButton @click="edit(task.id)">
+                                            <PrimaryButton @click="openModalFormEdit(task)">
                                                 Edit
                                             </PrimaryButton>
                                             <DangerButton @click="openDeleteModal(task)">
@@ -208,7 +227,7 @@ watch(
         </div>
     </ChiefLayout>
 
-        <ModalForm :show="showModalFormCreate" @close="showModalFormCreate = false" :closeable="true">
+    <ModalForm :show="showModalFormCreate" @close="showModalFormCreate = false">
         <template #main>
             <form @submit.prevent="saveDuty">
                 <div>
@@ -225,25 +244,66 @@ watch(
                 <div class="mt-6 grid grid-cols-6 gap-6">
 
                     <div class="col-span-6">
-                        <InputLabel for="duty_name" value="Task Name" />
+                        <InputLabel for="task_name" value="Task Name" />
                         <TextInput 
-                            id="duty_name"
+                            id="task_name"
                             type="text"
                             class="mt-1 block w-full"
-                            v-model="form.name"
-                            placeholder="Enter Duty Name"
+                            v-model="createForm.name"
+                            placeholder="Enter Task Name"
                         />
-                        <InputError class="mt-2" :message="form.errors.name" />
+                        <InputError class="mt-2" :message="createForm.errors.name" />
                     </div>
 
                 </div>
             </form>
         </template>
         <template #footer>
-            <PrimaryButton :disabled="form.processing" class="btn btn-secondary">
+            <PrimaryButton :disabled="editForm.processing" class="btn btn-secondary">
                 Assign Task
             </PrimaryButton>
             <SecondaryButton @click="showModalFormCreate= false" class="btn btn-secondary">
+                Cancel
+            </SecondaryButton>
+        </template>
+    </ModalForm>
+
+    <ModalForm :show="showModalFormEdit" @close="showModalFormEdit = false">
+        <template #main>
+            <form @submit.prevent="saveDuty">
+                <div>
+                    <h3
+                        class="text-lg leading-6 font-medium text-gray-900"
+                    >
+                        Task Information
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-500">
+                        Use this form to add new task.
+                    </p>
+                </div>
+
+                <div class="mt-6 grid grid-cols-6 gap-6">
+
+                    <div class="col-span-6">
+                        <InputLabel for="task_name" value="Task Name" />
+                        <TextInput 
+                            id="task_name"
+                            type="text"
+                            class="mt-1 block w-full"
+                            v-model="editForm.name"
+                            placeholder="Enter Task Name"
+                        />
+                        <InputError class="mt-2" :message="createForm.errors.name" />
+                    </div>
+
+                </div>
+            </form>
+        </template>
+        <template #footer>
+            <PrimaryButton :disabled="editForm.processing" class="btn btn-secondary">
+                Apply Changes
+            </PrimaryButton>
+            <SecondaryButton @click="showModalFormEdit= false" class="btn btn-secondary">
                 Cancel
             </SecondaryButton>
         </template>
@@ -264,15 +324,15 @@ watch(
 
                 <p class="mt-4 text-md text-gray-600 text-left">
                     Are you sure you want to delete task
-                    <strong>{{ form.name }}</strong>
+                    <strong>{{ deleteForm.name }}</strong>
                 </p>
                 <div class="mt-6 flex justify-end gap-4">
+                    <form @submit.prevent="saveDelete">
+                        <DangerButton :disabled="deleteForm.processing">Delete Task</DangerButton>
+                    </form>
                     <SecondaryButton @click="showModalDelete = false" class="btn btn-secondary">
                         Don't Delete
                     </SecondaryButton>
-                    <form @submit.prevent="saveDelete">
-                        <DangerButton :disabled="form.processing">Delete Task</DangerButton>
-                    </form>
                 </div>
             </div>
         </template>
