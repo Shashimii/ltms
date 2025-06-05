@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Models\User;
@@ -31,6 +32,12 @@ class TaskListController extends Controller
     public function store(StoreTaskRequest $request)
     {
         Task::create($request->validated());
+        return redirect()->back();
+    }
+
+    public function update(UpdateTaskRequest $request, Task $task)
+    {
+        $task->update($request->validated());
         return redirect()->back();
     }
 }

@@ -73,6 +73,17 @@ const saveTask = () => {
     });
 }
 
+const updateDuty = () => {
+    form.put(route('duties.update', duty.id), {
+        onFinish: () => {
+            form.reset();
+        },
+
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
 const saveDelete = () => {
     form.delete(route('duties.destroy', form.id), {
         preserveScroll: true,
