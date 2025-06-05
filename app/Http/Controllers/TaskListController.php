@@ -31,6 +31,6 @@ class TaskListController extends Controller
     public function store(StoreTaskRequest $request)
     {
         Task::create($request->validated());
-        return response()->noContent(); 
+        return redirect()->back();
     }
 }

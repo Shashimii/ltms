@@ -65,6 +65,7 @@ const saveTask = () => {
     createForm.post(route('chief.task.store'), {
         onFinish: () => {
             createForm.reset();
+            showModalFormCreate.value = false;
         },
 
         preserveScroll: true,
