@@ -16,7 +16,7 @@ watch(
     }
 )
 
-const emit = defineEmits(['close']);
+// const emit = defineEmits(['close']); disable outside click close
 </script>
 
 <template>
@@ -35,10 +35,10 @@ const emit = defineEmits(['close']);
         role="dialog"
         aria-modal="true"
         >
-            <!-- Backdrop -->
+            <!-- Backdrop @click="$emit('close')"-->
             <div
                 class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-                @click="$emit('close')"
+
             />
 
             <!-- Modal content -->
@@ -53,7 +53,7 @@ const emit = defineEmits(['close']);
                 >
                     <div
                         v-show="show"
-                        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl"
+                        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-3xl"
                         @click.stop
                     >
                         <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
