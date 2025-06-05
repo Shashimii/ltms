@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Models\User;
@@ -25,5 +26,11 @@ class TaskListController extends Controller
         }
 
         abort(403);
+    }
+
+    public function store(StoreTaskRequest $request)
+    {
+        Task::create($request->validated());
+        return response()->noContent(); 
     }
 }

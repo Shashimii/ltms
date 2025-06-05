@@ -42,7 +42,6 @@ const deleteForm = useForm({
 });
 
 const openModalFormCreate = () => {
-    createForm.id = '';
     createForm.name = '';
 
     showModalFormCreate.value = true;
@@ -60,6 +59,17 @@ const openDeleteModal = (task) => {
     deleteForm.name = task.name;
 
     showModalDelete.value = true;
+}
+
+const saveTask = () => {
+    createForm.post(route('chief.task.store'), {
+        onFinish: () => {
+            createForm.reset();
+        },
+
+        preserveScroll: true,
+        preserveState: true,
+    });
 }
 
 const saveDelete = () => {
@@ -229,7 +239,7 @@ watch(
 
     <ModalForm :show="showModalFormCreate" @close="showModalFormCreate = false">
         <template #main>
-            <form @submit.prevent="saveDuty">
+            <form>
                 <div>
                     <h3
                         class="text-lg leading-6 font-medium text-gray-900"
@@ -259,7 +269,7 @@ watch(
             </form>
         </template>
         <template #footer>
-            <PrimaryButton :disabled="editForm.processing" class="btn btn-secondary">
+            <PrimaryButton @click="saveTask" :disabled="editForm.processing" class="btn btn-secondary">
                 Assign Task
             </PrimaryButton>
             <SecondaryButton @click="showModalFormCreate= false" class="btn btn-secondary">
