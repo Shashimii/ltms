@@ -10,12 +10,13 @@ use Inertia\Inertia;
 
 class TaskListController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {   
         $user = auth()->user();
-
+        
         if ($user->role === User::ROLE_CHIEF) {
-            $tasks = TaskResource::collection(Task::paginate(10));
+            $tasksQuery = Task::search($request);
+            $tasks = TaskResource::collection($tasksQuery->paginate(10));
 
             return Inertia::render('Chief/TaskList/Index', [
                 'search' => $request->search ?? '',
