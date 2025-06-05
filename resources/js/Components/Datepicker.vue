@@ -31,12 +31,23 @@ const formatDateValue = (dateValue: any) => {
 };
 
 // Initialize date value
-onMounted(() => {
-  if (model.modelValue) {
-    // Safely cast to any to avoid type issues
-    value.value = parseDate(model.modelValue) as any;
-  }
-});
+// onMounted(() => {
+//   if (model.modelValue) {
+//     // Safely cast to any to avoid type issues
+//     value.value = parseDate(model.modelValue) as any;
+//   }
+// });
+
+// watch instead when used on modal
+watch(
+  () => model.modelValue,
+  (newVal) => {
+    if (newVal) {
+      value.value = parseDate(newVal) as any;
+    }
+  },
+  { immediate: true }
+);
 
 // Watch value change and emit
 watch(value, (newValue) => {
