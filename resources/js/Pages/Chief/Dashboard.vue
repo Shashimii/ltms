@@ -213,7 +213,7 @@ const excelExport = async () => {
                                 <button class="px-4 py-2 bg-green-800 text-white rounded" @click="excelExport">Export to Excel</button>
                             </div>
 
-                            <div class="overflow-x-auto">
+                            <div class="overflow-x-auto max-h-[60rem]">
                                 <table class="min-w-full divide-y divide-gray-300 bg-white border border-gray-300 rounded-lg shadow">
                                     <thead class="bg-gray-100">
                                         <tr class="divide-x divide-gray-300">
