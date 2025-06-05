@@ -5,8 +5,14 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import Modal from '@/Components/Modal.vue';
+import ModalForm from '@/Components/ModalForm.vue';
 import Pagination  from '@/Components/Pagination.vue';
-import { Head, Link, useForm, usePage, router } from '@inertiajs/vue3';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import Datepicker from '@/Components/Datepicker.vue';
+import Checkbox from '@/Components/Checkbox.vue';
+import { Head, useForm, usePage, router } from '@inertiajs/vue3';
 import { ref, computed, watch } from 'vue';
 
 const props = defineProps({
@@ -17,9 +23,14 @@ const props = defineProps({
   officers: {
     type: Object,
     required: true
+  },
+  tasks: {
+    type: Object,
+    required: true
   }
 })
 
+const showModalFormCreate = ref(false);
 const showModalDelete = ref(false);
 
 const form = useForm({
@@ -30,6 +41,10 @@ const form = useForm({
     assigned_at: '',
     is_done: false,
 })
+
+const openModalFormCreate = () => {
+    showModalFormCreate.value = true;
+}
 
 const edit = (id) => {
     router.get(route('assigned-duties.edit', id));
@@ -157,12 +172,12 @@ watch(
                     </div>
 
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                        <Link
-                            :href="route('chief.assigned-task.create')"
+                        <PrimaryButton
+                            @click="openModalFormCreate(task)"
                             class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
                         >
                             Assign Task
-                        </Link>
+                        </PrimaryButton>
                     </div>
                 </div>
 
@@ -311,6 +326,119 @@ watch(
             </div>
         </div>
     </ChiefLayout>
+
+    <ModalForm :show="showModalFormCreate" @close="showModalFormCreate = false" :closeable="true">
+        <template #main>
+            <form @submit.prevent="saveAssignedDuty">
+                <div>
+                    <h3
+                        class="text-lg leading-6 font-medium text-gray-900"
+                    >
+                        Task Information
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-500">
+                        Use this form to assign new task.
+                    </p>
+                </div>
+
+                <div class="mt-6 grid grid-cols-6 gap-6">
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label
+                        for="class_id"
+                        class="block text-sm font-medium text-gray-700"
+                        >
+                            Officer
+                        </label>
+                        <select
+                            v-model="form.officer_id"
+                            id="class_id"
+                            class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            :class="{'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': form.errors.officer_id}"
+                        >
+                            <option value="">
+                                Select a Officer
+                            </option>
+                            <option 
+                                v-for="item in officers.data" 
+                                :key="item.id"
+                                :value="item.id"
+                            >
+                                {{ item.name }}
+                            </option>
+                        </select>
+                        <InputError :message="form.errors.officer_id"/> 
+                    </div>
+
+                    
+                    <div class="col-span-6 sm:col-span-3">
+                        <label
+                        for="duty_id"
+                        class="block text-sm font-medium text-gray-700"
+                        >
+                            Duty
+                        </label>
+                        <select
+                            v-model="form.duty_id"
+                            id="duty_id"
+                            class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            :class="{'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': form.errors.duty_id}"
+                        >
+                            <option value=""> 
+                                Select a Duty
+                            </option>
+                            <option 
+                                v-for="item in tasks.data" 
+                                :key="item.id"
+                                :value="item.id"
+                            >
+                                {{ item.name }}
+                            </option>
+                        </select>
+                        <InputError :message="form.errors.duty_id"/> 
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <InputLabel for="odts_code" value="Odts Code" />
+                        <TextInput 
+                            id="odts_code"
+                            type="text"
+                            class="mt-1 block w-full"
+                            v-model="form.odts_code"
+                            placeholder="Enter Odts Code"
+                        />
+                        <InputError class="mt-2" :message="form.errors.odts_code" />
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label
+                            class="block text-sm font-medium text-gray-700"
+                            >Assign Date</label
+                        >
+                        <Datepicker v-model="form.assigned_at" />
+                        <InputError class="mt-2" :message="form.errors.assigned_at" />
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="is_done" class="flex items-center">
+                            <Checkbox id="is_done" name="is_done" v-model:checked="form.is_done" />
+                            <span class="ms-2 text-sm text-gray-600">
+                                Task is Already Done.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </template>
+        <template #footer>
+            <PrimaryButton :disabled="form.processing" class="btn btn-secondary">
+                Assign Task
+            </PrimaryButton>
+            <SecondaryButton @click="showModalFormCreate= false" class="btn btn-secondary">
+                Cancel
+            </SecondaryButton>
+        </template>
+    </ModalForm>
 
     <Modal :show="showModalDelete" @close="showModalDelete = false" maxWidth="lg" :closeable="true">
         <template #default>
