@@ -4,8 +4,12 @@ import MagnifyingGlass from '@/Components/Icons/MagnifyingGlass.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
-import Pagination from '@/Components/Pagination.vue';
 import Modal from '@/Components/Modal.vue';
+import ModalForm from '@/Components/ModalForm.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import Pagination from '@/Components/Pagination.vue';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
 import { ref, computed, watch } from 'vue';
 
@@ -16,11 +20,17 @@ defineProps({
     }
 });
 
+const showModalFormCreate = ref(false);
 const showModalDelete = ref(false);
+
 const form = useForm({
     id: null,
     name: ''
 });
+
+const openModalFormCreate = () => {
+    showModalFormCreate.value = true;
+}
 
 const edit = (id) => {
     router.get(route('duties.edit', id))
@@ -110,12 +120,12 @@ watch(
                     </div>
 
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                        <Link
-                            :href="route('chief.task.create')"
+                        <PrimaryButton
+                            @click="openModalFormCreate(task)"
                             class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
                         >
-                            Add New Task
-                        </Link>
+                            Assign Task
+                        </PrimaryButton>
                     </div>
                 </div>
 
@@ -197,6 +207,47 @@ watch(
             </div>
         </div>
     </ChiefLayout>
+
+        <ModalForm :show="showModalFormCreate" @close="showModalFormCreate = false" :closeable="true">
+        <template #main>
+            <form @submit.prevent="saveDuty">
+                <div>
+                    <h3
+                        class="text-lg leading-6 font-medium text-gray-900"
+                    >
+                        Task Information
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-500">
+                        Use this form to add new task.
+                    </p>
+                </div>
+
+                <div class="mt-6 grid grid-cols-6 gap-6">
+
+                    <div class="col-span-6">
+                        <InputLabel for="duty_name" value="Task Name" />
+                        <TextInput 
+                            id="duty_name"
+                            type="text"
+                            class="mt-1 block w-full"
+                            v-model="form.name"
+                            placeholder="Enter Duty Name"
+                        />
+                        <InputError class="mt-2" :message="form.errors.name" />
+                    </div>
+
+                </div>
+            </form>
+        </template>
+        <template #footer>
+            <PrimaryButton :disabled="form.processing" class="btn btn-secondary">
+                Assign Task
+            </PrimaryButton>
+            <SecondaryButton @click="showModalFormCreate= false" class="btn btn-secondary">
+                Cancel
+            </SecondaryButton>
+        </template>
+    </ModalForm>
 
     <Modal :show="showModalDelete" @close="showModalDelete = false" maxWidth="lg" :closeable="true">
         <template #default>
