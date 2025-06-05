@@ -11,12 +11,13 @@ use Inertia\Inertia;
 
 class AssignedTaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
 
         if ($user->role === User::ROLE_CHIEF) {
-            $assignedTasks = AssignedTaskResource::collection(AssignedTask::paginate(10));
+            $assignedTasksQuery = AssignedTask::search($request)->with(['officer', 'task']);
+            $assignedTasks = AssignedTaskResource::collection($assignedTasksQuery->paginate(10));
             $officers = UserResource::collection(User::where('role', 0)->get());
 
             return Inertia::render('Chief/AssignedTask/Index', [
