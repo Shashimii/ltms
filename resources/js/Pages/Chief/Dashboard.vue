@@ -1,7 +1,7 @@
 <script setup>
 import ChiefLayout from '@/Layouts/ChiefLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { computed, onMounted } from 'vue';
+import { computed, onBeforeUnmount, ref } from 'vue';
 import ExcelJS from 'exceljs';
 
 let props = defineProps({
@@ -25,11 +25,6 @@ let props = defineProps({
 let officers = props.officers.data,
     duties = props.duties.data,
     assignedTasks = props.assignedTasks.data
-
-onMounted(() => {
-    console.log(assignedTasks);
-});
-
 
 const completedTasks = computed(() => {
     return assignedTasks.filter(task => task.is_done).length;
@@ -55,14 +50,17 @@ let taskMap = computed(() => {
     return map;
 });
 
+const mapTable = ref(null);
+let isDragging = false,
+    startX = 0,
+    startY = 0,
+    scrollLeft = 0,
+    scrollTop = 0
+
 const getAssignedDuty = (officerId, taskId) => {
     let key = `${officerId}-${taskId}`;
     return taskMap.value[key] || [];
 }
-
-// onMounted(() => {
-//     console.log("Duty Map on Mounted:", taskMap.value);
-// });
 
 // Excel Exporting
 
@@ -166,100 +164,144 @@ const excelExport = async () => {
     link.click();
 };
 
+// map scrolling drag
+
+const handleDrag = (e) => {
+  if (!isDragging || !mapTable.value) return;
+
+  const moveX = e.clientX - startX;
+  const moveY = e.clientY - startY;
+
+  mapTable.value.scrollLeft = scrollLeft - moveX;
+  mapTable.value.scrollTop = scrollTop - moveY;
+};
+
+const stopDrag = () => {
+  isDragging = false;
+  if (mapTable.value) {
+    mapTable.value.style.cursor = '';
+    mapTable.value.style.userSelect = '';
+  }
+
+  document.removeEventListener('mousemove', handleDrag);
+  document.removeEventListener('mouseup', stopDrag);
+};
+
+const startDrag = (e) => {
+  if (!mapTable.value) return;
+
+  isDragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+  scrollLeft = mapTable.value.scrollLeft;
+  scrollTop = mapTable.value.scrollTop;
+
+  mapTable.value.style.userSelect = 'none';
+  mapTable.value.style.cursor = 'grabbing';
+
+  document.addEventListener('mousemove', handleDrag);
+  document.addEventListener('mouseup', stopDrag);
+};
+
+onBeforeUnmount(() => {
+  document.removeEventListener('mousemove', handleDrag);
+  document.removeEventListener('mouseup', stopDrag);
+});
+
 </script>
 
 <template>
-        <Head title="Dashboard" />
+    <Head title="Dashboard" />
 
-        <ChiefLayout>
-            <template #header>
-                <h2
-                    class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
-                >
-                    Dashboard
-                </h2>
-            </template>
+    <ChiefLayout>
+        <template #header>
+            <h2
+                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
+            >
+                Dashboard
+            </h2>
+        </template>
 
-            <div class="py-12">
-                <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div class="w-full mb-8 grid grid-cols-3 gap-4">
-                        <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                            <p>Total Completed Tasks: </p>
-                            <p>{{ completedTasks }}</p>
-                        </div>
-                        <div class="bg-red-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                            <p>Total Pending Tasks: </p>
-                            <p>{{ pendingTasks }}</p>
-                        </div>
-                        <div class="bg-blue-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                            <p>Total Officers: </p>
-                            <p>{{ officerCount }}</p>
-                        </div>
+        <div class="py-12">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="w-full mb-8 grid grid-cols-3 gap-4">
+                    <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
+                        <p>Total Completed Tasks: </p>
+                        <p>{{ completedTasks }}</p>
                     </div>
-                    <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900">
-                            <div class="mb-8 sm:flex sm:items-center justify-between">
-                                <div>
-                                    <h3
-                                        class="text-lg leading-6 font-medium text-gray-900"
-                                    >
-                                        LTMS Table
-                                    </h3>
-                                    <p class="mt-1 text-sm text-gray-500">
-                                        Assigned Tasks to the officers are shown here.
-                                    </p>
-                                </div>
-                                
-                                <button class="px-4 py-2 bg-green-800 text-white rounded" @click="excelExport">Export to Excel</button>
+                    <div class="bg-red-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
+                        <p>Total Pending Tasks: </p>
+                        <p>{{ pendingTasks }}</p>
+                    </div>
+                    <div class="bg-blue-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
+                        <p>Total Officers: </p>
+                        <p>{{ officerCount }}</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <div class="mb-8 sm:flex sm:items-center justify-between">
+                            <div>
+                                <h3
+                                    class="text-lg leading-6 font-medium text-gray-900"
+                                >
+                                    LTMS Table
+                                </h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Assigned Tasks to the officers are shown here.
+                                </p>
                             </div>
+                            
+                            <button class="px-4 py-2 bg-green-800 text-white rounded" @click="excelExport">Export to Excel</button>
+                        </div>
 
-                            <div class="overflow-x-auto max-h-[60rem]">
-                                <table class="min-w-full divide-y divide-gray-300 bg-white border border-gray-300 rounded-lg shadow">
-                                    <thead class="bg-gray-100">
-                                        <tr class="divide-x divide-gray-300">
-                                            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                                                <div class="flex items-center justify-center">
-                                                    <p>Tasks</p>
+                        <div class="overflow-x-auto max-h-[60rem]" @mousedown="startDrag" ref="mapTable">
+                            <table class="min-w-full divide-y divide-gray-300 bg-white border border-gray-300 rounded-lg shadow">
+                                <thead class="bg-gray-100">
+                                    <tr class="divide-x divide-gray-300">
+                                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                                            <div class="flex items-center justify-center">
+                                                <p>Tasks</p>
+                                            </div>
+                                        </th>
+                                        <th :colspan="officers.length" class="px-4 py-3 text-center text-sm font-semibold text-gray-700">
+                                            <p>Action Officers</p>
+                                        </th>
+                                    </tr>
+                                    <tr class="bg-gray-50 divide-x divide-gray-300">
+                                        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600"></th>
+                                        <th v-for="officer in officers" :key="officer.id" class="px-4 py-2 text-center text-sm font-semibold text-gray-600">
+                                            <div class="min-w-[120px] flex items-center justify-center">{{ officer.name }}</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-300">
+                                    <tr v-for="duty in duties" :key="duty.id" class="hover:bg-green-200 divide-x divide-gray-300">
+                                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 bg-gray-100">
+                                            <div class="min-h-[80px] flex items-center">{{ duty.name }}</div>
+                                        </th>
+                                        <td 
+                                            v-for="officer in officers" 
+                                            :key="officer.id" 
+                                            class="px-4 py-2 text-center"
+                                            :class="{ 'bg-green-200': getAssignedDuty(officer.id, duty.id).length > 0 }"
+                                        >
+                                            <div v-if="getAssignedDuty(officer.id, duty.id).length > 0">
+                                                <div v-for="(assigned, index) in getAssignedDuty(officer.id, duty.id)" :key="index">
+                                                    <p>
+                                                        {{ assigned.odts_code }} <br>
+                                                        {{ assigned.assigned_at }}
+                                                    </p>
                                                 </div>
-                                            </th>
-                                            <th :colspan="officers.length" class="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-                                                <p>Action Officers</p>
-                                            </th>
-                                        </tr>
-                                        <tr class="bg-gray-50 divide-x divide-gray-300">
-                                            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600"></th>
-                                            <th v-for="officer in officers" :key="officer.id" class="px-4 py-2 text-center text-sm font-semibold text-gray-600">
-                                                <div class="min-w-[120px] flex items-center justify-center">{{ officer.name }}</div>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-300">
-                                        <tr v-for="duty in duties" :key="duty.id" class="hover:bg-green-200 divide-x divide-gray-300">
-                                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 bg-gray-100">
-                                                <div class="min-h-[80px] flex items-center">{{ duty.name }}</div>
-                                            </th>
-                                            <td 
-                                                v-for="officer in officers" 
-                                                :key="officer.id" 
-                                                class="px-4 py-2 text-center"
-                                                :class="{ 'bg-green-200': getAssignedDuty(officer.id, duty.id).length > 0 }"
-                                            >
-                                                <div v-if="getAssignedDuty(officer.id, duty.id).length > 0">
-                                                    <div v-for="(assigned, index) in getAssignedDuty(officer.id, duty.id)" :key="index">
-                                                        <p>
-                                                            {{ assigned.odts_code }} <br>
-                                                            {{ assigned.assigned_at }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </ChiefLayout>
+        </div>
+    </ChiefLayout>
 </template>
