@@ -47,10 +47,7 @@ Route::middleware(['auth', 'chief'])->group(function () {
 
 // Action Officer
 Route::middleware(['auth', 'officer'])->group(function () {
-    Route::get('/officer/dashboard', function () { 
-        return Inertia::render('Officer/Dashboard'); 
-    })->name('officer.dashboard');
-    
+    Route::get('/officer/dashboard', [DashboardController::class, 'index'])->name('officer.dashboard');
     Route::resource('/officer/task', TaskListController::class)->names('officer.task');
     Route::resource('/officer/assigned-task', AssignedTaskController::class)->names('officer.assigned-task');
 });
