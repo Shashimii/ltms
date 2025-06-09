@@ -21,7 +21,7 @@ class AssignedTaskController extends Controller
 
         if ($user->role === User::ROLE_CHIEF) {
             $assignedTasksQuery = AssignedTask::search($request)->with(['officer', 'task']);
-            $assignedTasks = AssignedTaskResource::collection($assignedTasksQuery->paginate(10));
+            $assignedTasks = AssignedTaskResource::collection($assignedTasksQuery->orderBy('created_at', 'desc')->paginate(10));
             $officers = UserResource::collection(User::where('role', 0)->get());
             $tasks = TaskResource::collection(Task::all());
 

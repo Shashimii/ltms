@@ -18,7 +18,7 @@ class TaskListController extends Controller
         
         if ($user->role === User::ROLE_CHIEF) {
             $tasksQuery = Task::search($request);
-            $tasks = TaskResource::collection($tasksQuery->paginate(10));
+            $tasks = TaskResource::collection($tasksQuery->orderBy('created_at', 'desc')->paginate(10));
 
             return Inertia::render('Chief/TaskList/Index', [
                 'search' => $request->search ?? '',
