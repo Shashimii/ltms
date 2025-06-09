@@ -15,14 +15,30 @@ class DashboardController extends Controller
 {
     public function index() {
 
-        $officers = UserResource::collection(User::where('role', 0)->get());
-        $duties = TaskResource::collection( Task::all());
-        $assignedTasks = AssignedTaskResource::collection(AssignedTask::all());
+        $user = auth()->user();
 
-        return Inertia::render('Chief/Dashboard', [
-            'officers' => $officers,
-            'duties' => $duties,
-            'assignedTasks' => $assignedTasks
-        ]);
+        if ($user->role === User::ROLE_CHIEF) {
+            $officers = UserResource::collection(User::where('role', 0)->get());
+            $tasks = TaskResource::collection( Task::all());
+            $assignedTasks = AssignedTaskResource::collection(AssignedTask::all());
+
+            return Inertia::render('Chief/Dashboard', [
+                'officers' => $officers,
+                'tasks' => $tasks,
+                'assignedTasks' => $assignedTasks
+            ]);
+        }
+
+        if ($user->role === User::ROLE_OFFICER) {
+            $assignedTasks = AssignedTaskResource::collection(AssignedTask::all()
+            ->where('role', 0)
+            ->where('officer_id', auth()->id()));
+
+            return Inertia::render('Officer/Dashboard', [
+                'assignedTasks' => $assignedTasks
+            ]);
+        }
+
+        abort(403);
     }
 }

@@ -10,7 +10,7 @@ let props = defineProps({
         required: true
     },
 
-    duties: {
+    tasks: {
         type: Object,
         required: true
     },
@@ -23,7 +23,7 @@ let props = defineProps({
 
 
 let officers = props.officers.data,
-    duties = props.duties.data,
+    tasks = props.tasks.data,
     assignedTasks = props.assignedTasks.data
 
 const completedTasks = computed(() => {
@@ -276,7 +276,7 @@ onBeforeUnmount(() => {
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-300">
-                                    <tr v-for="duty in duties" :key="duty.id" class="hover:bg-green-200 divide-x divide-gray-300">
+                                    <tr v-for="duty in tasks" :key="duty.id" class="hover:bg-green-200 divide-x divide-gray-300">
                                         <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 bg-gray-100">
                                             <div class="min-h-[80px] flex items-center">{{ duty.name }}</div>
                                         </th>
