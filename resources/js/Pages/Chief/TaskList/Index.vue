@@ -43,7 +43,6 @@ const deleteForm = useForm({
 
 const openModalFormCreate = () => {
     createForm.name = '';
-
     showModalFormCreate.value = true;
 }
 
@@ -63,7 +62,7 @@ const openDeleteModal = (task) => {
 
 const saveTask = () => {
     createForm.post(route('chief.task.store'), {
-        onFinish: () => {
+        onSuccess: () => {
             createForm.reset();
             showModalFormCreate.value = false;
         },
@@ -73,10 +72,13 @@ const saveTask = () => {
     });
 }
 
-const updateDuty = () => {
-    form.put(route('duties.update', duty.id), {
-        onFinish: () => {
-            form.reset();
+const updateTask = (task) => {
+    if (editForm.processing || !task) return;
+
+    editForm.put(route('chief.task.update', {task: task}), {
+        onSuccess: () => {
+            editForm.reset();
+            showModalFormEdit.value = false;
         },
 
         preserveScroll: true,
@@ -84,12 +86,17 @@ const updateDuty = () => {
     });
 };
 
-const saveDelete = () => {
-    form.delete(route('duties.destroy', form.id), {
-        preserveScroll: true,
+const saveDelete = (task) => {
+    if (editForm.processing || !task) return;
+
+    deleteForm.delete(route('chief.task.destroy', task), {
         onSuccess: () => {
+            deleteForm.reset();
             showModalDelete.value = false;
-        }
+        },
+
+        preserveScroll: true,
+        preserveState: true,
     })
 }
 
@@ -251,7 +258,7 @@ watch(
 
     <ModalForm :show="showModalFormCreate" @close="showModalFormCreate = false">
         <template #main>
-            <form>
+            <form @submit.prevent="saveTask">
                 <div>
                     <h3
                         class="text-lg leading-6 font-medium text-gray-900"
@@ -281,7 +288,7 @@ watch(
             </form>
         </template>
         <template #footer>
-            <PrimaryButton @click="saveTask" :disabled="editForm.processing" class="btn btn-secondary">
+            <PrimaryButton @click="saveTask" :disabled="createForm.processing" class="btn btn-secondary">
                 Assign Task
             </PrimaryButton>
             <SecondaryButton @click="showModalFormCreate= false" class="btn btn-secondary">
@@ -292,7 +299,7 @@ watch(
 
     <ModalForm :show="showModalFormEdit" @close="showModalFormEdit = false">
         <template #main>
-            <form @submit.prevent="saveDuty">
+            <form @submit.prevent="updateTask(editForm.id)">
                 <div>
                     <h3
                         class="text-lg leading-6 font-medium text-gray-900"
@@ -315,14 +322,14 @@ watch(
                             v-model="editForm.name"
                             placeholder="Enter Task Name"
                         />
-                        <InputError class="mt-2" :message="createForm.errors.name" />
+                        <InputError class="mt-2" :message="editForm.errors.name" />
                     </div>
 
                 </div>
             </form>
         </template>
         <template #footer>
-            <PrimaryButton :disabled="editForm.processing" class="btn btn-secondary">
+            <PrimaryButton @click="updateTask(editForm.id)" :disabled="editForm.processing" class="btn btn-secondary">
                 Apply Changes
             </PrimaryButton>
             <SecondaryButton @click="showModalFormEdit= false" class="btn btn-secondary">
@@ -349,9 +356,9 @@ watch(
                     <strong>{{ deleteForm.name }}</strong>
                 </p>
                 <div class="mt-6 flex justify-end gap-4">
-                    <form @submit.prevent="saveDelete">
-                        <DangerButton :disabled="deleteForm.processing">Delete Task</DangerButton>
-                    </form>
+                    <DangerButton @click="saveDelete(deleteForm.id)" :disabled="deleteForm.processing">
+                        Delete Task
+                    </DangerButton>
                     <SecondaryButton @click="showModalDelete = false" class="btn btn-secondary">
                         Don't Delete
                     </SecondaryButton>

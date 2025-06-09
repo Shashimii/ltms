@@ -40,4 +40,10 @@ class TaskListController extends Controller
         $task->update($request->validated());
         return redirect()->back();
     }
+
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->back();
+    }
 }
