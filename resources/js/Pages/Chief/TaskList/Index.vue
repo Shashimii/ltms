@@ -289,7 +289,7 @@ watch(
         </template>
         <template #footer>
             <PrimaryButton @click="saveTask" :disabled="createForm.processing" class="btn btn-secondary">
-                Assign Task
+                Register Task
             </PrimaryButton>
             <SecondaryButton @click="showModalFormCreate= false" class="btn btn-secondary">
                 Cancel

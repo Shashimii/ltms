@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAssignedTaskRequest;
+use App\Http\Requests\UpdateAssignedTaskRequest;
 use App\Http\Resources\AssignedTaskResource;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
@@ -45,5 +47,24 @@ class AssignedTaskController extends Controller
         }
 
         abort(403);
+    }
+
+    
+    public function store(StoreAssignedTaskRequest $request)
+    {
+        AssignedTask::create($request->validated());
+        return redirect()->back();
+    }
+
+    public function update(UpdateAssignedTaskRequest $request, AssignedTask $assignedTask)
+    {
+        $assignedTask->update($request->validated());
+        return redirect()->back();
+    }
+
+    public function destroy(AssignedTask $assignedTask)
+    {
+        $assignedTask->delete();
+        return redirect()->back();
     }
 }

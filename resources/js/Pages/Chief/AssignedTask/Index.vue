@@ -46,8 +46,8 @@ const createForm = useForm({
 
 const editForm = useForm({
     id: null,
-    officer_name: '',
-    task_name: '',
+    officer_id: '',
+    task_id: '',
     odts_code: '',
     assigned_at: '',
     is_done: false,
@@ -103,13 +103,45 @@ const openDeleteModal = (assignedTask) => {
     showModalDelete.value = true;
 }
 
-const saveDelete = () => {
-    form.delete(route('assigned-duties.destroy', form.id), {
-        preserveScroll: true,
+const saveAssignedTask = () => {
+    createForm.post(route('chief.assigned-task.store'), {
         onSuccess: () => {
+            createForm.reset();
+            showModalFormCreate.value = false;
+        },
+
+        preserveScroll: true,
+        preserveState: true,
+    });
+}
+
+const updateAssignedTask = (task) => {
+    if (editForm.processing || !task) return;
+
+    editForm.put(route('chief.assigned-task.update', {assigned_task: task}), {
+        onSuccess: () => {
+            editForm.reset();
+            showModalFormEdit.value = false;
+        },
+
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
+
+const saveDelete = (task) => {
+    if (editForm.processing || !task) return;
+
+    deleteForm.delete(route('chief.assigned-task.destroy', task), {
+        onSuccess: () => {
+            deleteForm.reset();
             showModalDelete.value = false;
         },
-    });
+
+        preserveScroll: true,
+        preserveState: true,
+    })
 }
 
 // searchbar
@@ -371,7 +403,7 @@ watch(
 
     <ModalForm :show="showModalFormCreate" @close="showModalFormCreate = false" :closeable="true">
         <template #main>
-            <form @submit.prevent="saveAssignedDuty">
+            <form @submit.prevent="saveAssignedTask">
                 <div>
                     <h3
                         class="text-lg leading-6 font-medium text-gray-900"
@@ -387,14 +419,14 @@ watch(
 
                     <div class="col-span-6 sm:col-span-3">
                         <label
-                        for="class_id"
+                        for="officer_id"
                         class="block text-sm font-medium text-gray-700"
                         >
                             Officer
                         </label>
                         <select
                             v-model="createForm.officer_id"
-                            id="class_id"
+                            id="officer_id"
                             class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             :class="{'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': createForm.errors.officer_id}"
                         >
@@ -473,7 +505,7 @@ watch(
             </form>
         </template>
         <template #footer>
-            <PrimaryButton :disabled="createForm.processing" class="btn btn-secondary">
+            <PrimaryButton @click="saveAssignedTask" :disabled="createForm.processing" class="btn btn-secondary">
                 Assign Task
             </PrimaryButton>
             <SecondaryButton @click="showModalFormCreate= false" class="btn btn-secondary">
@@ -484,7 +516,7 @@ watch(
 
     <ModalForm :show="showModalFormEdit" @close="showModalFormEdit = false" :closeable="true">
         <template #main>
-            <form @submit.prevent="saveAssignedDuty">
+            <form @submit.prevent="updateAssignedTask(editForm.id)">
                 <div>
                     <h3
                         class="text-lg leading-6 font-medium text-gray-900"
@@ -584,7 +616,7 @@ watch(
             </form>
         </template>
         <template #footer>
-            <PrimaryButton :disabled="editForm.processing" class="btn btn-secondary">
+            <PrimaryButton @click="updateAssignedTask(editForm.id)" :disabled="editForm.processing" class="btn btn-secondary">
                 Edit Existing Task
             </PrimaryButton>
             <SecondaryButton @click="showModalFormEdit= false" class="btn btn-secondary">
@@ -615,12 +647,12 @@ watch(
                     Status: <strong>{{ deleteForm.is_done ? 'Done' : 'Not Done' }}</strong>
                 </p>
                 <div class="mt-6 flex justify-end gap-4">
+                    <DangerButton @click="saveDelete(deleteForm.id)" :disabled="deleteForm.processing">
+                        Delete Assigned Task
+                    </DangerButton>
                     <SecondaryButton @click="showModalDelete = false" class="btn btn-secondary">
                         Don't Delete
                     </SecondaryButton>
-                    <form @submit.prevent="saveDelete">
-                        <DangerButton :disabled="deleteForm.processing">Delete Assigned Task</DangerButton>
-                    </form>
                 </div>
             </div>
         </template>
