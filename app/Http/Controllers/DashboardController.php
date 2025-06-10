@@ -9,11 +9,12 @@ use App\Http\Resources\UserResource;
 use App\Models\AssignedTask;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
 
         $user = auth()->user();
 
@@ -30,12 +31,19 @@ class DashboardController extends Controller
         }
 
         if ($user->role === User::ROLE_OFFICER) {
-            $assignedTasks = AssignedTaskResource::collection(AssignedTask::all()
-            ->where('role', 0)
-            ->where('officer_id', auth()->id()));
+            $assignedTasksQuery = AssignedTask::search($request)->with(['officer', 'task']);
+            $assignedTasks = AssignedTaskResource::collection($assignedTasksQuery
+            ->where('officer_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(10));
+
+            $assignedTasksCount = AssignedTaskResource::collection(AssignedTask::all());
 
             return Inertia::render('Officer/Dashboard', [
-                'assignedTasks' => $assignedTasks
+                'search' => $request->search ?? '',
+                'status_filter' => $request->status ?? '',
+                'assignedTasks' => $assignedTasks,
+                'assignedTaskCount' => $assignedTasksCount,
             ]);
         }
 
