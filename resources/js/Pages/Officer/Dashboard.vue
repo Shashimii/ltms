@@ -12,11 +12,21 @@ const props = defineProps({
     required: true
   },
 
-  assignedTasksCount: {
+  assignedTaskCount: {
     type: Object,
     required: true
   }
 })
+
+
+// counters
+const completedTasks = computed(() => {
+    return props.assignedTaskCount.data.filter(task => task.is_done).length;
+});
+
+const pendingTasks = computed(() => {
+    return props.assignedTaskCount.data.filter(task => !task.is_done).length;
+});
 
 
 // searchbar
@@ -89,6 +99,16 @@ watch(
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <div class="w-full mb-8 grid grid-cols-3 gap-4">
+                        <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
+                            <p>Total Completed Tasks: </p>
+                            <p>{{ completedTasks }}</p>
+                        </div>
+                        <div class="bg-red-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
+                            <p>Total Pending Tasks: </p>
+                            <p>{{ pendingTasks }}</p>
+                        </div>
+                    </div>
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900">
