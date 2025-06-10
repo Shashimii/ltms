@@ -19,6 +19,7 @@ class AssignedTaskResource extends JsonResource
             'officer' => UserResource::make($this->whenLoaded('officer')),
             'task' => TaskResource::make($this->whenLoaded('task')),
             'odts_code' => $this->odts_code,
+            'request_status' => $this->request_status,
             'is_done' => $this->is_done,
             'assigned_at' => $this->assigned_at->format('m-d-Y')
         ];
