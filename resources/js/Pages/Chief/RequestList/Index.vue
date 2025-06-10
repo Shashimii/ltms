@@ -18,7 +18,7 @@ console.log(requests)
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Requests" />
 
     <ChiefLayout>
         <template #header>

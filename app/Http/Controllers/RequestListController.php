@@ -23,7 +23,9 @@ class RequestListController extends Controller
         }
 
         if ($user->role === User::ROLE_OFFICER) {
-            $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])->get());
+            $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])
+            ->where('officer_id', auth()->id())
+            ->get());
 
             return Inertia::render('Officer/RequestList/Index', [
                 'requests' => $requests,
