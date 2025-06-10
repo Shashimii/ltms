@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignedTaskController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestListController;
 use App\Http\Controllers\TaskListController;
@@ -41,6 +42,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 // Legal Chief
 Route::middleware(['auth', 'chief'])->group(function () {
     Route::get('/chief/dashboard', [DashboardController::class, 'index'])->name('chief.dashboard');
+    Route::get('/chief/log', [LogController::class, 'index'])->name('chief.log');
+
     Route::resource('/chief/task', TaskListController::class)->names('chief.task');
     Route::resource('/chief/assigned-task', AssignedTaskController::class)->names('chief.assigned-task');
     Route::resource('/chief/request', RequestListController::class)->names('chief.request');
@@ -50,6 +53,8 @@ Route::middleware(['auth', 'chief'])->group(function () {
 // Action Officer
 Route::middleware(['auth', 'officer'])->group(function () {
     Route::get('/officer/dashboard', [DashboardController::class, 'index'])->name('officer.dashboard');
+    Route::get('/officer/log', [LogController::class, 'index'])->name('officer.log');
+    
     Route::resource('/officer/task', TaskListController::class)->names('officer.task');
     Route::resource('/officer/assigned-task', AssignedTaskController::class)->names('officer.assigned-task');
 });
