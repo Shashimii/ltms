@@ -230,9 +230,16 @@ watch(
                                             <td
                                                 class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium space-x-2 sm:pr-6"
                                             >
-                                            <PrimaryButton @click="openModalFormEdit(task)">
-                                                Mark as Done
-                                            </PrimaryButton>
+                                                <div v-if="task.is_done">
+                                                    <PrimaryButton @click="openModalDone(task)">
+                                                        Mark as Done
+                                                    </PrimaryButton>
+                                                </div>
+                                                <div v-else>     
+                                                    <PrimaryButton @click="openModalUndone(task)">
+                                                        Mark as Undone
+                                                    </PrimaryButton>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
