@@ -51,6 +51,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Task List
                                 </NavLink>
+                                <NavLink
+                                    :href="route('chief.request.index')"
+                                    :active="route().current('chief.request.index')"
+                                >
+                                    Requests
+                                </NavLink>
                             </div>
                         </div>
 
