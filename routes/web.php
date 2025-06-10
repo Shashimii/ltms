@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssignedTaskController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestListController;
 use App\Http\Controllers\TaskListController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'chief'])->group(function () {
     Route::get('/chief/dashboard', [DashboardController::class, 'index'])->name('chief.dashboard');
     Route::resource('/chief/task', TaskListController::class)->names('chief.task');
     Route::resource('/chief/assigned-task', AssignedTaskController::class)->names('chief.assigned-task');
+    Route::resource('/chief/request', RequestListController::class)->names('chief.request');
 });
 
 
