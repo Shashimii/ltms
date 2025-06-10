@@ -43,7 +43,7 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('officer.request.index')"
                                     :active="route().current('officer.request.index')"
                                 >
-                                    Requests
+                                    Notify Pending
                                 </NavLink>
                                 <NavLink
                                     :href="route('officer.log')"

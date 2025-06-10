@@ -14,24 +14,34 @@ let props = defineProps({
 
 let requests = props.requests.data;
 
-console.log(requests)
-
 </script>
 
 <template>
-    <Head title="Requests" />
+    <Head title="Notify Pending" />
 
     <OfficerLayout>
         <template #header>
             <h2
                 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
             >
-                Requests
+                Notify Pending
             </h2>
         </template>
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="mb-8 sm:flex sm:items-center justify-start">
+                    <div>
+                        <h3
+                            class="text-lg leading-6 font-medium text-gray-900"
+                        >
+                            Notify Pending
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            All task notifications pending the Chief's approval will appear here.
+                        </p>
+                    </div>
+                </div>
                 <div v-for="request in requests" class="mb-6 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div class="flex items-center justify-start space-x-4">
@@ -43,7 +53,7 @@ console.log(requests)
                             <div class="flex justify-between w-full">
                                 <h2 class="text-lg font-semibold">
                                     {{ request.officer.name }}
-                                    Request to Mark as                        
+                                    Notified the chief
                                     <span v-if="request.request_status === 1">Done</span>
                                     <span v-else-if="request.request_status === 2">Undone</span>
                                 </h2>
@@ -56,11 +66,11 @@ console.log(requests)
                         <div class="ms-16">
                             <p class="mt-4 text-md text-gray-600 text-justify">
                                 <strong class="text-gray-900">{{ request.officer.name }}</strong>
-                                has requested you to mark this task named
+                                has notified the Chief that the
                                 <strong class="text-gray-900">{{ request.task.name }}</strong>
-                                assigned on
+                                task assigned on
                                 <strong class="text-gray-900">{{ request.assigned_at }}</strong>
-                                to be 
+                                is
                                 <strong class="text-gray-900">
                                     <span v-if="request.request_status === 1">Done.</span>
                                     <span v-else-if="request.request_status === 2">Undone.</span>
@@ -75,7 +85,7 @@ console.log(requests)
                             </SecondaryButton>
                             <PrimaryButton disabled>
                                 <p>
-                                    Waiting for Approval
+                                    Waiting for Confirmation
                                 </p>                            
                             </PrimaryButton>
                         </div>
