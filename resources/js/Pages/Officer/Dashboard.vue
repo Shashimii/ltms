@@ -217,12 +217,12 @@ watch(
                                                 {{ task.odts_code }}
                                             </td>
                                             <td
-                                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                                class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"
                                             >
                                                 {{ task.assigned_at }}
                                             </td>
                                             <td
-                                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                                class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"
                                             >
                                                 {{ task.is_done ? 'Done' : 'Not Done' }}
                                             </td>

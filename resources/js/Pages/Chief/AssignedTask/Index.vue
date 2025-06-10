@@ -145,20 +145,15 @@ const saveDelete = (task) => {
 }
 
 // searchbar
-
-// search parameters
 let pageNumber = ref(1),
     search = ref(usePage().props.search ?? ""),
     officer_id = ref(usePage().props.officer_id ?? ""),
     status_filter = ref(usePage().props.status_filter ?? "")
 
-
-// retain pagination pages on search
 const updatedPageNumber = (link) => {
     pageNumber.value = link.url.split('=')[1];
 }
 
-// search url
 let assignedDutiesUrl = computed(() => {
     let url = new URL(route('chief.assigned-task.index'));
     url.searchParams.set('page', pageNumber.value);
@@ -178,7 +173,6 @@ let assignedDutiesUrl = computed(() => {
     return url
 });
 
-// visit the url
 watch(
     () => assignedDutiesUrl.value,
     (updatedUrl) => {
@@ -190,7 +184,6 @@ watch(
     }
 )
 
-// reset page number
 watch(
     () => search.value,
     (value) => {
@@ -366,12 +359,12 @@ watch(
                                                 {{ task.odts_code }}
                                             </td>
                                             <td
-                                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                                class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"
                                             >
                                                 {{ task.assigned_at }}
                                             </td>
                                             <td
-                                                class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                                class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"
                                             >
                                                 {{ task.is_done ? 'Done' : 'Not Done' }}
                                             </td>
