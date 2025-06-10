@@ -56,7 +56,7 @@ Route::middleware(['auth', 'officer'])->group(function () {
     Route::get('/officer/log', [LogController::class, 'index'])->name('officer.log');
     
     Route::resource('/officer/task', TaskListController::class)->names('officer.task');
-    Route::resource('/officer/assigned-task', AssignedTaskController::class)->names('officer.assigned-task');
+    Route::resource('/officer/request', RequestListController::class)->names('officer.request');
 });
 
 // Profile

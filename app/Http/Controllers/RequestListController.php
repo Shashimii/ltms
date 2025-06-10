@@ -22,6 +22,14 @@ class RequestListController extends Controller
             ]);
         }
 
+        if ($user->role === User::ROLE_OFFICER) {
+            $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])->get());
+
+            return Inertia::render('Officer/RequestList/Index', [
+                'requests' => $requests,
+            ]);
+        }
+
         abort(403);
     }
 }

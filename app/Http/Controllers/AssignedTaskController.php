@@ -35,17 +35,6 @@ class AssignedTaskController extends Controller
             ]);
         }
 
-        if ($user->role === User::ROLE_OFFICER) {
-            $assignedTasks = AssignedTaskResource::collection(AssignedTask::paginate(10));
-
-            return Inertia::render('Officer/AssignedTask/Index', [
-                'search' => $request->search ?? '',
-                'officer_id' => $request->officer_id ?? '',
-                'status_filter' => $request->status ?? '',
-                'assignedTasks' => $assignedTasks,
-            ]);
-        }
-
         abort(403);
     }
 
