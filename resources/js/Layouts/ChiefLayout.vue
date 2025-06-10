@@ -57,6 +57,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Requests
                                 </NavLink>
+                                <NavLink
+                                    :href="route('chief.log')"
+                                    :active="route().current('chief.log')"
+                                >
+                                    Logs
+                                </NavLink>
                             </div>
                         </div>
 

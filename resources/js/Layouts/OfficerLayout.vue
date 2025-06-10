@@ -39,12 +39,18 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Dashboard
                                 </NavLink>
-                                <!-- <NavLink
+                                <NavLink
                                     :href="route('officer.assigned-task.index')"
                                     :active="route().current('officer.assigned-task.index')"
                                 >
-                                    Assigned Tasks
-                                </NavLink> -->
+                                    Requests
+                                </NavLink>
+                                <NavLink
+                                    :href="route('officer.log')"
+                                    :active="route().current('officer.log')"
+                                >
+                                    Logs
+                                </NavLink>
                             </div>
                         </div>
 
