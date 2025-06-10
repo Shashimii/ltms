@@ -46,22 +46,22 @@ const showingNavigationDropdown = ref(false);
                                     Assigned Tasks
                                 </NavLink>
                                 <NavLink
-                                    :href="route('chief.task.index')"
-                                    :active="route().current('chief.task.index')"
+                                    :href="route('chief.notification.index')"
+                                    :active="route().current('chief.notification.index')"
                                 >
-                                    Task List
-                                </NavLink>
-                                <NavLink
-                                    :href="route('chief.request.index')"
-                                    :active="route().current('chief.request.index')"
-                                >
-                                    Requests
+                                    Notifications
                                 </NavLink>
                                 <NavLink
                                     :href="route('chief.log')"
                                     :active="route().current('chief.log')"
                                 >
                                     Logs
+                                </NavLink>
+                                <NavLink
+                                    :href="route('chief.task.index')"
+                                    :active="route().current('chief.task.index')"
+                                >
+                                    Task List
                                 </NavLink>
                             </div>
                         </div>

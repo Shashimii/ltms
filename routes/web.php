@@ -46,7 +46,7 @@ Route::middleware(['auth', 'chief'])->group(function () {
 
     Route::resource('/chief/task', TaskListController::class)->names('chief.task');
     Route::resource('/chief/assigned-task', AssignedTaskController::class)->names('chief.assigned-task');
-    Route::resource('/chief/request', RequestListController::class)->names('chief.request');
+    Route::resource('/chief/notification', RequestListController::class)->names('chief.notification');
 });
 
 
