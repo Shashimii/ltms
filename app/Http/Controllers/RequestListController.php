@@ -34,4 +34,29 @@ class RequestListController extends Controller
 
         abort(403);
     }
+
+    public function update(Request $request, $id)
+    {
+        $task = AssignedTask::findOrFail($id);
+
+        if ((int) $request->request_status === 1) {
+            $task->update([
+                'request_status' => 0,
+                'is_done' => 1
+            ]);
+
+            return redirect()->back();
+        }
+
+        if ((int) $request->request_status === 2) {
+            $task->update([
+                'request_status' => 0,
+                'is_done' => 0
+            ]);
+
+            return redirect()->back();
+        }
+
+        abort(404); 
+    }
 }

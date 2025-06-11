@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class AssignedTask extends Model
 {
     use HasFactory;
-    protected $fillable = ['officer_id', 'task_id', 'odts_code', 'assigned_at', 'is_done'];
+    protected $fillable = ['officer_id', 'task_id', 'odts_code', 'assigned_at', 'request_status', 'is_done'];
     protected $casts = [
         'assigned_at' => 'date:Y-m-d',  // Format the assigned_at column as a date
         'is_done' => 'boolean',         // Format is_done as a boolean
