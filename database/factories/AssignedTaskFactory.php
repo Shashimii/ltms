@@ -22,7 +22,8 @@ class AssignedTaskFactory extends Factory
             'officer_id' => User::inRandomOrder()->first()?->id ?? User::factory(),   // Randomly use an existing officer or create if none exist     
             'task_id' => Task::inRandomOrder()->first()?->id ?? Task::factory(),            // Randomly use an existing duty or create if none exist           
             'odts_code' => '(' . $this->faker->numberBetween(1000, 9999) . ')', // generate code like (1234)
-            'request_status' => $this->faker->numberBetween(0, 2),
+            // 'request_status' => $this->faker->numberBetween(0, 2),
+            'request_status' => 0,
             'is_done' => $this->faker->boolean(),
             'assigned_at' => $this->faker->dateTimeBetween('-1 year', 'now'), // Random date between 1 year ago and now
             'created_at' => now(),
