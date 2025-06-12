@@ -37,24 +37,43 @@ class RequestListController extends Controller
 
     public function update(Request $request, $id)
     {
-        $task = AssignedTask::findOrFail($id);
+        $user = auth()->user();
+        $task = AssignedTask::findOrFail($id); // task
 
-        if ((int) $request->request_status === 1) {
-            $task->update([
-                'request_status' => 0,
-                'is_done' => 1
-            ]);
+        if ($user->role === User::ROLE_CHIEF) {
+            if ((int) $request->request_status === 1) {
+                $task->update([
+                    'request_status' => 0, // remove the request
+                    'is_done' => 1 // set the task to done
+                ]);
 
-            return redirect()->back();
+                return redirect()->back();
+            }
+
+            if ((int) $request->request_status === 2) {
+                $task->update([
+                    'request_status' => 0, // remove the request
+                    'is_done' => 0 // set the task to not done
+                ]);
+
+                return redirect()->back();
+            }
         }
 
-        if ((int) $request->request_status === 2) {
-            $task->update([
-                'request_status' => 0,
-                'is_done' => 0
-            ]);
+        if ($user->role === User::ROLE_OFFICER) {
+            if ($request->is_done) {
+                $task->update([
+                    'request_status' => 2 // request task is not done
+                ]);
 
-            return redirect()->back();
+                return redirect()->back();
+            } else {
+                $task->update([
+                    'request_status' => 1 // request task is done
+                ]);
+
+                return redirect()->back();
+            }
         }
 
         abort(404); 

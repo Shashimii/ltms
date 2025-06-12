@@ -103,10 +103,12 @@ const openModalNotify = (notify) => {
     notifyForm.assigned_at = notify.assigned_at;
     notifyForm.odts_code = notify.odts_code;
     showModalNotify.value = true;
+
+    console.log(notifyForm.data());
 }
 
 const saveNotify = (notifyForm) => {
-    notifyForm.put(route('chief.notification.update', { notification: notifyForm.id }), {
+    notifyForm.put(route('officer.notification.update', { notification: notifyForm.id }), {
         onSuccess: () => {
             notifyForm.reset();
             showModalNotify.value = false;
