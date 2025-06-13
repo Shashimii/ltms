@@ -18,6 +18,8 @@ const requests = computed(() => props.requests.data);
 
 const confirmationForm = useForm({
     id: null,
+    task_id: null,
+    officer_id: null,
     officer_name: '',
     task_name: '',
     request_status: null,
@@ -28,6 +30,8 @@ const confirmationForm = useForm({
 const showModalConfirmation = ref(false);
 const openModalConfirmation = (request) => {
     confirmationForm.id = request.id
+    confirmationForm.task_id = request.task.id;
+    confirmationForm.officer_id = request.officer.id;
     confirmationForm.officer_name = request.officer.name;
     confirmationForm.task_name = request.task.name;
     confirmationForm.request_status = request.request_status;

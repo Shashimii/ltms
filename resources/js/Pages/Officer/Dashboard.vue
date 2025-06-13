@@ -87,6 +87,8 @@ watch(
 // Modal
 const notifyForm = useForm({
     id: null,
+    officer_id: null,
+    task_id: null,
     officer_name: '',
     task_name: '',
     is_done: '',
@@ -97,6 +99,8 @@ const notifyForm = useForm({
 const showModalNotify = ref(false);
 const openModalNotify = (notify) => {
     notifyForm.id = notify.id
+    notifyForm.officer_id = notify.officer.id;
+    notifyForm.task_id = notify.task.id;
     notifyForm.officer_name = notify.officer.name;
     notifyForm.task_name = notify.task.name;
     notifyForm.is_done = notify.is_done;
