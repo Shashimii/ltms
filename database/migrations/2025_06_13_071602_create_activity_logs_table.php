@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('task_id')->nullable()->constrained('tasks')->onDelete('cascade');
             $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('chief_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('officer_id')->nullable()->constrained('users')->onDelete('cascade');
