@@ -40,7 +40,6 @@ class RequestListController extends Controller
     public function update(Request $request, $id)
     {
         $user = auth()->user();
-        $officer = User::find($request->officer_id);
         $task = AssignedTask::findOrFail($id); // task
 
         if ($user->role === User::ROLE_CHIEF) {
@@ -79,6 +78,8 @@ class RequestListController extends Controller
 
                 return redirect()->back();
             }
+
+            abort(404);
         }
 
         if ($user->role === User::ROLE_OFFICER) {
@@ -89,23 +90,23 @@ class RequestListController extends Controller
 
                 ActivityLog::create([
                     'task_id' => $request->task_id,
-                    'chief_id' => auth()->id(),
-                    'officer_id' => $request->officer_id,
+                    'officer_id' => auth()->id(),
                     'activity' => 'Not_Done_Notify',
                     'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Not Done "'
 
                 ]);
 
                 return redirect()->back();
-            } else {
+            } 
+            
+            if (!$request->is_done) {
                 $task->update([
                     'request_status' => 1 // request task is done
                 ]);
 
                 ActivityLog::create([
                     'task_id' => $request->task_id,
-                    'chief_id' => auth()->id(),
-                    'officer_id' => $request->officer_id,
+                    'officer_id' => auth()->id(),
                     'activity' => 'Done_Notify',
                     'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Done "'
 
@@ -113,6 +114,44 @@ class RequestListController extends Controller
 
                 return redirect()->back();
             }
+
+            abort(404); 
+        }
+
+        abort(403); 
+    }
+
+    public function cancelNotify(Request $request, $id)
+    {
+        $assigned_task = AssignedTask::findOrFail($id);
+        $task = Task::findOrFail($assigned_task->task_id);
+        
+        $assigned_task->update([
+            'request_status' => 0
+        ]);
+
+        // done notify cancel
+        if (!$request->is_done) {
+            ActivityLog::create([
+                'task_id' => $task->id,
+                'officer_id' => auth()->id(),
+                'activity' => 'Done_Notify_Cancel',
+                'description' => auth()->user()->name . ' canceled the done notify on "' . $task->name . '"'
+            ]);
+            
+            return redirect()->back();
+        }
+
+        // not done notify cancel
+        if ($request->is_done) {
+            ActivityLog::create([
+                'task_id' => $task->id,
+                'officer_id' => auth()->id(),
+                'activity' => 'Not_Done_Notify_Cancel',
+                'description' => auth()->user()->name . ' canceled the not done notify on "' . $task->name . '"'
+            ]); 
+            
+            return redirect()->back();
         }
 
         abort(404); 

@@ -58,6 +58,9 @@ Route::middleware(['auth', 'officer'])->group(function () {
     Route::resource('/officer/task', TaskListController::class)->names('officer.task');
     Route::resource('/officer/request', RequestListController::class)->names('officer.request');
     Route::resource('/officer/notification', RequestListController::class)->names('officer.notification');
+
+    // Cancel Notify
+    Route::put('/officer/notification/{id}/cancel', [RequestListController::class, 'cancelNotify'])->name('officer.notification.cancel');
 });
 
 // Profile
