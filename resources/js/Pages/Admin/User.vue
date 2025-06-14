@@ -432,7 +432,7 @@ const deleteUser = (id) => {
                         Update User Information
                     </h3>
                     <p class="mt-1 text-sm text-gray-500">
-                        Use this form to add update user.
+                        Use this form to update existing user.
                     </p>
                 </div>
 
@@ -462,6 +462,9 @@ const deleteUser = (id) => {
                     </div>
                     <div class="col-span-3">
                         <InputLabel for="update_password" value="Password" />
+                        <p class="text-sm text-gray-600 text-left">
+                            leave blank to keep it unchanged.
+                        </p>
                         <TextInput 
                             id="update_password"
                             type="text"
@@ -473,6 +476,9 @@ const deleteUser = (id) => {
                     </div>
                     <div class="col-span-3">
                         <InputLabel for="update_password_confirmation" value="Confirm Password" />
+                        <p class="text-sm text-gray-600 text-left">
+                            if the password is blank, keep this blank.
+                        </p>
                         <TextInput 
                             id="update_password_confirmation"
                             type="text"
@@ -520,16 +526,24 @@ const deleteUser = (id) => {
                         </svg>
                     </div>
                     
-                    <h2 class="text-lg font-semibold">Delete Task ?</h2>
+                    <h2 class="text-lg font-semibold">Delete User ?</h2>
                 </div>
 
-                <p class="mt-4 text-md text-gray-600 text-left">
-                    Are you sure you want to delete task
+                <p class="mt-4 text-md text-gray-900 text-left">
+                    Are you sure you want to delete user
                     <strong>{{ deleteForm.name }}</strong>
+                </p>
+
+
+                <p class="mt-4 text-sm text-gray-600 text-left">
+                    {{ deleteForm.name }} will be logged out.
+                </p>
+                <p class="text-sm text-gray-600 text-left">
+                    All the records and data related to {{ deleteForm.name }} will be also deleted.
                 </p>
                 <div class="mt-6 flex justify-end gap-4">
                     <DangerButton @click="deleteUser(deleteForm.id)" :disabled="deleteForm.processing">
-                        Delete Task
+                        Delete User
                     </DangerButton>
                     <SecondaryButton @click="showModalDelete = false" class="btn btn-secondary">
                         Don't Delete
