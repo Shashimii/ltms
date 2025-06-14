@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssignedTaskController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestListController;
@@ -37,6 +38,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'DashboardIndex'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminController::class, 'UserIndex'])->name('admin.users');
     Route::get('/admin/log', [LogController::class, 'index'])->name('admin.log');
+
+    // manage users
+    Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register.store');
+    Route::put('/admin/register/{id}', [RegisteredUserController::class, 'update'])->name('admin.register.update');
+    Route::delete('/admin/register/{id}', [RegisteredUserController::class, 'destroy'])->name('admin.register.destroy');
 });
 
 
