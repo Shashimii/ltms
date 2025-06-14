@@ -14,7 +14,7 @@ let props = defineProps({
     }
 });
 
-let requests = props.requests.data;
+const requests = computed(() => props.requests.data);
 
 const cancelForm = useForm({
     id: null,
