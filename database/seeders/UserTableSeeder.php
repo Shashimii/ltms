@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder
     public function run(): void
     {
         // default admin user data
-        $user = [
+        $users = [
             [
                 'name' => 'Shashimii',
                 'email' => 'shashimii@gmail.com',
@@ -35,6 +35,8 @@ class UserTableSeeder extends Seeder
             ]
         ];
 
-        User::insert($user); // insert admin user
+        foreach ($users as $user) {
+            User::create($user);
+        }
     }
 }

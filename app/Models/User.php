@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     // User Roles
     const ROLE_OFFICER = 0;

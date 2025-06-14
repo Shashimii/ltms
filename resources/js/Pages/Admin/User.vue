@@ -199,6 +199,12 @@ watch(
                                             </th>
                                             <th
                                                 scope="col"
+                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                            >
+                                                Added At
+                                            </th>
+                                            <th
+                                                scope="col"
                                                 class="relative py-3.5 pl-3 pr-4 sm:pr-6"
                                             />
                                         </tr>
@@ -223,6 +229,11 @@ watch(
                                                 <span v-if="user.role === 2">System Admin</span>
                                                 <span v-if="user.role === 1">Legal Chief</span>
                                                 <span v-if="user.role === 0">Officer</span>
+                                            </td>
+                                            <td
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                            >
+                                                {{ user.created_at }}
                                             </td>
                                             <td
                                                 class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium space-x-2 sm:pr-6"
