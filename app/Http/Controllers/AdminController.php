@@ -16,9 +16,12 @@ class AdminController extends Controller
         ]);
     }
 
-    public function UserIndex() {
-        $users = UserResource::collection(User::paginate(10));
+    public function UserIndex(Request $request) {
+        $usersQuery = User::search($request);
+        $users = UserResource::collection($usersQuery->orderBy('created_at', 'desc')->paginate(10));
         return Inertia::render('Admin/User', [
+            'search' => $request->search ?? '',
+            'account_type' => $request->account_type ?? '',
             'users' => $users
         ]);
     }

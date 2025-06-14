@@ -23,40 +23,34 @@ const props = defineProps({
 });
 
 const users = computed(() => props.users.data);
-
-console.log(users.value)
+const paginationData = props.users;
 
 // searchbar
 let pageNumber = ref(1),
     search = ref(usePage().props.search ?? ""),
-    // officer_id = ref(usePage().props.officer_id ?? ""),
-    status_filter = ref(usePage().props.status_filter ?? "")
+    account_type = ref(usePage().props.account_type ?? "")
 
 const updatedPageNumber = (link) => {
     pageNumber.value = link.url.split('=')[1];
 }
 
-let assignedDutiesUrl = computed(() => {
-    let url = new URL(route('chief.assigned-task.index'));
+let usersUrl = computed(() => {
+    let url = new URL(route('admin.users'));
     url.searchParams.set('page', pageNumber.value);
 
     if (search.value) {
         url.searchParams.append('search', search.value);
     }
 
-    // if (officer_id) {
-    //     url.searchParams.append('officer_id', officer_id.value);
-    // }
-
-    if (status_filter) {
-        url.searchParams.append('status', status_filter.value);
+    if (account_type) {
+        url.searchParams.append('account_type', account_type.value);
     }
 
     return url
 });
 
 watch(
-    () => assignedDutiesUrl.value,
+    () => usersUrl.value,
     (updatedUrl) => {
         router.visit(updatedUrl, {
             preserveScroll: true,
@@ -75,17 +69,8 @@ watch(
     }
 )
 
-// watch(
-//     () => officer_id.value,
-//     (value) => {
-//         if (value) {
-//             pageNumber.value = 1;
-//         }
-//     }
-// )
-
 watch(
-    () => status_filter.value,
+    () => account_type.value,
     (value) => {
         if (value) {
             pageNumber.value = 1;
@@ -149,20 +134,13 @@ watch(
                     </div>
 
                     <select
-
+                        v-model="account_type"
                         class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     >
-                        <option value="">Filter by officer</option>
-
-                    </select>
-
-                    <select
-                        v-model="status_filter"
-                        class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                    >
-                        <option value="">Filter by status</option>
-                        <option value="1">Done</option>
-                        <option value="0">Not Done</option>
+                        <option value="">Filter by type</option>
+                        <option value="2">System Admin</option>
+                        <option value="1">Legal Chief</option>
+                        <option value="0">Officer</option>
                     </select>
                 </div>
 
@@ -249,10 +227,10 @@ watch(
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- <Pagination 
-                                :data="users" 
+                            <Pagination 
+                                :data="paginationData" 
                                 :updatedPageNumber="updatedPageNumber"
-                            />  -->
+                            /> 
                         </div>
                     </div>
                 </div>
