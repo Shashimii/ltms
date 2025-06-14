@@ -16,8 +16,6 @@ use Inertia\Inertia;
 
 class AssignedTaskController extends Controller
 {
-
-
     public function index(Request $request)
     {
         $auth = auth()->user();
@@ -63,11 +61,6 @@ class AssignedTaskController extends Controller
             return redirect()->back();
         }
 
-        // if ($auth->role === User::ROLE_OFFICER) {
-        //     AssignedTask::create($request->validated());
-        //     return redirect()->back();
-        // }
-
         abort(403);        
     }
 
@@ -80,11 +73,6 @@ class AssignedTaskController extends Controller
             return redirect()->back();
         }
 
-        // if ($auth->role === User::ROLE_OFFICER) {
-        //     $assignedTask->update($request->validated());
-        //     return redirect()->back();
-        // }
-
         abort(403);        
     }
 
@@ -96,11 +84,6 @@ class AssignedTaskController extends Controller
             $assignedTask->delete();
             return redirect()->back();   
         }
-
-        // if ($auth->role === User::ROLE_OFFICER) {
-        //     $assignedTask->delete();
-        //     return redirect()->back();   
-        // }
 
         abort(403);        
     }
