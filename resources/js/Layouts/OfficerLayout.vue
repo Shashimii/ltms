@@ -40,8 +40,8 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    :href="route('officer.request.index')"
-                                    :active="route().current('officer.request.index')"
+                                    :href="route('officer.notification.index')"
+                                    :active="route().current('officer.notification.index')"
                                 >
                                     Notify Pending
                                 </NavLink>
