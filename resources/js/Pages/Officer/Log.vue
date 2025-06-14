@@ -11,9 +11,6 @@ const props = defineProps({
 })
 
 const logs = computed(() => props.logs);
-
-console.log(logs);
-
 </script>
 
 <template>
