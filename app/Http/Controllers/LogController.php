@@ -14,8 +14,9 @@ class LogController extends Controller
         $user = auth()->user();
         
         if ($user->role === User::ROLE_CHIEF) {
-    
+            $logs = ActivityLog::all();
             return Inertia::render('Chief/Log', [
+                'logs' => $logs
             ]);
         }
 
