@@ -1,6 +1,19 @@
 <script setup>
 import OfficerLayout from '@/Layouts/OfficerLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { computed } from 'vue';
+
+const props = defineProps({
+  logs: {
+    type: Object,
+    required: true
+  }
+})
+
+const logs = computed(() => props.logs);
+
+console.log(logs);
+
 </script>
 
 <template>
@@ -21,7 +34,10 @@ import { Head } from '@inertiajs/vue3';
                     class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
                 >
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        OFFICER LOGS
+                        <li v-for="log in logs">
+                            {{ log.activity }} -
+                            {{ log.description }}
+                        </li>
                     </div>
                 </div>
             </div>
