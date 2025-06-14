@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssignedTaskController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
@@ -33,9 +34,9 @@ Route::get('/', function () {
 
 // Admin
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', function () { 
-        return Inertia::render('Admin/Dashboard'); 
-    })->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'DashboardIndex'])->name('admin.dashboard');
+    Route::get('/admin/users', [AdminController::class, 'UserIndex'])->name('admin.users');
+    Route::get('/admin/log', [LogController::class, 'index'])->name('admin.log');
 });
 
 
