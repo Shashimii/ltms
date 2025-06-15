@@ -5,14 +5,29 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\ActivityLog;
+use App\Http\Resources\ActivityLogResource;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AdminController extends Controller
 {
-    public function DashboardIndex() {
-        return Inertia::render('Admin/Dashboard', [
+    public function DashboardIndex(Request $request) {
+        $admins = UserResource::collection(User::where('role', 2)->get());
+        $chiefs = UserResource::collection(User::where('role', 1)->get());
+        $officers = UserResource::collection(User::where('role', 0)->get());
+        $users = UserResource::collection(User::all());
 
+        $logSearchQuery = ActivityLog::search($request);
+        $logs = ActivityLogResource::collection($logSearchQuery->latest()->paginate(10));
+
+        return Inertia::render('Admin/Dashboard', [
+            'admins' => $admins,
+            'chiefs' => $chiefs,
+            'officers' => $officers,
+            'users' => $users,
+            'logs' => $logs,
+            'search' => $request->search ?? '',
         ]);
     }
 
