@@ -373,7 +373,7 @@ const notificationRoute = () => {
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="mb-8 sm:flex sm:items-center">
+                <div class="mb-4 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900">
                             Assigned Task Status
@@ -456,9 +456,6 @@ const notificationRoute = () => {
                         View Notifications
                     </PrimaryButton>
                 </div>
-
-
-
 
                 <div class="mt-8 mb-8 sm:flex sm:items-center justify-start">
                     <div class="sm:flex-auto">
