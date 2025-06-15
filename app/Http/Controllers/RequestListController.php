@@ -55,6 +55,7 @@ class RequestListController extends Controller
                     'officer_id' => $request->officer_id,
                     'chief_name' => auth()->user()->name,
                     'officer_name' => $request->officer_name,
+                    'odts_code' => $task->odts_code,
                     'task_name' => $request->task_name,
                     'activity' => 'Done_Confirmation',
                     'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Done with the "' . $request->task_name .'"'
@@ -76,6 +77,7 @@ class RequestListController extends Controller
                     'officer_id' => $request->officer_id,
                     'chief_name' => auth()->user()->name,
                     'officer_name' => $request->officer_name,
+                    'odts_code' => $task->odts_code,
                     'task_name' => $request->task_name,
                     'activity' => 'Not_Done_Confirmation',
                     'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Not Done with the "' . $request->task_name .'"'
@@ -98,7 +100,8 @@ class RequestListController extends Controller
                     'task_id' => $request->task_id,
                     'officer_id' => auth()->id(),
                     'officer_name' => auth()->user()->name,
-                    'task_name' => $task->task_name,
+                    'odts_code' => $request->odts_code,
+                    'task_name' => $request->task_name,
                     'activity' => 'Not_Done_Notify',
                     'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Not Done "'
 
@@ -116,7 +119,8 @@ class RequestListController extends Controller
                     'task_id' => $request->task_id,
                     'officer_id' => auth()->id(),
                     'officer_name' => auth()->user()->name,
-                    'task_name' => $task->task_name,
+                    'odts_code' => $request->odts_code,
+                    'task_name' => $request->task_name,
                     'activity' => 'Done_Notify',
                     'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Done "'
 
@@ -146,6 +150,7 @@ class RequestListController extends Controller
                 'task_id' => $task->id,
                 'officer_id' => auth()->id(),
                 'officer_name' => auth()->user()->name,
+                'odts_code' => $assigned_task->odts_code,
                 'task_name' => $task->name,
                 'activity' => 'Done_Notify_Cancel',
                 'description' => auth()->user()->name . ' canceled the done notify on "' . $task->name . '"'
@@ -160,6 +165,7 @@ class RequestListController extends Controller
                 'task_id' => $task->id,
                 'officer_id' => auth()->id(),
                 'officer_name' => auth()->user()->name,
+                'odts_code' => $assigned_task->odts_code,
                 'task_name' => $task->name,
                 'activity' => 'Not_Done_Notify_Cancel',
                 'description' => auth()->user()->name . ' canceled the not done notify on "' . $task->name . '"'

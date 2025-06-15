@@ -55,6 +55,7 @@ class AssignedTaskController extends Controller
                 'officer_id' => $officer_id,
                 'chief_name' => $auth->name,
                 'officer_name' => $officer->name,
+                'odts_code' => $request->odts_code,
                 'task_name' => $task->name,
                 'activity' => 'Assigned',
                 'description' => $auth->name . ' assigned "' . $task->name . '" to "' . $officer->name .'"'

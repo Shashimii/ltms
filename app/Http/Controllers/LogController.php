@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
+use App\Http\Resources\ActivityLogResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
@@ -15,28 +16,14 @@ class LogController extends Controller
         $user = auth()->user();
         
         if ($user->role === User::ROLE_CHIEF) {
-            $query = ActivityLog::query();
-            $now = Carbon::now('Asia/Manila'); // manila timezone
-            $filter = $request->filter ?? 'today'; 
+            $logSearchQuery = ActivityLog::search($request);
+            $logs = ActivityLogResource::collection($logSearchQuery->latest()->paginate(10));
             
-            if ($filter === 'today') {
-                $query->whereRaw("DATE(CONVERT_TZ(created_at, '+00:00', '+08:00')) = ?", [$now->toDateString()]);
-            }
-
-            if ($filter === 'week') {
-                $startOfWeek = $now->copy()->startOfWeek()->toDateString();
-                $endOfWeek = $now->copy()->endOfWeek()->toDateString();
-
-                $query->whereRaw("DATE(CONVERT_TZ(created_at, '+00:00', '+08:00')) BETWEEN ? AND ?", [$startOfWeek, $endOfWeek]);
-            }
-
-            if ($filter === 'month') {
-                $query->whereRaw("MONTH(CONVERT_TZ(created_at, '+00:00', '+08:00')) = ? AND YEAR(CONVERT_TZ(created_at, '+00:00', '+08:00')) = ?", [$now->month, $now->year]);
-            }
-
             return Inertia::render('Chief/Log', [
-                'logs' => $query->get(),
-                'selectedFilter' => $filter,
+                'logs' => $logs,
+                'rangeFilter' => $request->filter ?? 'today',
+                'activityFilter' => $request->activity_filter ?? '',
+                'search' => $request->search ?? '',
             ]);
         }
 
