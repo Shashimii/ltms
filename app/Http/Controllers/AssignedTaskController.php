@@ -43,7 +43,7 @@ class AssignedTaskController extends Controller
     public function store(StoreAssignedTaskRequest $request)
     {
         $auth = auth()->user();
-        $officer_id = auth()->id();
+        $officer_id = $request->officer_id;
         $officer = User::find($request->officer_id);
         $task = Task::find($request->task_id);
 
@@ -51,8 +51,11 @@ class AssignedTaskController extends Controller
             AssignedTask::create($request->validated());
             ActivityLog::create([
                 'task_id' => $request->task_id,
-                'chief_id' => $officer_id,
-                'officer_id' => $request->officer_id,
+                'chief_id' => auth()->id(),
+                'officer_id' => $officer_id,
+                'chief_name' => $auth->name,
+                'officer_name' => $officer->name,
+                'task_name' => $task->name,
                 'activity' => 'Assigned',
                 'description' => $auth->name . ' assigned "' . $task->name . '" to "' . $officer->name .'"'
 
