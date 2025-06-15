@@ -9,15 +9,20 @@ import { Head, usePage, useForm, router } from '@inertiajs/vue3';
 import { ref, computed, watch } from 'vue';
 
 const props = defineProps({
-  assignedTasks: {
-    type: Object,
-    required: true
-  },
+    assignedTasks: {
+        type: Object,
+        required: true
+    },
 
-  assignedTaskCount: {
-    type: Object,
-    required: true
-  }
+    assignedTaskCount: {
+        type: Object,
+        required: true
+    },
+
+    requests: {
+        type: Object,
+        required: true
+    }
 })
 
 
@@ -28,6 +33,10 @@ const completedTasks = computed(() => {
 
 const pendingTasks = computed(() => {
     return props.assignedTaskCount.data.filter(task => !task.is_done).length;
+});
+
+const requestCount = computed(() => {
+    return props.requests.data.length;
 });
 
 
@@ -121,6 +130,12 @@ const saveNotify = (notifyForm) => {
     });
 }
 
+// Routes
+const notificationRoute = () => {
+    router.visit(route('officer.notification.index'))
+}
+
+
 </script>
 
 <template>
@@ -137,6 +152,16 @@ const saveNotify = (notifyForm) => {
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="mb-4 sm:flex sm:items-center">
+                    <div class="sm:flex-auto">
+                        <h1 class="text-xl font-semibold text-gray-900">
+                            Assigned Task Status
+                        </h1>
+                        <p class="mt-2 text-sm text-gray-700">
+                            This section displays all relevant counts related to assigned tasks.
+                        </p>
+                    </div>
+                </div>
                 <div class="w-full mb-8 grid grid-cols-2 gap-4">
                     <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
                         <p>Total Completed Tasks: </p>
@@ -147,13 +172,37 @@ const saveNotify = (notifyForm) => {
                         <p>{{ pendingTasks }}</p>
                     </div>
                 </div>
-                <div class="sm:flex sm:items-center">
+
+                <div class="mb-4 sm:flex sm:items-center">
+                    <div class="sm:flex-auto">
+                        <h1 class="text-xl font-semibold text-gray-900">
+                            Pending Notify
+                        </h1>
+                        <p class="mt-2 text-sm text-gray-700">
+                            Here you can see how many pending notifications you’ve sent to the chief.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400 text-teal-900 font-semibold text-lg p-4 border border-teal-300 rounded shadow flex justify-between items-center space-x-4">
+                    <p class="text-sm sm:text-base">
+                        You have: <span class="text-red-600">{{ requestCount }}</span> Notifications
+                    </p>
+                    <PrimaryButton
+                        @click="notificationRoute"
+                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                        View Notifications
+                    </PrimaryButton>
+                </div>
+
+                <div class="mt-8 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900">
                             Assigned Tasks List
                         </h1>
                         <p class="mt-2 text-sm text-gray-700">
-                            A list of all Assigned Task.
+                            This is a list of tasks that have been assigned to you by the chief.
                         </p>
                     </div>
                 </div>
