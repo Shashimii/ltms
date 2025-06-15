@@ -109,7 +109,7 @@ watch(
                         >
                             Notify Pending
                         </h3>
-                        <p class="mt-1 text-sm text-gray-500">
+                        <p class="mt-2 text-sm text-gray-500">
                             All task notifications pending the Chief's approval will appear here.
                         </p>
                     </div>
