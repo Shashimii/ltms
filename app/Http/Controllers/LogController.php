@@ -28,9 +28,13 @@ class LogController extends Controller
         }
 
         if ($user->role === User::ROLE_OFFICER) {
-            $logs = ActivityLog::where('officer_id', auth()->id())->get();
+            $logSearchQuery = ActivityLog::search($request)->where('officer_id', auth()->id());
+            $logs = ActivityLogResource::collection($logSearchQuery->latest()->paginate(10));
             return Inertia::render('Officer/Log', [
                 'logs' => $logs,
+                'rangeFilter' => $request->filter ?? 'today',
+                'activityFilter' => $request->activity_filter ?? '',
+                'search' => $request->search ?? '',
             ]);
         }
 
