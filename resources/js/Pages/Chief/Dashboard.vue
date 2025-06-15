@@ -393,7 +393,7 @@ const notificationRoute = () => {
                     </div>
                 </div>
 
-                <div class="w-full mb-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
                         <p>Officers Completed Tasks: </p>
                         <p>{{ completedTasks }}</p>
