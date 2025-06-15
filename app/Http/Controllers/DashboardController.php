@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AssignedTaskResource;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\ActivityLogResource;
 use App\Models\AssignedTask;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,11 +24,18 @@ class DashboardController extends Controller
             $officers = UserResource::collection(User::where('role', 0)->get());
             $tasks = TaskResource::collection( Task::all());
             $assignedTasks = AssignedTaskResource::collection(AssignedTask::all());
+            $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])->latest()->get());
+
+            $logSearchQuery = ActivityLog::search($request);
+            $logs = ActivityLogResource::collection($logSearchQuery->latest()->paginate(4));
 
             return Inertia::render('Chief/Dashboard', [
                 'officers' => $officers,
                 'tasks' => $tasks,
-                'assignedTasks' => $assignedTasks
+                'assignedTasks' => $assignedTasks,
+                'requests' => $requests,
+                'logs' => $logs,
+                'search' => $request->search ?? '',
             ]);
         }
 

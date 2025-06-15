@@ -202,7 +202,7 @@ watch(
                     </div>
                     <div class="bg-orange-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
                         <p>Officers: </p>
-                        <p>{{ countChief }}</p>
+                        <p>{{ countOfficer }}</p>
                     </div>
                     <div class="bg-gray-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
                         <p>Users: </p>
