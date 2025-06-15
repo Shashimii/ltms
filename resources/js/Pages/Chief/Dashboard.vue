@@ -1,8 +1,10 @@
 <script setup>
 import ChiefLayout from '@/Layouts/ChiefLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import MagnifyingGlass from '@/Components/Icons/MagnifyingGlass.vue';
 import Pagination from '@/Components/Pagination.vue';
+import ModalTable from '@/Components/ModalTable.vue';
 
 import { Head, router, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
@@ -335,6 +337,26 @@ watch(
     }
 )
 
+// Modal Table
+const showModalTable = ref(false);
+
+const openModalTable = () => {
+    showModalTable.value = true;
+}
+
+// Routes
+const assignedTaskRoute = () => {
+    router.visit(route('chief.assigned-task.index'))
+}
+
+const logsRoute = () => {
+    router.visit(route('chief.log'))
+}
+
+const notificationRoute = () => {
+    router.visit(route('chief.notification.index'))
+}
+
 </script>
 
 <template>
@@ -363,7 +385,7 @@ watch(
 
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                         <PrimaryButton
-                            @click="openModalFormCreate(task)"
+                            @click="assignedTaskRoute"
                             class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
                         >
                             Assign Task
@@ -371,7 +393,7 @@ watch(
                     </div>
                 </div>
 
-                <div class="w-full mb-8 grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="w-full mb-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
                         <p>Officers Completed Tasks: </p>
                         <p>{{ completedTasks }}</p>
@@ -380,78 +402,63 @@ watch(
                         <p>Officers Pending Tasks: </p>
                         <p>{{ pendingTasks }}</p>
                     </div>
-                    <div class="bg-orange-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                        <p>Notifications: </p>
-                        <p>{{ requestCount }}</p>
-                    </div>
                     <div class="bg-blue-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
                         <p>Officers: </p>
                         <p>{{ officerCount }}</p>
                     </div>
                 </div>
-                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+
+`               <div class="mb-8 overflow-hidden bg-gradient-to-r from-green-400 to-green-600 shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <div class="mb-8 sm:flex sm:items-center justify-between">
+                        <div class="sm:flex sm:items-center justify-between">
                             <div>
-                                <h3
-                                    class="text-lg leading-6 font-medium text-gray-900"
+                                <h1
+                                    class="text-lg leading-6 font-medium text-black-900"
                                 >
                                     IPCR Table
-                                </h3>
-                                <p class="mt-1 text-sm text-gray-500">
+                                </h1>
+                                <p class="mt-2 text-md text-black-500">
                                     Vizualization of assigned tasks to the officers.
                                 </p>
                             </div>
                             
-                            <button class="px-4 py-2 bg-green-800 text-white rounded" @click="excelExport">Export to Excel</button>
-                        </div>
-
-                        <div class="overflow-x-auto max-h-[60rem]" @mousedown="startDrag" ref="mapTable">
-                            <table class="min-w-full divide-y divide-gray-300 bg-white border border-gray-300 rounded-lg shadow">
-                                <thead class="bg-gray-100">
-                                    <tr class="divide-x divide-gray-300">
-                                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                                            <div class="flex items-center justify-center">
-                                                <p>Tasks</p>
-                                            </div>
-                                        </th>
-                                        <th :colspan="officers.length" class="px-4 py-3 text-center text-sm font-semibold text-gray-700">
-                                            <p>Action Officers</p>
-                                        </th>
-                                    </tr>
-                                    <tr class="bg-gray-50 divide-x divide-gray-300">
-                                        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600"></th>
-                                        <th v-for="officer in officers" :key="officer.id" class="px-4 py-2 text-center text-sm font-semibold text-gray-600">
-                                            <div class="min-w-[120px] flex items-center justify-center">{{ officer.name }}</div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-300">
-                                    <tr v-for="duty in tasks" :key="duty.id" class="hover:bg-green-200 divide-x divide-gray-300">
-                                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 bg-gray-100">
-                                            <div class="min-h-[80px] flex items-center">{{ duty.name }}</div>
-                                        </th>
-                                        <td 
-                                            v-for="officer in officers" 
-                                            :key="officer.id" 
-                                            class="px-4 py-2 text-center"
-                                            :class="{ 'bg-green-200': getAssignedDuty(officer.id, duty.id).length > 0 }"
-                                        >
-                                            <div v-if="getAssignedDuty(officer.id, duty.id).length > 0">
-                                                <div v-for="(assigned, index) in getAssignedDuty(officer.id, duty.id)" :key="index">
-                                                    <p>
-                                                        {{ assigned.odts_code }} <br>
-                                                        {{ assigned.assigned_at }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="space-x-4">
+                                <PrimaryButton class="px-4 py-2 bg-gray-700 text-white rounded"  @click="openModalTable()">
+                                    View Table
+                                </PrimaryButton>
+                                <PrimaryButton class="px-4 py-2 bg-green-800 text-white rounded" @click="excelExport">
+                                    Export to Excel
+                                </PrimaryButton>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="mb-4 sm:flex sm:items-center">
+                    <div class="sm:flex-auto">
+                        <h1 class="text-xl font-semibold text-gray-900">
+                            Notifications
+                        </h1>
+                        <p class="mt-2 text-sm text-gray-700">
+                            Number of notification sent by officers will be shown here.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400 text-teal-900 font-semibold text-lg p-4 border border-teal-300 rounded shadow flex justify-between items-center space-x-4">
+                    <p class="text-sm sm:text-base">
+                        You have: <span class="text-red-600">{{ requestCount }}</span> Notifications
+                    </p>
+                    <PrimaryButton
+                        @click="notificationRoute"
+                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                    >
+                        View Notifications
+                    </PrimaryButton>
+                </div>
+
+
+
 
                 <div class="mt-8 mb-8 sm:flex sm:items-center justify-start">
                     <div class="sm:flex-auto">
@@ -467,7 +474,7 @@ watch(
 
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                         <PrimaryButton
-                            @click="openModalFormCreate(task)"
+                            @click="logsRoute"
                             class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
                         >
                             View All
@@ -520,4 +527,68 @@ watch(
             </div>
         </div>
     </ChiefLayout>
+
+    <ModalTable :show="showModalTable" @close="showModalTable = false">
+        <template #main>
+            <div class="mb-8 sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h1 class="text-xl font-semibold text-gray-900">
+                        IPCR Table
+                    </h1>
+                    <p class="mt-2 text-sm text-gray-700">
+                        This is available for export on excel format.
+                    </p>
+                </div>
+            </div>
+            <div class="overflow-x-auto max-h-[60rem]" @mousedown="startDrag" ref="mapTable">
+                <table class="min-w-full divide-y divide-gray-300 bg-white border border-gray-300 rounded-lg shadow">
+                    <thead class="bg-gray-100">
+                        <tr class="divide-x divide-gray-300">
+                            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">
+                                <div class="flex items-center justify-center">
+                                    <p>Tasks</p>
+                                </div>
+                            </th>
+                            <th :colspan="officers.length" class="px-4 py-3 text-center text-sm font-semibold text-gray-700">
+                                <p>Action Officers</p>
+                            </th>
+                        </tr>
+                        <tr class="bg-gray-50 divide-x divide-gray-300">
+                            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600"></th>
+                            <th v-for="officer in officers" :key="officer.id" class="px-4 py-2 text-center text-sm font-semibold text-gray-600">
+                                <div class="min-w-[120px] flex items-center justify-center">{{ officer.name }}</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-300">
+                        <tr v-for="duty in tasks" :key="duty.id" class="hover:bg-green-200 divide-x divide-gray-300">
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 bg-gray-100">
+                                <div class="min-h-[80px] flex items-center">{{ duty.name }}</div>
+                            </th>
+                            <td 
+                                v-for="officer in officers" 
+                                :key="officer.id" 
+                                class="px-4 py-2 text-center"
+                                :class="{ 'bg-green-200': getAssignedDuty(officer.id, duty.id).length > 0 }"
+                            >
+                                <div v-if="getAssignedDuty(officer.id, duty.id).length > 0">
+                                    <div v-for="(assigned, index) in getAssignedDuty(officer.id, duty.id)" :key="index">
+                                        <p>
+                                            {{ assigned.odts_code }} <br>
+                                            {{ assigned.assigned_at }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <template #footer>
+            <SecondaryButton @click="showModalTable= false" class="btn btn-secondary">
+                Cancel
+            </SecondaryButton>
+        </template>
+    </ModalTable>
 </template>

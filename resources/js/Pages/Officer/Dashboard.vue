@@ -137,7 +137,7 @@ const saveNotify = (notifyForm) => {
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="w-full mb-8 grid grid-cols-3 gap-4">
+                <div class="w-full mb-8 grid grid-cols-2 gap-4">
                     <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
                         <p>Total Completed Tasks: </p>
                         <p>{{ completedTasks }}</p>
