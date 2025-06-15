@@ -17,18 +17,19 @@ class RequestListController extends Controller
         $user = auth()->user();
         
         if ($user->role === User::ROLE_CHIEF) {
-            $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])->get());
+            $requestQuery = AssignedTask::search($request)->whereIn('request_status', [1, 2])->latest();
+            $requests = AssignedTaskResource::collection($requestQuery->paginate(10));
 
             return Inertia::render('Chief/RequestList/Index', [
+                'search' => $request->search ?? '',
                 'requests' => $requests,
             ]);
         }
 
         if ($user->role === User::ROLE_OFFICER) {
-            $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])
-            ->where('officer_id', auth()->id())
-            ->get());
-
+            $requestQuery = AssignedTask::search($request)->whereIn('request_status', [1, 2])->where('officer_id', auth()->id())->latest();
+            $requests = AssignedTaskResource::collection($requestQuery->paginate(10));
+            
             return Inertia::render('Officer/RequestList/Index', [
                 'requests' => $requests,
             ]);

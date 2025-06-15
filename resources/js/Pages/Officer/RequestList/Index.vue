@@ -4,8 +4,10 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import Modal from '@/Components/Modal.vue';
-import { Head, useForm } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import MagnifyingGlass from '@/Components/Icons/MagnifyingGlass.vue';
+import Pagination from '@/Components/Pagination.vue';
+import { Head, useForm, router, usePage } from '@inertiajs/vue3';
+import { computed, ref, watch } from 'vue';
 
 let props = defineProps({
     requests: {
@@ -14,7 +16,7 @@ let props = defineProps({
     }
 });
 
-const requests = computed(() => props.requests.data);
+const requests = computed(() => props.requests);
 
 const cancelForm = useForm({
     id: null,
@@ -43,6 +45,45 @@ const cancelNotify = (task) => {
         preserveState: true,
     });
 }
+
+// searchbar
+let pageNumber = ref(1),
+    search = ref(usePage().props.search ?? "")
+
+const updatedPageNumber = (link) => {
+    pageNumber.value = link.url.split('=')[1];
+}
+
+let requestUrl = computed(() => {
+    let url = new URL(route('officer.notification.index'));
+    url.searchParams.set('page', pageNumber.value);
+
+    if (search.value) {
+        url.searchParams.append('search', search.value);
+    }
+
+    return url
+});
+
+watch(
+    () => requestUrl.value,
+    (updatedUrl) => {
+        router.visit(updatedUrl, {
+            preserveScroll: true,
+            preserveState: true,
+            replace: true
+        })
+    }
+)
+
+watch(
+    () => search.value,
+    (value) => {
+        if (value) {
+            pageNumber.value = 1;
+        }
+    }
+)
 
 
 </script>
@@ -73,7 +114,24 @@ const cancelNotify = (task) => {
                         </p>
                     </div>
                 </div>
-                <div v-for="request in requests" class="mb-6 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+
+                <div class="mb-4 relative text-sm text-gray-800 col-span-3">
+                    <div
+                        class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
+                    >
+                        <MagnifyingGlass />
+                    </div>
+
+                    <input
+                        v-model="search"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Search officer, odts..."
+                        id="search"
+                        class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                </div>
+                <div v-for="request in requests.data" class="mb-6 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div class="flex items-center justify-start space-x-4">
                             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-100">
@@ -122,6 +180,10 @@ const cancelNotify = (task) => {
                         </div>
                     </div>
                 </div>
+                <Pagination 
+                    :data="requests" 
+                    :updatedPageNumber="updatedPageNumber"
+                /> 
             </div>
         </div>
     </OfficerLayout>
