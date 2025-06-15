@@ -7,7 +7,6 @@ use App\Http\Resources\ActivityLogResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
-use Carbon\Carbon;
 
 class LogController extends Controller
 {
