@@ -47,12 +47,14 @@ class DashboardController extends Controller
             ->paginate(10));
 
             $assignedTaskCount = AssignedTaskResource::collection(AssignedTask::where('officer_id', auth()->id())->get());
+            $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])->where('officer_id', auth()->id())->latest()->get());
 
             return Inertia::render('Officer/Dashboard', [
                 'search' => $request->search ?? '',
                 'status_filter' => $request->status ?? '',
                 'assignedTasks' => $assignedTasks,
                 'assignedTaskCount' => $assignedTaskCount,
+                'requests' => $requests,
             ]);
         }
 
