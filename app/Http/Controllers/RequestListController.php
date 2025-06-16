@@ -78,6 +78,15 @@ class RequestListController extends Controller
                     'request_status' => 2 // request task is not done
                 ]);
 
+                ActivityLog::create([
+                    'task_id' => $request->task_id,
+                    'officer_id' => auth()->id(),
+                    'task_name' => $task->name,
+                    'officer_name' => auth()->user()->name,
+                    'activity' => 'Notify_Not_Done',
+                    'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Not Done"'
+                ]);
+
                 return redirect()->back();
             } else {
                 $task->update([
@@ -90,7 +99,7 @@ class RequestListController extends Controller
                     'task_name' => $task->name,
                     'officer_name' => auth()->user()->name,
                     'activity' => 'Notify_Done',
-                    'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Done "'
+                    'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Done"'
                 ]);
 
                 return redirect()->back();
