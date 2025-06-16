@@ -54,9 +54,11 @@ class RequestListController extends Controller
                     'task_id' => $request->task_id,
                     'chief_id' => auth()->id(),
                     'officer_id' => $request->officer_id,
-                    'activity' => 'Assigned',
+                    'task_name' => $task->name,
+                    'chief_name' => auth()->user()->name,
+                    'officer_name' => $officer->name,
+                    'activity' => 'Confirm_Done',
                     'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Done with the "' . $request->task_name .'"'
-
                 ]);
 
                 return redirect()->back();
@@ -66,6 +68,17 @@ class RequestListController extends Controller
                 $task->update([
                     'request_status' => 0, // remove the request
                     'is_done' => 0 // set the task to not done
+                ]);
+
+                ActivityLog::create([
+                    'task_id' => $request->task_id,
+                    'chief_id' => auth()->id(),
+                    'officer_id' => $request->officer_id,
+                    'task_name' => $task->name,
+                    'chief_name' => auth()->user()->name,
+                    'officer_name' => $officer->name,
+                    'activity' => 'Confirm_Not_Done',
+                    'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Not Done with the "' . $request->task_name .'"'
                 ]);
 
                 return redirect()->back();
