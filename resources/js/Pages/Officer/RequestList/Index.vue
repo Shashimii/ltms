@@ -2,17 +2,23 @@
 import OfficerLayout from '@/Layouts/OfficerLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 
-let props = defineProps({
+const props = defineProps({
     requests: {
         type: Object,
         required: true
     }
 });
 
-let requests = props.requests.data;
+const requests = computed(() => props.requests.data);
+
+const cancel = (id) => {
+    router.put(route('officer.notification.cancel', id), {}, {
+        preserveScroll: true,
+    });
+};
 
 </script>
 
@@ -78,11 +84,10 @@ let requests = props.requests.data;
                             </p>
                         </div>
                         <div class="mt-6 flex justify-end space-x-6">
-                            <SecondaryButton>
-                                <p>
-                                    Cancel
-                                </p>                            
+                            <SecondaryButton @click="cancel(request.id)">
+                                <p>Cancel</p>
                             </SecondaryButton>
+
                             <PrimaryButton disabled>
                                 <p>
                                     Waiting for Confirmation
