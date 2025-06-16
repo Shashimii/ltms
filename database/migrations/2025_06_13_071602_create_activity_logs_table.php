@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('chief_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('officer_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->string('task_name')->nullable();
+            $table->string('admin_name')->nullable();
+            $table->string('chief_name')->nullable();
+            $table->string('officer_name')->nullable();
             $table->string('activity');
             $table->string('description');
             $table->timestamps();

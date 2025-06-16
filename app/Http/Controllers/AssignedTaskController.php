@@ -45,16 +45,20 @@ class AssignedTaskController extends Controller
     public function store(StoreAssignedTaskRequest $request)
     {
         $auth = auth()->user();
-        $officer_id = auth()->id();
+        $chief_id = auth()->id();
         $officer = User::find($request->officer_id);
         $task = Task::find($request->task_id);
 
         if ($auth->role === User::ROLE_CHIEF) {
             AssignedTask::create($request->validated());
+
             ActivityLog::create([
                 'task_id' => $request->task_id,
-                'chief_id' => $officer_id,
+                'chief_id' => $chief_id,
                 'officer_id' => $request->officer_id,
+                'task_name' => $task->name,
+                'chief_name' => $auth->name,
+                'officer_name' => $officer->name,
                 'activity' => 'Assigned',
                 'description' => $auth->name . ' assigned "' . $task->name . '" to "' . $officer->name .'"'
 
@@ -62,11 +66,6 @@ class AssignedTaskController extends Controller
 
             return redirect()->back();
         }
-
-        // if ($auth->role === User::ROLE_OFFICER) {
-        //     AssignedTask::create($request->validated());
-        //     return redirect()->back();
-        // }
 
         abort(403);        
     }
@@ -80,11 +79,6 @@ class AssignedTaskController extends Controller
             return redirect()->back();
         }
 
-        // if ($auth->role === User::ROLE_OFFICER) {
-        //     $assignedTask->update($request->validated());
-        //     return redirect()->back();
-        // }
-
         abort(403);        
     }
 
@@ -96,11 +90,6 @@ class AssignedTaskController extends Controller
             $assignedTask->delete();
             return redirect()->back();   
         }
-
-        // if ($auth->role === User::ROLE_OFFICER) {
-        //     $assignedTask->delete();
-        //     return redirect()->back();   
-        // }
 
         abort(403);        
     }
