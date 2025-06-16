@@ -86,11 +86,11 @@ class RequestListController extends Controller
 
                 ActivityLog::create([
                     'task_id' => $request->task_id,
-                    'chief_id' => auth()->id(),
-                    'officer_id' => $request->officer_id,
-                    'activity' => 'Assigned',
+                    'officer_id' => auth()->id(),
+                    'task_name' => $task->name,
+                    'officer_name' => auth()->user()->name,
+                    'activity' => 'Notify_Done',
                     'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Done "'
-
                 ]);
 
                 return redirect()->back();
