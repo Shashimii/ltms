@@ -57,6 +57,7 @@ class AssignedTaskController extends Controller
                 'chief_id' => $chief_id,
                 'officer_id' => $request->officer_id,
                 'task_name' => $task->name,
+                'odts_code' => $request->odts_code,
                 'chief_name' => $auth->name,
                 'officer_name' => $officer->name,
                 'activity' => 'Assigned',
@@ -67,7 +68,7 @@ class AssignedTaskController extends Controller
             return redirect()->back();
         }
 
-        abort(403);        
+        abort(403);   
     }
 
     public function update(UpdateAssignedTaskRequest $request, AssignedTask $assignedTask)
