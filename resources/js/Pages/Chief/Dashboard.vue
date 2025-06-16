@@ -440,7 +440,7 @@ const notificationRoute = () => {
                             Notifications
                         </h1>
                         <p class="mt-2 text-sm text-gray-700">
-                            Number of notification sent by officers will be shown here.
+                            Here, you can see the count of notify sent by officers.
                         </p>
                     </div>
                 </div>

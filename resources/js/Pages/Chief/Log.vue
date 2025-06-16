@@ -267,11 +267,6 @@ watch(
             </div>
         </div>
 
-        <Pagination 
-            :data="paginationData" 
-            :updatedPageNumber="updatedPageNumber"
-        /> 
-
         <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
             <div class="flex space-x-2 bg-white shadow-lg rounded-full px-4 py-2">
                 <button

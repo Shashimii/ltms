@@ -176,23 +176,23 @@ const notificationRoute = () => {
                 <div class="mb-4 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900">
-                            Pending Notify
+                            Notify Pending
                         </h1>
                         <p class="mt-2 text-sm text-gray-700">
-                            Here you can see how many pending notifications you’ve sent to the chief.
+                            Here you can see how many notify on pedning you’ve sent to the chief.
                         </p>
                     </div>
                 </div>
 
                 <div class="bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400 text-teal-900 font-semibold text-lg p-4 border border-teal-300 rounded shadow flex justify-between items-center space-x-4">
                     <p class="text-sm sm:text-base">
-                        You have: <span class="text-red-600">{{ requestCount }}</span> Notifications
+                        You have: <span class="text-red-600">{{ requestCount }}</span> Pending Notify
                     </p>
                     <PrimaryButton
                         @click="notificationRoute"
                         class="inline-flex items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
                     >
-                        View Notifications
+                        View Notify Pending
                     </PrimaryButton>
                 </div>
 
