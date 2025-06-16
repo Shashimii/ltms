@@ -61,7 +61,7 @@ Route::middleware(['auth', 'chief'])->group(function () {
 Route::middleware(['auth', 'officer'])->group(function () {
     Route::get('/officer/dashboard', [DashboardController::class, 'index'])->name('officer.dashboard');
     Route::get('/officer/log', [LogController::class, 'index'])->name('officer.log');
-    
+
     Route::resource('/officer/task', TaskListController::class)->names('officer.task');
     Route::resource('/officer/request', RequestListController::class)->names('officer.request');
     Route::resource('/officer/notification', RequestListController::class)->names('officer.notification');

@@ -60,7 +60,6 @@ class RequestListController extends Controller
                     'task_name' => $request->task_name,
                     'activity' => 'Done_Confirmation',
                     'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Done with the "' . $request->task_name .'"'
-
                 ]);
 
                 return redirect()->back();
@@ -177,4 +176,47 @@ class RequestListController extends Controller
 
         abort(404); 
     }
+
+    public function cancel($id)
+    {
+        $request = AssignedTask::findOrFail($id);
+        $task = Task::findOrFail($request->task_id);
+
+        if ($request->request_status === 1) {
+            $request->update([
+                'request_status' => 0,
+            ]); 
+
+            ActivityLog::create([
+                'task_id' => $request->task_id,
+                'officer_id' => auth()->id(),
+                'task_name' => $task->name,
+                'officer_name' => auth()->user()->name,
+                'odts_code' => $request->odts_code,
+                'activity' => 'Cancel_Notify_Done',
+                'description' => auth()->user()->name . ' canceled the done notify on "' . $task->name . '"'
+            ]);
+
+            return redirect()->back();
+        }
+
+        if ($request->request_status === 2) {
+            $request->update([
+                'request_status' => 0,
+            ]); 
+
+            ActivityLog::create([
+                'task_id' => $request->task_id,
+                'officer_id' => auth()->id(),
+                'task_name' => $task->name,
+                'officer_name' => auth()->user()->name,
+                'odts_code' => $request->odts_code,
+                'activity' => 'Cancel_Notify_Not_Done',
+                'description' => auth()->user()->name . ' canceled the not done notify on "' . $task->name . '"'
+            ]);
+
+            return redirect()->back();
+        }
+    }
+
 }

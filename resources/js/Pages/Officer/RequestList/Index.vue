@@ -9,7 +9,7 @@ import Pagination from '@/Components/Pagination.vue';
 import { Head, useForm, router, usePage } from '@inertiajs/vue3';
 import { computed, ref, watch } from 'vue';
 
-let props = defineProps({
+const props = defineProps({
     requests: {
         type: Object,
         required: true
@@ -172,6 +172,7 @@ watch(
                                     Cancel
                                 </p>                            
                             </SecondaryButton>
+
                             <PrimaryButton disabled>
                                 <p>
                                     Waiting for Confirmation

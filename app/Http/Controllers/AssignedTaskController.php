@@ -49,6 +49,7 @@ class AssignedTaskController extends Controller
 
         if ($auth->role === User::ROLE_CHIEF) {
             AssignedTask::create($request->validated());
+
             ActivityLog::create([
                 'task_id' => $request->task_id,
                 'chief_id' => auth()->id(),

@@ -266,5 +266,28 @@ watch(
                 </button>
             </div>
         </div>
+
+        <Pagination 
+            :data="paginationData" 
+            :updatedPageNumber="updatedPageNumber"
+        /> 
+
+        <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+            <div class="flex space-x-2 bg-white shadow-lg rounded-full px-4 py-2">
+                <button
+                    v-for="filter in filters"
+                    :key="filter.value"
+                    @click="applyFilter(filter.value)"
+                    :class="[
+                        'px-4 py-2 rounded-full text-sm font-medium',
+                        rangeFilter === filter.value
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-200 text-gray-800'
+                    ]"
+                >
+                    {{ filter.label }}
+                </button>
+            </div>
+        </div>
     </ChiefLayout>
 </template>
