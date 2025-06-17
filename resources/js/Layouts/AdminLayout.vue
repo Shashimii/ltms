@@ -1,13 +1,39 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch, nextTick } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
+import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+const page = usePage();
+
+watch(
+  () => page.props.flash?.toast, // the value to watch
+  async (toast) => {
+    if (toast && toast.message) {
+      await nextTick(); // make sure DOM is updated
+
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        iconColor: 'white',
+        icon: toast.type || 'info',
+        title: toast.message,
+        customClass: {
+          popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: false,
+      });
+    }
+  },
+  { immediate: true } // Run on first render if toast is already present
+);
 </script>
 
 <template>
