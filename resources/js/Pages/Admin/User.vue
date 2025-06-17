@@ -348,7 +348,7 @@ const deleteUser = (id) => {
                     </p>
                 </div>
 
-                <div class="mt-6 grid grid-cols-6 gap-6">
+                <div class="mt-6 grid grid-cols-3 gap-6 md:grid-cols-6">
 
                     <div class="col-span-3">
                         <InputLabel for="name" value="Name" />
@@ -376,7 +376,7 @@ const deleteUser = (id) => {
                         <InputLabel for="password" value="Password" />
                         <TextInput 
                             id="password"
-                            type="text"
+                            type="password"
                             class="mt-1 block w-full"
                             v-model="createForm.password"
                             placeholder="Enter password"
@@ -387,7 +387,7 @@ const deleteUser = (id) => {
                         <InputLabel for="password_confirmation" value="Confirm Password" />
                         <TextInput 
                             id="password_confirmation"
-                            type="text"
+                            type="password"
                             class="mt-1 block w-full"
                             v-model="createForm.password_confirmation"
                             placeholder="Enter confirm password"
@@ -396,6 +396,9 @@ const deleteUser = (id) => {
                     </div>
                     <div class="col-span-3">
                         <InputLabel for="role" value="Account Type" />
+                        <p class="text-sm text-gray-600 text-left">
+                            The account type cannot be modified after registration.
+                        </p>
                         <select
                             v-model="createForm.role"
                             id="role"
@@ -436,7 +439,7 @@ const deleteUser = (id) => {
                     </p>
                 </div>
 
-                <div class="mt-6 grid grid-cols-6 gap-6">
+                <div class="mt-6 grid grid-cols-3 gap-6 md:grid-cols-6">
 
                     <div class="col-span-3">
                         <InputLabel for="update_name" value="Name" />
@@ -467,7 +470,7 @@ const deleteUser = (id) => {
                         </p>
                         <TextInput 
                             id="update_password"
-                            type="text"
+                            type="password"
                             class="mt-1 block w-full"
                             v-model="editForm.password"
                             placeholder="Enter password"
@@ -481,7 +484,7 @@ const deleteUser = (id) => {
                         </p>
                         <TextInput 
                             id="update_password_confirmation"
-                            type="text"
+                            type="password"
                             class="mt-1 block w-full"
                             v-model="editForm.password_confirmation"
                             placeholder="Enter confirm password"
@@ -490,6 +493,9 @@ const deleteUser = (id) => {
                     </div>
                     <div class="col-span-3">
                         <InputLabel for="update_role" value="Account Type" />
+                        <p class="text-sm text-gray-600 text-left">
+                            The account type cannot be modified after registration.
+                        </p>
                         <select
                             disabled
                             v-model="editForm.role"
