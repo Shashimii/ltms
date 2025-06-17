@@ -294,16 +294,16 @@ watch(
         </div>
 
         <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-            <div class="flex space-x-2 bg-white shadow-lg rounded-full px-4 py-2">
+            <div class="flex space-x-2 bg-gradient-to-r from-green-400 to-green-500 dark:from-green-700 dark:to-green-800 shadow-lg rounded-full px-4 py-2">
                 <button
                     v-for="filter in filters"
                     :key="filter.value"
                     @click="applyFilter(filter.value)"
                     :class="[
-                        'px-4 py-2 rounded-full text-sm font-medium',
+                        'px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200',
                         rangeFilter === filter.value
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-200 text-gray-800'
+                            ? 'bg-white text-violet-700 dark:bg-gray-100 dark:text-violet-900 shadow'
+                            : 'bg-white/40 text-white hover:bg-white/60 hover:text-violet-900 dark:bg-white/10 dark:text-gray-200 dark:hover:bg-white/20 dark:hover:text-white'
                     ]"
                 >
                     {{ filter.label }}
@@ -311,22 +311,5 @@ watch(
             </div>
         </div>
 
-        <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-            <div class="flex space-x-2 bg-white shadow-lg rounded-full px-4 py-2">
-                <button
-                    v-for="filter in filters"
-                    :key="filter.value"
-                    @click="applyFilter(filter.value)"
-                    :class="[
-                        'px-4 py-2 rounded-full text-sm font-medium',
-                        rangeFilter === filter.value
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-200 text-gray-800'
-                    ]"
-                >
-                    {{ filter.label }}
-                </button>
-            </div>
-        </div>
     </ChiefLayout>
 </template>
