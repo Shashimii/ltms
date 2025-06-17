@@ -62,7 +62,10 @@ class RequestListController extends Controller
                     'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Done with the "' . $request->task_name .'"'
                 ]);
 
-                return redirect()->back();
+                return redirect()->back()->with('toast', [
+                    'message' => 'Confirmed successfully.',
+                    'type' => 'success',
+                ]);
             }
 
             if ((int) $request->request_status === 2) {
@@ -84,49 +87,73 @@ class RequestListController extends Controller
 
                 ]);
 
-                return redirect()->back();
+                return redirect()->back()->with('toast', [
+                    'message' => 'Confirmed successfully.',
+                    'type' => 'success',
+                ]);
             }
 
             abort(404);
         }
 
         if ($user->role === User::ROLE_OFFICER) {
+
             if ($request->is_done) {
-                $task->update([
-                    'request_status' => 2 // request task is not done
+                if ($task->request_status != 2) {
+                    $task->update([
+                        'request_status' => 2 // request task is not done
+                    ]);
+
+                    ActivityLog::create([
+                        'task_id' => $request->task_id,
+                        'officer_id' => auth()->id(),
+                        'officer_name' => auth()->user()->name,
+                        'odts_code' => $request->odts_code,
+                        'task_name' => $request->task_name,
+                        'activity' => 'Not_Done_Notify',
+                        'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Not Done "'
+
+                    ]);
+
+                    return redirect()->back()->with('toast', [
+                        'message' => 'The chief has been successfully notified!',
+                        'type' => 'success'
+                    ]);
+                }
+
+                return redirect()->back()->with('toast', [
+                    'message' => 'Already notified the chief. wait for confirmation.',
+                    'type' => 'error',
                 ]);
-
-                ActivityLog::create([
-                    'task_id' => $request->task_id,
-                    'officer_id' => auth()->id(),
-                    'officer_name' => auth()->user()->name,
-                    'odts_code' => $request->odts_code,
-                    'task_name' => $request->task_name,
-                    'activity' => 'Not_Done_Notify',
-                    'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Not Done "'
-
-                ]);
-
-                return redirect()->back();
             } 
             
             if (!$request->is_done) {
-                $task->update([
-                    'request_status' => 1 // request task is done
+                if ($task->request_status !=1) {
+                    $task->update([
+                        'request_status' => 1 // request task is done
+                    ]);
+
+                    ActivityLog::create([
+                        'task_id' => $request->task_id,
+                        'officer_id' => auth()->id(),
+                        'officer_name' => auth()->user()->name,
+                        'odts_code' => $request->odts_code,
+                        'task_name' => $request->task_name,
+                        'activity' => 'Done_Notify',
+                        'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Done "'
+
+                    ]);
+
+                    return redirect()->back()->with('toast', [
+                        'message' => 'The chief has been successfully notified!',
+                        'type' => 'success'
+                    ]);                
+                }
+
+                return redirect()->back()->with('toast', [
+                    'message' => 'Already notified the chief. wait for confirmation.',
+                    'type' => 'error'
                 ]);
-
-                ActivityLog::create([
-                    'task_id' => $request->task_id,
-                    'officer_id' => auth()->id(),
-                    'officer_name' => auth()->user()->name,
-                    'odts_code' => $request->odts_code,
-                    'task_name' => $request->task_name,
-                    'activity' => 'Done_Notify',
-                    'description' => auth()->user()->name . ' notified the chief that the "' . $request->task_name . '" is "Done "'
-
-                ]);
-
-                return redirect()->back();
             }
 
             abort(404); 
@@ -156,7 +183,10 @@ class RequestListController extends Controller
                 'description' => auth()->user()->name . ' canceled the done notify on "' . $task->name . '"'
             ]);
             
-            return redirect()->back();
+            return redirect()->back()->with('toast', [
+                'message' => 'Chief notify has been called off.',
+                'type' => 'error'
+            ]);
         }
 
         // not done notify cancel
@@ -171,52 +201,12 @@ class RequestListController extends Controller
                 'description' => auth()->user()->name . ' canceled the not done notify on "' . $task->name . '"'
             ]); 
             
-            return redirect()->back();
+            return redirect()->back()->with('toast', [
+                'message' => 'Chief notify has been called off.',
+                'type' => 'error'
+            ]);
         }
 
         abort(404); 
     }
-
-    public function cancel($id)
-    {
-        $request = AssignedTask::findOrFail($id);
-        $task = Task::findOrFail($request->task_id);
-
-        if ($request->request_status === 1) {
-            $request->update([
-                'request_status' => 0,
-            ]); 
-
-            ActivityLog::create([
-                'task_id' => $request->task_id,
-                'officer_id' => auth()->id(),
-                'task_name' => $task->name,
-                'officer_name' => auth()->user()->name,
-                'odts_code' => $request->odts_code,
-                'activity' => 'Cancel_Notify_Done',
-                'description' => auth()->user()->name . ' canceled the done notify on "' . $task->name . '"'
-            ]);
-
-            return redirect()->back();
-        }
-
-        if ($request->request_status === 2) {
-            $request->update([
-                'request_status' => 0,
-            ]); 
-
-            ActivityLog::create([
-                'task_id' => $request->task_id,
-                'officer_id' => auth()->id(),
-                'task_name' => $task->name,
-                'officer_name' => auth()->user()->name,
-                'odts_code' => $request->odts_code,
-                'activity' => 'Cancel_Notify_Not_Done',
-                'description' => auth()->user()->name . ' canceled the not done notify on "' . $task->name . '"'
-            ]);
-
-            return redirect()->back();
-        }
-    }
-
 }
