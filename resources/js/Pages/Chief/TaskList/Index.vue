@@ -307,7 +307,7 @@ watch(
                         Task Information
                     </h3>
                     <p class="mt-1 text-sm text-gray-500">
-                        Use this form to add new task.
+                        Use this form to edit existing task.
                     </p>
                 </div>
 
@@ -315,6 +315,9 @@ watch(
 
                     <div class="col-span-6">
                         <InputLabel for="task_name" value="Task Name" />
+                        <p class="text-sm text-gray-600 text-left">
+                            modifying the task name will not affect the logs.
+                        </p>
                         <TextInput 
                             id="task_name"
                             type="text"
@@ -352,8 +355,9 @@ watch(
                 </div>
 
                 <p class="mt-4 text-md text-gray-600 text-left">
-                    Are you sure you want to delete task
-                    <strong>{{ deleteForm.name }}</strong>
+                    Are you sure you want to delete the task 
+                    <strong class="text-black">{{ deleteForm.name }}</strong>
+                    ? This will also remove all related records and assigned tasks.
                 </p>
                 <div class="mt-6 flex justify-end gap-4">
                     <DangerButton @click="saveDelete(deleteForm.id)" :disabled="deleteForm.processing">
