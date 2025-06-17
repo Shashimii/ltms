@@ -32,18 +32,28 @@ class TaskListController extends Controller
     public function store(StoreTaskRequest $request)
     {
         Task::create($request->validated());
-        return redirect()->back();
+
+        return redirect()->back()->with('toast', [
+            'message' => 'Added Successfully.',
+            'type' => 'success'
+        ]);
     }
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
         $task->update($request->validated());
-        return redirect()->back();
+        return redirect()->back()->with('toast', [
+            'message' => 'Edited Successfully.',
+            'type' => 'success'
+        ]);
     }
 
     public function destroy(Task $task)
     {
         $task->delete();
-        return redirect()->back();
+        return redirect()->back()->with('toast', [
+            'message' => 'Deleted Successfully.',
+            'type' => 'warning'
+        ]);
     }
 }

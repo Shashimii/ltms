@@ -63,7 +63,10 @@ class AssignedTaskController extends Controller
 
             ]);
 
-            return redirect()->back();
+            return redirect()->back()->with('toast', [
+                'message' => 'Assigned Successfully.',
+                'type' => 'success'
+            ]);
         }
 
         abort(403);        
@@ -75,7 +78,10 @@ class AssignedTaskController extends Controller
 
         if ($auth->role === User::ROLE_CHIEF) {
             $assignedTask->update($request->validated());
-            return redirect()->back();
+            return redirect()->back()->with('toast', [
+                'message' => 'Edited Successfully.',
+                'type' => 'success'
+            ]);
         }
 
         abort(403);        
@@ -87,7 +93,10 @@ class AssignedTaskController extends Controller
 
         if ($auth->role === User::ROLE_CHIEF) {
             $assignedTask->delete();
-            return redirect()->back();   
+            return redirect()->back()->with('toast', [
+                'message' => 'Deleted Successfully.',
+                'type' => 'warning'
+            ]); 
         }
 
         abort(403);        
