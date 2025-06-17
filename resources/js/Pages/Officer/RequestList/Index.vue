@@ -131,53 +131,70 @@ watch(
                         class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
-                <div v-for="request in requests.data" class="mb-6 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <div class="flex items-center justify-start space-x-4">
-                            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-100">
-                                <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
-                            </div>
-                            <div class="flex justify-between w-full">
-                                <h2 class="text-lg font-semibold">
-                                    {{ request.officer.name }}
-                                    Notified the chief
-                                    <span v-if="request.request_status === 1">Done</span>
-                                    <span v-else-if="request.request_status === 2">Undone</span>
-                                </h2>
+                <div
+                    v-for="request in requests.data"
+                    :key="request.id"
+                    class="mb-4 rounded-lg bg-white p-4 shadow dark:bg-gray-800"
+                >
+                    <div class="flex items-start gap-4">
+                        <!-- Avatar Icon -->
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/20">
+                            <svg
+                                class="h-6 w-6 text-blue-600 dark:text-blue-300"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                                />
+                            </svg>
+                        </div>
 
-                                <p class="text-lg font-semibold">
+                        <!-- Info -->
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                    {{ request.officer.name }}
+                                    is
+                                    <span
+                                        class="font-bold"
+                                        :class="request.request_status === 1 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'"
+                                    >
+                                        {{ request.request_status === 1 ? 'Done' : 'Undone' }}
+                                    </span>
+                                </h2>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
                                     {{ request.odts_code }}
                                 </p>
                             </div>
-                        </div>
-                        <div class="ms-16">
-                            <p class="mt-4 text-md text-gray-600 text-justify">
-                                <strong class="text-gray-900">{{ request.officer.name }}</strong>
-                                has notified the Chief that the
-                                <strong class="text-gray-900">{{ request.task.name }}</strong>
-                                task assigned on
-                                <strong class="text-gray-900">{{ request.assigned_at }}</strong>
-                                is
-                                <strong class="text-gray-900">
-                                    <span v-if="request.request_status === 1">Done.</span>
-                                    <span v-else-if="request.request_status === 2">Undone.</span>
-                                </strong>
-                            </p>
-                        </div>
-                        <div class="mt-6 flex justify-end space-x-6">
-                            <SecondaryButton @click="openCancelModal(request)">
-                                <p>
-                                    Cancel
-                                </p>                            
-                            </SecondaryButton>
 
-                            <PrimaryButton disabled>
-                                <p>
-                                    Waiting for Confirmation
-                                </p>                            
-                            </PrimaryButton>
+                            <!-- Description -->
+                            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                                <span class="font-semibold text-blue-700 dark:text-blue-700">{{ request.officer.name }}</span>
+                                is
+                                <span
+                                    class="font-semibold"
+                                    :class="request.request_status === 1 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'"
+                                >
+                                    {{ request.request_status === 1 ? 'Done' : 'Undone' }}
+                                </span>
+                                with
+                                <span class="font-semibold text-violet-800 dark:text-violet-800">{{ request.task.name }}</span>,
+                                assigned on
+                                <span class="font-semibold text-teal-600 dark:teal-teal-200">{{ request.assigned_at }}</span>.
+                            </p>
+
+                            <!-- Action -->
+                            <div class="mt-2 flex justify-end">
+                                <PrimaryButton @click="openModalConfirmation(request)">
+                                    Confirm
+                                </PrimaryButton>
+                            </div>
                         </div>
                     </div>
                 </div>
