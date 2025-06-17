@@ -47,7 +47,10 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->back();
+        return redirect()->back()->with('toast', [
+            'message' => 'Added Successfully.',
+            'type' => 'success'
+        ]);
     }
 
     public function update(Request $request, $id): RedirectResponse
@@ -71,7 +74,10 @@ class RegisteredUserController extends Controller
 
         $user->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('toast', [
+            'message' => 'Edited Successfully.',
+            'type' => 'success'
+        ]);
     }
 
     public function destroy($id): RedirectResponse
@@ -82,7 +88,10 @@ class RegisteredUserController extends Controller
         $user->delete();
         
 
-        return redirect()->back();
+        return redirect()->back()->with('toast', [
+            'message' => 'Deleted Successfully.',
+            'type' => 'warning'
+        ]);
     }
 
 }

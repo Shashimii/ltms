@@ -491,6 +491,7 @@ const deleteUser = (id) => {
                     <div class="col-span-3">
                         <InputLabel for="update_role" value="Account Type" />
                         <select
+                            disabled
                             v-model="editForm.role"
                             id="update_role"
                             class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
