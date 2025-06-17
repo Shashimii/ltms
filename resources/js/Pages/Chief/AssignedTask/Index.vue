@@ -530,7 +530,11 @@ watch(
                         >
                             Officer
                         </label>
+                        <p class="text-sm text-gray-600 text-left">
+                            Assigning officer can't be changed after assignment.
+                        </p>
                         <select
+                            disabled
                             v-model="editForm.officer_id"
                             id="officer_id"
                             class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -557,7 +561,11 @@ watch(
                         >
                             Task
                         </label>
+                        <p class="text-sm text-gray-600 text-left">
+                            Task can't be changed once assigned.
+                        </p>
                         <select
+                            disabled
                             v-model="editForm.task_id"
                             id="task_id"
                             class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -598,8 +606,11 @@ watch(
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
+                        <p class="text-sm text-gray-600 text-left">
+                            Task status can’t be changed once assigned.
+                        </p>
                         <label for="is_done" class="flex items-center">
-                            <Checkbox id="is_done" name="is_done" v-model:checked="editForm.is_done" />
+                            <Checkbox disabled id="is_done" name="is_done" v-model:checked="editForm.is_done" />
                             <span class="ms-2 text-sm text-gray-600">
                                 Task is Already Done.
                             </span>
