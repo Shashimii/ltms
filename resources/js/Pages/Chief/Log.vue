@@ -228,6 +228,8 @@ watch(
                     >
                         <option value="">Filter by activity</option>
                         <option value="Assigned">Assigned</option>
+                        <option value="Edited">Edited</option>
+                        <option value="Deleted">Deleted</option>
                         <option value="Done_Notify">Done Notify</option>
                         <option value="Not_Done_Notify">Not Done Notify</option>
                         <option value="Done_Confirmation">Done Confirmation</option>
