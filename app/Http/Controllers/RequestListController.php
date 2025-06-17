@@ -98,7 +98,9 @@ class RequestListController extends Controller
 
         if ($user->role === User::ROLE_OFFICER) {
 
-            if ($request->is_done) {
+            // dd($request->is_done);
+
+            if ($request->is_done && $task->is_done) {
                 if ($task->request_status != 2) {
                     $task->update([
                         'request_status' => 2 // request task is not done
@@ -127,7 +129,7 @@ class RequestListController extends Controller
                 ]);
             } 
             
-            if (!$request->is_done) {
+            if (!$request->is_done && !$task->is_done) {
                 if ($task->request_status !=1) {
                     $task->update([
                         'request_status' => 1 // request task is done
@@ -156,7 +158,10 @@ class RequestListController extends Controller
                 ]);
             }
 
-            abort(404); 
+            return redirect()->back()->with('toast', [
+                'message' => 'This has already been confirmed by the Chief. Please reload the page.',
+                'type' => 'error'
+            ]);
         }
 
         abort(403); 
