@@ -78,8 +78,7 @@ class AssignedTaskController extends Controller
         $officer = User::findOrFail($assignedTask->officer_id);
         $task = Task::findOrFail($assignedTask->task_id);
 
-        if ($auth->role === User::ROLE_CHIEF) {
-            $assignedTask->update($request->validated());
+        if ($auth->role === User::ROLE_CHIEF) { 
 
             ActivityLog::create([
                 'task_id' => $assignedTask->task_id,
@@ -87,11 +86,16 @@ class AssignedTaskController extends Controller
                 'officer_id' => $assignedTask->officer_id,
                 'chief_name' => $auth->name,
                 'officer_name' => $officer->name,
-                'odts_code' => $assignedTask->odts_code,
+                'odts_code_old' => $assignedTask->odts_code,
+                'odts_code' => $request->odts_code,
                 'task_name' => $task->name,
+                'assigned_at_old' => $assignedTask->assigned_at,
+                'assigned_at' => $request->assigned_at,
                 'activity' => 'Edited',
-                'description' => $auth->name . ' make changes to "' . $task->name . '" assigned to "' . $officer->name .'"'
+                'description' => $auth->name . ' make changes to "' . $task->name . '" assigned to "' . $officer->name .'" check new odts code "' . $request->odts_code .'"' 
             ]);
+
+            $assignedTask->update($request->validated());
 
             return redirect()->back()->with('toast', [
                 'message' => 'Edited Successfully.',

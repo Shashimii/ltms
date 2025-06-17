@@ -18,10 +18,13 @@ class ActivityLogResource extends JsonResource
             'id' => $this->id,
             'chief_name' => $this->chief_name,
             'officer_name' => $this->officer_name,
+            'odts_code_old' => $this->odts_code_old,
             'odts_code' => $this->odts_code,
             'task_name' => $this->task_name,
             'activity' => $this->activity,
             'description' => $this->description,
+            'assigned_at_old' => $this->assigned_at_old ? Carbon::parse($this->assigned_at_old)->format('m-d-Y') : null,
+            'assigned_at' => $this->assigned_at ? Carbon::parse($this->assigned_at)->format('m-d-Y') : null,
             'created_at' => Carbon::parse($this->created_at)
                 ->timezone('Asia/Manila')
                 ->format('F j, Y h:i A'),

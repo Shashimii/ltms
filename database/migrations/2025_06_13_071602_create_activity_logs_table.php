@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('chief_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('officer_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->date('assigned_at_old')->nullable();
+            $table->date('assigned_at')->nullable();
+            $table->string('odts_code_old')->nullable();
             $table->string('odts_code')->nullable();
             $table->string('task_name')->nullable();
             $table->string('admin_name')->nullable();

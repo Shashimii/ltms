@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class ActivityLog extends Model
 {
-    protected $fillable = ['task_id', 'admin_id', 'chief_id', 'officer_id', 'odts_code', 'task_name', 'admin_name', 'chief_name', 'officer_name', 'activity', 'description'];
+    protected $fillable = ['task_id', 'admin_id', 'chief_id', 'officer_id', 'odts_code_old', 'odts_code', 'task_name', 'admin_name', 'chief_name', 'officer_name', 'assigned_at_old', 'assigned_at', 'activity', 'description'];
 
 
     public function scopeSearch(Builder $query, Request $request)
