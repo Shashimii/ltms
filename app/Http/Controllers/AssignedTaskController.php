@@ -75,24 +75,54 @@ class AssignedTaskController extends Controller
     public function update(UpdateAssignedTaskRequest $request, AssignedTask $assignedTask)
     {
         $auth = auth()->user();
+        $officer = User::findOrFail($assignedTask->officer_id);
+        $task = Task::findOrFail($assignedTask->task_id);
 
         if ($auth->role === User::ROLE_CHIEF) {
             $assignedTask->update($request->validated());
+
+            ActivityLog::create([
+                'task_id' => $assignedTask->task_id,
+                'chief_id' => auth()->id(),
+                'officer_id' => $assignedTask->officer_id,
+                'chief_name' => $auth->name,
+                'officer_name' => $officer->name,
+                'odts_code' => $assignedTask->odts_code,
+                'task_name' => $task->name,
+                'activity' => 'Edited',
+                'description' => $auth->name . ' make changes to "' . $task->name . '" assigned to "' . $officer->name .'"'
+            ]);
+
             return redirect()->back()->with('toast', [
                 'message' => 'Edited Successfully.',
                 'type' => 'success'
             ]);
         }
 
-        abort(403);        
+        abort(403); 
     }
 
     public function destroy(AssignedTask $assignedTask)
     {
         $auth = auth()->user();
+        $officer = User::findOrFail($assignedTask->officer_id);
+        $task = Task::findOrFail($assignedTask->task_id);
 
         if ($auth->role === User::ROLE_CHIEF) {
             $assignedTask->delete();
+
+            ActivityLog::create([
+                'task_id' => $assignedTask->task_id,
+                'chief_id' => auth()->id(),
+                'officer_id' => $assignedTask->officer_id,
+                'chief_name' => $auth->name,
+                'officer_name' => $officer->name,
+                'odts_code' => $assignedTask->odts_code,
+                'task_name' => $task->name,
+                'activity' => 'Deleted',
+                'description' => $auth->name . ' deleted "' . $task->name . '" assigned to "' . $officer->name .'"'
+            ]);
+
             return redirect()->back()->with('toast', [
                 'message' => 'Deleted Successfully.',
                 'type' => 'warning'
