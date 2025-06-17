@@ -513,29 +513,53 @@ const notificationRoute = () => {
                         class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
-                <div
-                    v-for="log in logs.data"
-                    class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
-                >
-                    <div class="p-4 rounded-lg bg-white shadow dark:bg-gray-800 text-base text-gray-900 dark:text-gray-100 leading-relaxed border border-gray-200 dark:border-gray-700">
-                        <div class="flex justify-between align-center">
-                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                {{ log.created_at }}
-                            </p>
-                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                Odts Code: {{ log.odts_code }} 
+                <div v-if="logs.data.length != 0">
+                    <div
+                        v-for="log in logs.data"
+                        class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
+                    >
+                        <div class="p-4 rounded-lg bg-white shadow dark:bg-gray-800 text-base text-gray-900 dark:text-gray-100 leading-relaxed border border-gray-200 dark:border-gray-700">
+                            <div class="flex justify-between align-center">
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                    {{ log.created_at }}
+                                </p>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                    Odts Code: {{ log.odts_code }} 
+                                </p>
+                            </div>
+
+                            <p>
+                                <span :class="`${activityColor(log.activity)} px-2 py-1 rounded-md font-semibold text-sm inline-block mb-2`">
+                                    {{ formatActivity(log.activity) }}
+                                </span>
+                                <br />
+                                <span v-html="formattedLogMessage(log)"></span>
                             </p>
                         </div>
-
-                        <p>
-                            <span :class="`${activityColor(log.activity)} px-2 py-1 rounded-md font-semibold text-sm inline-block mb-2`">
-                                {{ formatActivity(log.activity) }}
-                            </span>
-                            <br />
-                            <span v-html="formattedLogMessage(log)"></span>
-                        </p>
                     </div>
                 </div>
+                <div v-else>
+                    <div class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-green-800">
+                        <div class="p-4 rounded-lg bg-white shadow dark:bg-green-800 text-base text-green-900 dark:text-green-100 leading-relaxed border border-green-200 dark:border-green-700">
+                            <div class="mt-6 flex flex-col items-center justify-center text-green-700 dark:text-green-400">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-16">
+                                <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 
+                                        3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <p class="text-2xl italic">No results found.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <Pagination 
                     :data="logs" 
                     :updatedPageNumber="updatedPageNumber"

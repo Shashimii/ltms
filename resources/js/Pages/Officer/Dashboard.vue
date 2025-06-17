@@ -285,6 +285,7 @@ const notificationRoute = () => {
                                         </tr>
                                     </thead>
                                     <tbody
+                                        v-if="assignedTasks.data.length != 0"
                                         class="divide-y divide-gray-200 bg-white"
                                     >
                                         <tr v-for="task in assignedTasks.data" :key="task.id">
@@ -320,6 +321,26 @@ const notificationRoute = () => {
                                                 <PrimaryButton @click="openModalNotify(task)">
                                                     Notify Chief
                                                 </PrimaryButton>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody v-else class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                                        <tr>
+                                            <td colspan="100%" class="py-12">
+                                                <div class="flex flex-col items-center justify-center text-green-700 dark:text-green-400">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke-width="1.5"
+                                                        stroke="currentColor"
+                                                        class="size-16 mb-4">
+                                                        <path stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 
+                                                            3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                    <p class="text-2xl italic text-gray-600 dark:text-gray-300">No results found.</p>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
