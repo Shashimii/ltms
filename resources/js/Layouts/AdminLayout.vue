@@ -1,11 +1,11 @@
 <script setup>
-import { ref, watch, nextTick } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import NavLink from '@/Components/NavLink.vue';
+import denrLogo from '@/Components/assets/denrLogo.png';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import Swal from 'sweetalert2';
+import { ref, watch, nextTick } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
@@ -49,9 +49,7 @@ watch(
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('admin.dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"
-                                    />
+                                    <img :src="denrLogo" alt="Logo" class="w-12 h-auto object-cover rounded-full shadow-lg dark:drop-shadow-[0_4px_6px_rgba(144,238,144,0.5)]" />
                                 </Link>
                             </div>
 
