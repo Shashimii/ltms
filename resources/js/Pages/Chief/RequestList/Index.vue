@@ -4,10 +4,10 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import MagnifyingGlass from '@/Components/Icons/MagnifyingGlass.vue';
 import Pagination from '@/Components/Pagination.vue';
-
 import Modal from '@/Components/Modal.vue';
+import axios from 'axios';
 import { Head, useForm,  router, usePage } from '@inertiajs/vue3';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue';
 
 let props = defineProps({
     requests: {
@@ -16,7 +16,26 @@ let props = defineProps({
     }
 });
 
-const requests = computed(() => props.requests);
+// polling
+const requests = ref(props.requests);
+let pollInterval = null;
+
+const pollRequests = async () => {
+    try {
+        const response = await axios.get(route('chief.notification.poll'));
+        requests.value = response.data;
+    } catch (error) {
+        console.error('Error: ', error);
+    }
+}
+
+onMounted(() => {
+    pollInterval = setInterval(pollRequests, 10000);
+});
+
+onBeforeUnmount(() => {
+    clearInterval(pollInterval);
+});
 
 const confirmationForm = useForm({
     id: null,
@@ -47,6 +66,7 @@ const saveConfirm = (confirmationForm) => {
         onSuccess: () => {
             confirmationForm.reset();
             showModalConfirmation.value = false;
+            pollRequests();
         },
 
         preserveScroll: true,

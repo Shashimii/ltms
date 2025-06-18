@@ -7,7 +7,7 @@ import Modal from '@/Components/Modal.vue';
 import MagnifyingGlass from '@/Components/Icons/MagnifyingGlass.vue';
 import Pagination from '@/Components/Pagination.vue';
 import { Head, useForm, router, usePage } from '@inertiajs/vue3';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue';
 
 const props = defineProps({
     requests: {
@@ -16,7 +16,26 @@ const props = defineProps({
     }
 });
 
-const requests = computed(() => props.requests);
+// polling
+const requests = ref(props.requests);
+let pollInterval = null;
+
+const pollRequests = async () => {
+    try {
+        const response = await axios.get(route('officer.notification.poll'));
+        requests.value = response.data;
+    } catch (error) {
+        console.error('Error: ', error);
+    }
+}
+
+onMounted(() => {
+    pollInterval = setInterval(pollRequests, 10000);
+});
+
+onBeforeUnmount(() => {
+    clearInterval(pollInterval);
+});
 
 const cancelForm = useForm({
     id: null,
@@ -39,6 +58,7 @@ const cancelNotify = (task) => {
         onSuccess: () => {
             cancelForm.reset();
             showCancelModal.value = false;
+            pollRequests();
         },
 
         preserveScroll: true,

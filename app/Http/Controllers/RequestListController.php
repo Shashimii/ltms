@@ -214,4 +214,23 @@ class RequestListController extends Controller
 
         abort(404); 
     }
+
+    public function poll(Request $request)
+    {
+        $user = auth()->user();
+
+        if ($user->role === User::ROLE_CHIEF) {
+            $requestQuery = AssignedTask::search($request)->whereIn('request_status', [1, 2])->latest()->paginate(10);
+
+            return AssignedTaskResource::collection($requestQuery);
+        }
+
+        if ($user->role === User::ROLE_OFFICER) {
+            $requestQuery = AssignedTask::search($request)->whereIn('request_status', [1, 2])->where('officer_id', auth()->id())->latest()->paginate(10);
+
+            return AssignedTaskResource::collection($requestQuery);
+        }
+
+        abort(403);
+    }
 }

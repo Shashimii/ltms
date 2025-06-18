@@ -35,11 +35,12 @@ Route::get('/', function () {
 
 // Admin
 Route::middleware(['auth', 'admin'])->group(function () {
+    // Admin
     Route::get('/admin/dashboard', [AdminController::class, 'DashboardIndex'])->name('admin.dashboard');
     Route::get('/admin/users', [AdminController::class, 'UserIndex'])->name('admin.users');
     Route::get('/admin/log', [LogController::class, 'index'])->name('admin.log');
 
-    // manage users
+    // Manage User
     Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register.store');
     Route::put('/admin/register/{id}', [RegisteredUserController::class, 'update'])->name('admin.register.update');
     Route::delete('/admin/register/{id}', [RegisteredUserController::class, 'destroy'])->name('admin.register.destroy');
@@ -48,12 +49,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 // Legal Chief
 Route::middleware(['auth', 'chief'])->group(function () {
+    // Single
     Route::get('/chief/dashboard', [DashboardController::class, 'index'])->name('chief.dashboard');
     Route::get('/chief/log', [LogController::class, 'index'])->name('chief.log');
 
+    // Multi
     Route::resource('/chief/task', TaskListController::class)->names('chief.task');
     Route::resource('/chief/assigned-task', AssignedTaskController::class)->names('chief.assigned-task');
-    Route::resource('/chief/notification', RequestListController::class)->names('chief.notification');
+    Route::resource('/chief/notification', RequestListController::class)->only('index', 'update')->names('chief.notification');
+
+    // Polling
+    Route::get('/chief/notification/poll', [RequestListController::class, 'poll'])->name('chief.notification.poll');
 });
 
 
@@ -64,10 +70,13 @@ Route::middleware(['auth', 'officer'])->group(function () {
 
     Route::resource('/officer/task', TaskListController::class)->names('officer.task');
     Route::resource('/officer/request', RequestListController::class)->names('officer.request');
-    Route::resource('/officer/notification', RequestListController::class)->names('officer.notification');
+    Route::resource('/officer/notification', RequestListController::class)->only('index', 'update')->names('officer.notification');
 
     // Cancel Notify
     Route::put('/officer/notification/{id}/cancel', [RequestListController::class, 'cancelNotify'])->name('officer.notification.cancel');
+
+    // Polling
+    Route::get('/officer/notification/poll', [RequestListController::class, 'poll'])->name('officer.notification.poll');
 });
 
 // Profile
