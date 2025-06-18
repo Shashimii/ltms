@@ -6,7 +6,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import Pagination  from '@/Components/Pagination.vue';
 import Modal from '@/Components/Modal.vue';
 import { Head, usePage, useForm, router } from '@inertiajs/vue3';
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted, onBeforeUnmount} from 'vue';
 
 const props = defineProps({
     assignedTasks: {
@@ -25,6 +25,7 @@ const props = defineProps({
     }
 })
 
+const requests = computed(() => props.requests.data);
 
 // counters
 const completedTasks = computed(() => {
@@ -36,9 +37,28 @@ const pendingTasks = computed(() => {
 });
 
 const requestCount = computed(() => {
-    return props.requests.data.length;
+    return requests.value.length;
 });
 
+// page reload instead of polling
+const refreshData = () => {
+    router.reload({
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
+let refreshInterval = null;
+
+onMounted(() => {
+    refreshInterval = setInterval(() => {
+        refreshData();
+    }, 10000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(refreshInterval);
+});
 
 // searchbar
 let pageNumber = ref(1),

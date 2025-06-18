@@ -7,7 +7,7 @@ import Pagination from '@/Components/Pagination.vue';
 import ModalTable from '@/Components/ModalTable.vue';
 
 import { Head, router, usePage } from '@inertiajs/vue3';
-import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, ref, watch, onMounted } from 'vue';
 import ExcelJS from 'exceljs';
 
 let props = defineProps({
@@ -40,8 +40,9 @@ let props = defineProps({
 
 let officers = props.officers.data,
     tasks = props.tasks.data,
-    assignedTasks = props.assignedTasks.data,
-    requests = props.requests.data
+    assignedTasks = props.assignedTasks.data
+
+const requests = computed(() => props.requests.data);
 
 const completedTasks = computed(() => {
     return assignedTasks.filter(task => task.is_done).length;
@@ -56,7 +57,27 @@ const officerCount = computed(() => {
 })
 
 const requestCount = computed(() => {
-    return requests.length;
+    return requests.value.length;
+});
+
+// page reload instead of polling
+const refreshData = () => {
+    router.reload({
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
+let refreshInterval = null;
+
+onMounted(() => {
+    refreshInterval = setInterval(() => {
+        refreshData();
+    }, 10000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(refreshInterval);
 });
 
 let taskMap = computed(() => {
