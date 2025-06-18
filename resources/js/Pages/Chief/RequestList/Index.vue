@@ -175,7 +175,7 @@ watch(
                                             class="font-bold"
                                             :class="request.request_status === 1 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'"
                                         >
-                                            {{ request.request_status === 1 ? 'Done' : 'Undone' }}
+                                            {{ request.request_status === 1 ? 'Done' : 'Not Done' }}
                                         </span>
                                     </h2>
                                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -191,7 +191,7 @@ watch(
                                         class="font-semibold"
                                         :class="request.request_status === 1 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'"
                                     >
-                                        {{ request.request_status === 1 ? 'Done' : 'Undone' }}
+                                        {{ request.request_status === 1 ? 'Done' : 'Not Done' }}
                                     </span>
                                     with
                                     <span class="font-semibold text-violet-800 dark:text-violet-800">{{ request.task.name }}</span>,
