@@ -1,6 +1,5 @@
 <script setup>
 import NavLink from '@/Components/NavLink.vue';
-import denrLogo from '@/Components/assets/denrLogo.png';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
@@ -49,7 +48,7 @@ watch(
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('officer.dashboard')">
-                                    <img :src="denrLogo" alt="Logo" class="w-12 h-auto object-cover rounded-full shadow-lg dark:drop-shadow-[0_4px_6px_rgba(144,238,144,0.5)]" />
+                                    <img src="/images/denrLogo.png" alt="Logo" class="w-12 h-auto object-cover rounded-full shadow-lg dark:drop-shadow-[0_4px_6px_rgba(144,238,144,0.5)]" />
                                 </Link>
                             </div>
 
