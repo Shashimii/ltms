@@ -44,62 +44,66 @@ class RequestListController extends Controller
         $task = AssignedTask::findOrFail($id); // task
 
         if ($user->role === User::ROLE_CHIEF) {
-            if ((int) $request->request_status === 1) {
-                $task->update([
-                    'request_status' => 0, // remove the request
-                    'is_done' => 1 // set the task to done
-                ]);
+            if ($task->request_status != 0) {
+                if ((int) $request->request_status === 1) {
+                    $task->update([
+                        'request_status' => 0, // remove the request
+                        'is_done' => 1 // set the task to done
+                    ]);
 
-                ActivityLog::create([
-                    'task_id' => $request->task_id,
-                    'chief_id' => auth()->id(),
-                    'officer_id' => $request->officer_id,
-                    'chief_name' => auth()->user()->name,
-                    'officer_name' => $request->officer_name,
-                    'odts_code' => $task->odts_code,
-                    'task_name' => $request->task_name,
-                    'activity' => 'Done_Confirmation',
-                    'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Done with the "' . $request->task_name .'"'
-                ]);
+                    ActivityLog::create([
+                        'task_id' => $request->task_id,
+                        'chief_id' => auth()->id(),
+                        'officer_id' => $request->officer_id,
+                        'chief_name' => auth()->user()->name,
+                        'officer_name' => $request->officer_name,
+                        'odts_code' => $task->odts_code,
+                        'task_name' => $request->task_name,
+                        'activity' => 'Done_Confirmation',
+                        'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Done with the "' . $request->task_name .'"'
+                    ]);
 
-                return redirect()->back()->with('toast', [
-                    'message' => 'Confirmed successfully.',
-                    'type' => 'success',
-                ]);
+                    return redirect()->back()->with('toast', [
+                        'message' => 'Confirmed successfully.',
+                        'type' => 'success',
+                    ]);
+                }
+
+                if ((int) $request->request_status === 2) {
+                    $task->update([
+                        'request_status' => 0, // remove the request
+                        'is_done' => 0 // set the task to not done
+                    ]);
+
+                    ActivityLog::create([
+                        'task_id' => $request->task_id,
+                        'chief_id' => auth()->id(),
+                        'officer_id' => $request->officer_id,
+                        'chief_name' => auth()->user()->name,
+                        'officer_name' => $request->officer_name,
+                        'odts_code' => $task->odts_code,
+                        'task_name' => $request->task_name,
+                        'activity' => 'Not_Done_Confirmation',
+                        'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Not Done with the "' . $request->task_name .'"'
+
+                    ]);
+
+                    return redirect()->back()->with('toast', [
+                        'message' => 'Confirmed successfully.',
+                        'type' => 'success',
+                    ]);
+                }
+
+                abort(404);
             }
 
-            if ((int) $request->request_status === 2) {
-                $task->update([
-                    'request_status' => 0, // remove the request
-                    'is_done' => 0 // set the task to not done
-                ]);
-
-                ActivityLog::create([
-                    'task_id' => $request->task_id,
-                    'chief_id' => auth()->id(),
-                    'officer_id' => $request->officer_id,
-                    'chief_name' => auth()->user()->name,
-                    'officer_name' => $request->officer_name,
-                    'odts_code' => $task->odts_code,
-                    'task_name' => $request->task_name,
-                    'activity' => 'Not_Done_Confirmation',
-                    'description' => auth()->user()->name . ' confirmed that "' . $request->officer_name . '" is "Not Done with the "' . $request->task_name .'"'
-
-                ]);
-
-                return redirect()->back()->with('toast', [
-                    'message' => 'Confirmed successfully.',
-                    'type' => 'success',
-                ]);
-            }
-
-            abort(404);
+            return redirect()->back()->with('toast', [
+                'message' => 'This has already been canceled by the Officer nothing confirmed.',
+                'type' => 'error'
+            ]);
         }
 
         if ($user->role === User::ROLE_OFFICER) {
-
-            // dd($request->is_done);
-
             if ($request->is_done && $task->is_done) {
                 if ($task->request_status != 2) {
                     $task->update([
@@ -163,7 +167,6 @@ class RequestListController extends Controller
                 'type' => 'error'
             ]);
         }
-
         abort(403); 
     }
 
