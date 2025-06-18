@@ -66,9 +66,11 @@ const formattedLogMessage = (log) => {
     const officer = `<span class="font-semibold text-green-600 dark:text-green-300 bg-green-100 dark:bg-green-900 px-1 rounded">${log.officer_name}</span>`; 
     const task = `<span class="font-semibold text-violet-700 dark:text-violet-200 bg-violet-100 dark:bg-violet-900 px-1 rounded">${log.task_name}</span>`;    
     const odts_code_old = `<span class="font-semibold text-amber-700 dark:text-amber-200 bg-amber-100 dark:bg-amber-900 px-1 rounded">${log.odts_code_old}</span>`; 
-    const assigned_at_old = `<span class="font-semibold text-amber-700 dark:text-amber-200 bg-amber-100 dark:bg-amber-900 px-1 rounded">${log.assigned_at_old}</span>`; 
+    const assigned_at_old = `<span class="font-semibold text-amber-700 dark:text-amber-200 bg-amber-100 dark:bg-amber-900 px-1 rounded">${log.assigned_at_old}</span>`;
+    const is_done_old =  `<span class="font-semibold text-pink-700 dark:text-pink-200 bg-pink-100 dark:bg-pink-900 px-1 rounded">${log.is_done_old}</span>`; 
     const odts_code = `<span class="font-semibold text-teal-800 dark:text-teal-100 bg-teal-100 dark:bg-teal-900 px-1 rounded">${log.odts_code}</span>`;    
-    const assigned_at = `<span class="font-semibold text-teal-800 dark:text-teal-100 bg-teal-100 dark:bg-teal-900 px-1 rounded">${log.assigned_at}</span>`; 
+    const assigned_at = `<span class="font-semibold text-teal-800 dark:text-teal-100 bg-teal-100 dark:bg-teal-900 px-1 rounded">${log.assigned_at}</span>`;
+    const is_done = `<span class="font-semibold text-green-800 dark:text-green-100 bg-green-100 dark:bg-green-900 px-1 rounded">${log.is_done}</span>`;   
 
 
 
@@ -77,7 +79,7 @@ const formattedLogMessage = (log) => {
             return `Legal Chief ${chief} assigned the task ${task} to Officer ${officer}.`;
 
         case 'Edited':
-            return `Legal Chief ${chief} updated the assigned task ${task}: changed the ODTS code from ${odts_code_old} to ${odts_code}, and the assignment date from ${assigned_at_old} to ${assigned_at}.`;
+            return `Legal Chief ${chief} updated the assigned task ${task}: changed the ODTS code from ${odts_code_old} to ${odts_code}, and the assignment date from ${assigned_at_old} to ${assigned_at} and from ${is_done_old} its now ${is_done}.`;
         
         case 'Deleted':
             return `Legal Chief ${chief} deleted the assigned task ${task}.`;

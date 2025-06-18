@@ -25,6 +25,8 @@ class ActivityLogResource extends JsonResource
             'description' => $this->description,
             'assigned_at_old' => $this->assigned_at_old ? Carbon::parse($this->assigned_at_old)->format('m-d-Y') : null,
             'assigned_at' => $this->assigned_at ? Carbon::parse($this->assigned_at)->format('m-d-Y') : null,
+            'is_done_old' => $this->is_done_old ? 'Done' : 'Not Done',
+            'is_done' => $this->is_done ? 'Done' : 'Not Done',
             'created_at' => Carbon::parse($this->created_at)
                 ->timezone('Asia/Manila')
                 ->format('F j, Y h:i A'),

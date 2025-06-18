@@ -91,6 +91,8 @@ class AssignedTaskController extends Controller
                 'task_name' => $task->name,
                 'assigned_at_old' => $assignedTask->assigned_at,
                 'assigned_at' => $request->assigned_at,
+                'is_done_old' => $assignedTask->is_done,
+                'is_done' => $request->is_done,
                 'activity' => 'Edited',
                 'description' => $auth->name . ' make changes to "' . $task->name . '" assigned to "' . $officer->name .'" check new odts code "' . $request->odts_code .'"' 
             ]);
@@ -101,6 +103,8 @@ class AssignedTaskController extends Controller
                 'message' => 'Edited Successfully.',
                 'type' => 'success'
             ]);
+
+            // dd($request);
         }
 
         abort(403); 

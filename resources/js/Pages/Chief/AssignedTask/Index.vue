@@ -627,11 +627,8 @@ watch(
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <p class="text-sm text-gray-600 text-left">
-                            Task status can’t be changed once assigned.
-                        </p>
                         <label for="is_done" class="flex items-center">
-                            <Checkbox disabled id="is_done" name="is_done" v-model:checked="editForm.is_done" />
+                            <Checkbox id="is_done" name="is_done" v-model:checked="editForm.is_done" />
                             <span class="ms-2 text-sm text-gray-600">
                                 Task is Already Done.
                             </span>
