@@ -97,14 +97,15 @@ class AssignedTaskController extends Controller
                 'description' => $auth->name . ' make changes to "' . $task->name . '" assigned to "' . $officer->name .'" check new odts code "' . $request->odts_code .'"' 
             ]);
 
-            $assignedTask->update($request->validated());
+            $validated = $request->validated();
+            $validated['request_status'] = 0;   // remove all the existing notify related to the task
+
+            $assignedTask->update($validated);
 
             return redirect()->back()->with('toast', [
                 'message' => 'Edited Successfully.',
                 'type' => 'success'
             ]);
-
-            // dd($request);
         }
 
         abort(403); 

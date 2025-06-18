@@ -60,7 +60,7 @@ watch(
                             <slot name="main" />
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <div class="mt-6 flex justify-end gap-4">
+                            <div class="mt-6 flex items-center justify-end gap-4">
                                 <slot name="footer" />
                             </div>
                         </div>
