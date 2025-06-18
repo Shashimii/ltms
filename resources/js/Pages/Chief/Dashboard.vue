@@ -481,10 +481,10 @@ const notificationRoute = () => {
                         <h1
                             class="text-lg leading-6 font-medium text-gray-900"
                         >
-                            Assigned Task Logs
+                            Today's Assigned Task Logs
                         </h1>
                         <p class="mt-2 text-sm text-gray-500">
-                            All actions related to assigned tasks will be shown here.
+                            All activities involving assigned tasks for today will be displayed here.
                         </p>
                     </div>
 
