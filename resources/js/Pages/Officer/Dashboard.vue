@@ -41,24 +41,24 @@ const requestCount = computed(() => {
 });
 
 // page reload instead of polling
-const refreshData = () => {
-    router.reload({
-        preserveScroll: true,
-        preserveState: true,
-    });
-};
+// const refreshData = () => {
+//     router.reload({
+//         preserveScroll: true,
+//         preserveState: true,
+//     });
+// };
 
-let refreshInterval = null;
+// let refreshInterval = null;
 
-onMounted(() => {
-    refreshInterval = setInterval(() => {
-        refreshData();
-    }, 10000);
-});
+// onMounted(() => {
+//     refreshInterval = setInterval(() => {
+//         refreshData();
+//     }, 10000);
+// });
 
-onBeforeUnmount(() => {
-  clearInterval(refreshInterval);
-});
+// onBeforeUnmount(() => {
+//   clearInterval(refreshInterval);
+// });
 
 // searchbar
 let pageNumber = ref(1),

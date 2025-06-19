@@ -5,7 +5,6 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import MagnifyingGlass from '@/Components/Icons/MagnifyingGlass.vue';
 import Pagination from '@/Components/Pagination.vue';
 import Modal from '@/Components/Modal.vue';
-import axios from 'axios';
 import { Head, useForm,  router, usePage } from '@inertiajs/vue3';
 import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue';
 
@@ -19,20 +18,20 @@ let props = defineProps({
 const requests = computed(() => props.requests);
 
 // page reload instead of polling
-const refreshData = () => {
-    router.reload({
-        preserveScroll: true,
-        preserveState: true,
-    });
-};
+// const refreshData = () => {
+//     router.reload({
+//         preserveScroll: true,
+//         preserveState: true,
+//     });
+// };
 
-let refreshInterval = null;
+// let refreshInterval = null;
 
-onMounted(() => {
-    refreshInterval = setInterval(() => {
-        refreshData();
-    }, 10000);
-});
+// onMounted(() => {
+//     refreshInterval = setInterval(() => {
+//         refreshData();
+//     }, 10000);
+// });
 
 const confirmationForm = useForm({
     id: null,
