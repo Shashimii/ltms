@@ -175,42 +175,50 @@ class RequestListController extends Controller
         $assigned_task = AssignedTask::findOrFail($id);
         $task = Task::findOrFail($assigned_task->task_id);
         
-        $assigned_task->update([
-            'request_status' => 0
-        ]);
-
-        // done notify cancel
-        if (!$request->is_done) {
-            ActivityLog::create([
-                'task_id' => $task->id,
-                'officer_id' => auth()->id(),
-                'officer_name' => auth()->user()->name,
-                'odts_code' => $assigned_task->odts_code,
-                'task_name' => $task->name,
-                'activity' => 'Done_Notify_Cancel',
-                'description' => auth()->user()->name . ' canceled the done notify on "' . $task->name . '"'
+        if ($assigned_task->request_status != 0) {
+            $assigned_task->update([
+                'request_status' => 0
             ]);
-            
-            return redirect()->back()->with('toast', [
-                'message' => 'Chief notify has been called off.',
-                'type' => 'error'
-            ]);
-        }
 
-        // not done notify cancel
-        if ($request->is_done) {
-            ActivityLog::create([
-                'task_id' => $task->id,
-                'officer_id' => auth()->id(),
-                'officer_name' => auth()->user()->name,
-                'odts_code' => $assigned_task->odts_code,
-                'task_name' => $task->name,
-                'activity' => 'Not_Done_Notify_Cancel',
-                'description' => auth()->user()->name . ' canceled the not done notify on "' . $task->name . '"'
-            ]); 
+            // done notify cancel
+            if (!$request->is_done) {
+                ActivityLog::create([
+                    'task_id' => $task->id,
+                    'officer_id' => auth()->id(),
+                    'officer_name' => auth()->user()->name,
+                    'odts_code' => $assigned_task->odts_code,
+                    'task_name' => $task->name,
+                    'activity' => 'Done_Notify_Cancel',
+                    'description' => auth()->user()->name . ' canceled the done notify on "' . $task->name . '"'
+                ]);
+                
+                return redirect()->back()->with('toast', [
+                    'message' => 'Chief notify has been called off.',
+                    'type' => 'error'
+                ]);
+            }
+
+            // not done notify cancel
+            if ($request->is_done) {
+                ActivityLog::create([
+                    'task_id' => $task->id,
+                    'officer_id' => auth()->id(),
+                    'officer_name' => auth()->user()->name,
+                    'odts_code' => $assigned_task->odts_code,
+                    'task_name' => $task->name,
+                    'activity' => 'Not_Done_Notify_Cancel',
+                    'description' => auth()->user()->name . ' canceled the not done notify on "' . $task->name . '"'
+                ]); 
+                
+                return redirect()->back()->with('toast', [
+                    'message' => 'Chief notify has been called off.',
+                    'type' => 'error'
+                ]);
+            }
             
+        } else {
             return redirect()->back()->with('toast', [
-                'message' => 'Chief notify has been called off.',
+                'message' => 'Chief already confirmed this cannot be cancel.',
                 'type' => 'error'
             ]);
         }
