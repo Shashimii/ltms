@@ -16,25 +16,22 @@ let props = defineProps({
     }
 });
 
-// polling
-const requests = ref(props.requests);
-let pollInterval = null;
+const requests = computed(() => props.requests);
 
-const pollRequests = async () => {
-    try {
-        const response = await axios.get(route('chief.notification.poll'));
-        requests.value = response.data;
-    } catch (error) {
-        console.error('Error: ', error);
-    }
-}
+// page reload instead of polling
+const refreshData = () => {
+    router.reload({
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
+let refreshInterval = null;
 
 onMounted(() => {
-    pollInterval = setInterval(pollRequests, 10000);
-});
-
-onBeforeUnmount(() => {
-    clearInterval(pollInterval);
+    refreshInterval = setInterval(() => {
+        refreshData();
+    }, 10000);
 });
 
 const confirmationForm = useForm({
@@ -66,7 +63,6 @@ const saveConfirm = (confirmationForm) => {
         onSuccess: () => {
             confirmationForm.reset();
             showModalConfirmation.value = false;
-            pollRequests();
         },
 
         preserveScroll: true,
