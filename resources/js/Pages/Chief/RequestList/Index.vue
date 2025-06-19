@@ -216,7 +216,7 @@ watch(
 
                                 <!-- Action -->
                                 <div class="mt-2 flex justify-end">
-                                    <PrimaryButton @click="openModalConfirmation(request)">
+                                    <PrimaryButton @click="openModalConfirmation(request)" class="bg-green-700 dark:bg-green-500">
                                         Confirm
                                     </PrimaryButton>
                                 </div>

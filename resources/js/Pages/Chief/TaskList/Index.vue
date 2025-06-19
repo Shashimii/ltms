@@ -235,7 +235,7 @@ watch(
                                             <td
                                                 class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium space-x-2 sm:pr-6"
                                             >
-                                            <PrimaryButton @click="openModalFormEdit(task)">
+                                            <PrimaryButton @click="openModalFormEdit(task)" class="bg-blue-600 hover:bg-blue-500">
                                                 Edit
                                             </PrimaryButton>
                                             <DangerButton @click="openDeleteModal(task)">

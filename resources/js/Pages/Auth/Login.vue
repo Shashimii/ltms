@@ -81,13 +81,13 @@ const submit = () => {
             </div> -->
 
             <div class="mt-10 flex items-center justify-end">
-                <PrimaryButton
-                    class="h-[3rem] w-full flex justify-center bg-blue-700 hover:bg-blue-900"
+                <button
+                    class="h-[3rem] w-full flex justify-center bg-blue-700 hover:bg-blue-900 inline-flex items-center rounded-md border border-transparent px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Log in
-                </PrimaryButton>
+                </button>
             </div>
         </form>
     </GuestLayout>

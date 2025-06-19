@@ -455,7 +455,7 @@ const notificationRoute = () => {
                                 <h1
                                     class="text-lg leading-6 font-medium text-black-900"
                                 >
-                                    IPCR Table
+                                    Excel Table
                                 </h1>
                                 <p class="mt-2 text-md text-black-500">
                                     Vizualization of assigned tasks to the officers.
@@ -463,10 +463,10 @@ const notificationRoute = () => {
                             </div>
                             
                             <div class="space-x-4">
-                                <PrimaryButton class="px-4 py-2 bg-gray-700 text-white rounded"  @click="openModalTable()">
+                                <PrimaryButton class="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white rounded"  @click="openModalTable()">
                                     View Table
                                 </PrimaryButton>
-                                <PrimaryButton class="px-4 py-2 bg-green-800 text-white rounded" @click="excelExport">
+                                <PrimaryButton class="px-4 py-2 bg-green-800 hover:bg-green-700 text-white rounded" @click="excelExport">
                                     Export to Excel
                                 </PrimaryButton>
                             </div>
@@ -595,7 +595,7 @@ const notificationRoute = () => {
                 <div class="sm:flex-auto">
                     <div class="flex justify-between">
                         <h1 class="text-xl font-semibold text-gray-900">
-                            IPCR Table
+                            Excel Table
                         </h1>
                         <button @click="showModalTable = false" class="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

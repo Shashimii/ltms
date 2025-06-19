@@ -338,7 +338,7 @@ const notificationRoute = () => {
                                             <td
                                                 class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium space-x-2 sm:pr-6"
                                             >
-                                                <PrimaryButton @click="openModalNotify(task)">
+                                                <PrimaryButton @click="openModalNotify(task)" class="bg-pink-600 hover:bg-pink-500">
                                                     Notify Chief
                                                 </PrimaryButton>
                                             </td>
