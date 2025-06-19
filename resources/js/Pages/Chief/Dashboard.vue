@@ -593,9 +593,16 @@ const notificationRoute = () => {
         <template #main>
             <div class="mb-8 sm:flex sm:items-center">
                 <div class="sm:flex-auto">
-                    <h1 class="text-xl font-semibold text-gray-900">
-                        IPCR Table
-                    </h1>
+                    <div class="flex justify-between">
+                        <h1 class="text-xl font-semibold text-gray-900">
+                            IPCR Table
+                        </h1>
+                        <button @click="showModalTable = false" class="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
                     <p class="mt-2 text-sm text-gray-700">
                         This is available for export on excel format.
                     </p>
@@ -648,7 +655,7 @@ const notificationRoute = () => {
         </template>
         <template #footer>
             <SecondaryButton @click="showModalTable= false" class="btn btn-secondary">
-                Cancel
+                Close
             </SecondaryButton>
         </template>
     </ModalTable>

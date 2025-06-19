@@ -82,6 +82,7 @@ watch(
                             <div class="relative ms-3">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
+                                        <span class="inline-block w-3 h-3 bg-green-500 rounded-full shadow-md shadow-green-300"></span>
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
