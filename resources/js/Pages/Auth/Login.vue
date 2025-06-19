@@ -1,5 +1,5 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
+// import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -33,19 +33,20 @@ const submit = () => {
     <GuestLayout>
         <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
+        <!-- <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
             {{ status }}
-        </div>
+        </div> -->
 
         <form @submit.prevent="submit">
-            <div>
+            <div class="mt-10">
                 <InputLabel for="email" value="Email" />
 
                 <TextInput
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
-                    v-model="form.email"
+                    placeholder="Enter Email"
+                    v-model="form.email"    
                     required
                     autofocus
                     autocomplete="username"
@@ -61,6 +62,7 @@ const submit = () => {
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
+                    placeholder="Enter Password"
                     v-model="form.password"
                     required
                     autocomplete="current-password"
@@ -69,18 +71,18 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4 block">
+            <!-- <div class="mt-4 block">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
                     <span class="ms-2 text-sm text-gray-600 dark:text-gray-400"
                         >Remember me</span
                     >
                 </label>
-            </div>
+            </div> -->
 
-            <div class="mt-4 flex items-center justify-end">
+            <div class="mt-10 flex items-center justify-end">
                 <PrimaryButton
-                    class="ms-4"
+                    class="h-[3rem] w-full flex justify-center bg-blue-700 hover:bg-blue-900"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
