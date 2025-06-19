@@ -5,7 +5,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import Swal from 'sweetalert2';
 import { ref, watch, nextTick } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, usePage, router } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 const page = usePage();
@@ -33,6 +33,60 @@ watch(
   },
   { immediate: true } // Run on first render if toast is already present
 );
+
+// refresh 
+const isRefreshing = ref(false);
+const refreshPage = () => {
+    isRefreshing.value = true;
+    document.body.classList.add('overflow-hidden');
+    router.reload({
+        preserveScroll: true,
+        preserveState: true,
+
+        onSuccess: () => {
+            setTimeout(() => {
+                isRefreshing.value = false;
+                document.body.classList.remove('overflow-hidden');
+
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Page data refreshed!',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    iconColor: 'white',
+                    customClass: {
+                        popup: 'colored-toast',
+                    },
+                });
+            }, 1000)
+        },
+
+        onError: () => {
+            setTimeout(() => {
+                isRefreshing.value = false;
+                document.body.classList.remove('overflow-hidden');
+
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Failed to refresh data.',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    iconColor: 'white',
+                    customClass: {
+                        popup: 'colored-toast',
+                    },
+                });
+            })
+        }
+    });
+};
+
 </script>
 
 <template>
@@ -220,13 +274,49 @@ watch(
                 class="bg-white shadow dark:bg-gray-800"
                 v-if="$slots.header"
             >
-                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-7xl px-4 py-6 flex items-center justify-between sm:px-6 lg:px-8">
                     <slot name="header" />
+                    <button
+                        @click="refreshPage"
+                        :disabled="isRefreshing"
+                        class="px-4 py-2 bg-violet-500 text-white rounded-md flex items-center gap-2 hover:bg-violet-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-5 h-5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+                            />
+                        </svg>
+                        <span>{{ isRefreshing ? 'Refreshing...' : 'Refresh' }}</span>
+                    </button>
                 </div>
             </header>
 
             <!-- Page Content -->
             <main class="pb-14">
+                <div v-if="isRefreshing" class="fixed inset-0 z-[9999] bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="flex-col items-center justify-center space-y-6">
+                        <div class="flex justify-center">
+                            <img src="/images/denrLogo.png" alt="Logo" class="w-20 h-auto object-cover rounded-full shadow-lg dark:drop-shadow-[0_4px_6px_rgba(144,238,144,0.5)]" />
+                        </div>
+                        <span class="flex justify-center text-white font-semibold space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+                            <p>
+                                Refreshing...
+                            </p>
+                        </span>
+                    </div>
+                </div>
                 <slot />
             </main>
         </div>
