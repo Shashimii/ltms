@@ -59,7 +59,7 @@ Route::middleware(['auth', 'chief'])->group(function () {
     Route::resource('/chief/notification', RequestListController::class)->only('index', 'update')->names('chief.notification');
 
     // Polling
-    Route::get('/chief/notification/poll', [RequestListController::class, 'poll'])->name('chief.notification.poll');
+    // Route::get('/chief/notification/poll', [RequestListController::class, 'poll'])->name('chief.notification.poll');
 });
 
 
@@ -76,7 +76,7 @@ Route::middleware(['auth', 'officer'])->group(function () {
     Route::put('/officer/notification/{id}/cancel', [RequestListController::class, 'cancelNotify'])->name('officer.notification.cancel');
 
     // Polling
-    Route::get('/officer/notification/poll', [RequestListController::class, 'poll'])->name('officer.notification.poll');
+    // Route::get('/officer/notification/poll', [RequestListController::class, 'poll'])->name('officer.notification.poll');
 });
 
 // Profile
