@@ -38,19 +38,19 @@ class AuthenticatedSessionController extends Controller
 
         Inertia::clearHistory();
 
-        if ($user->role === User::ROLE_ADMIN) {
-            return redirect()->intended(route('admin.dashboard', absolute: false));
-        }
+        switch ($user->role) {
+            case User::ROLE_ADMIN:
+                return redirect()->intended(route('admin.dashboard', absolute: false));
 
-        if ($user->role === User::ROLE_CHIEF) {
-            return redirect()->intended(route('chief.dashboard', absolute: false));
-        }
+            case User::ROLE_CHIEF:
+                return redirect()->intended(route('chief.dashboard', absolute: false));
 
-        if ($user->role === User::ROLE_OFFICER) {
-            return redirect()->intended(route('officer.dashboard', absolute: false));
-        }
+            case User::ROLE_OFFICER:
+                return redirect()->intended(route('officer.dashboard', absolute: false));
 
-        abort(403);
+            default:
+                abort(403);
+        }
     }
 
     /**
