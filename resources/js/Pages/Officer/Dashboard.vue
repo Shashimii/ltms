@@ -164,7 +164,7 @@ const notificationRoute = () => {
     <OfficerLayout>
         <template #header>
             <h2
-                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
+                class="text-xl font-semibold leading-tight text-gray-800 dark:text-green-500"
             >
                 Dashboard
             </h2>
@@ -174,10 +174,10 @@ const notificationRoute = () => {
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="mb-4 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
-                        <h1 class="text-xl font-semibold text-gray-900">
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
                             Assigned Task Status
                         </h1>
-                        <p class="mt-2 text-sm text-gray-700">
+                        <p class="mt-2 text-sm text-gray-700 dark:text-green-300">
                             This section displays all relevant counts related to assigned tasks.
                         </p>
                     </div>
@@ -195,10 +195,10 @@ const notificationRoute = () => {
 
                 <div class="mb-4 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
-                        <h1 class="text-xl font-semibold text-gray-900">
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
                             Notify Pending
                         </h1>
-                        <p class="mt-2 text-sm text-gray-700">
+                        <p class="mt-2 text-sm text-gray-700 dark:text-green-300">
                             Here you can see how many notify on pedning you’ve sent to the chief.
                         </p>
                     </div>
@@ -218,10 +218,10 @@ const notificationRoute = () => {
 
                 <div class="mt-8 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
-                        <h1 class="text-xl font-semibold text-gray-900">
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
                             Assigned Tasks List
                         </h1>
-                        <p class="mt-2 text-sm text-gray-700">
+                        <p class="mt-2 text-sm text-gray-700 dark:text-green-300">
                             This is a list of tasks that have been assigned to you by the chief.
                         </p>
                     </div>
@@ -230,7 +230,7 @@ const notificationRoute = () => {
                 <div class="flex flex-col justify-left sm:flex-row mt-6">
                     <div class="relative text-sm text-gray-800 col-span-3">
                         <div
-                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
+                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500 dark:text-green-400"
                         >
                             <MagnifyingGlass />
                         </div>
@@ -241,7 +241,7 @@ const notificationRoute = () => {
                             autocomplete="off"
                             placeholder="Search task, odts..."
                             id="search"
-                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-green-300"
                         />
                     </div>
 
