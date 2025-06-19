@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         // run the seeders
         $this->call([
-            // AssignedTaskSeeder::class,
+            AssignedTaskSeeder::class,
             UserTableSeeder::class,
         ]);
     }
