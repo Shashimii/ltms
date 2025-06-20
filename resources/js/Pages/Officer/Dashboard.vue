@@ -210,7 +210,14 @@ const notificationRoute = () => {
                     </p>
                     <PrimaryButton
                         @click="notificationRoute"
-                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                        class="inline-flex items-center justify-center
+                            rounded-md px-4 py-2 text-sm font-medium
+                            text-white shadow-sm transition-colors duration-200
+                            bg-teal-600 hover:bg-teal-700 focus:outline-none
+                            focus:ring-2 focus:ring-teal-500 focus:ring-offset-2
+                            focus:ring-offset-gray-100
+                            dark:bg-green-600 dark:hover:bg-green-500
+                            dark:focus:ring-green-400 dark:focus:ring-offset-gray-800"
                     >
                         View Notify Pending
                     </PrimaryButton>
@@ -241,13 +248,13 @@ const notificationRoute = () => {
                             autocomplete="off"
                             placeholder="Search task, odts..."
                             id="search"
-                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-green-300"
+                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-gray-800 dark:text-green-300 sm:text-sm sm:leading-6"
                         />
                     </div>
 
                     <select
                         v-model="status_filter"
-                        class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-gray-800 dark:text-green-300"
                     >
                         <option value="">Filter by status</option>
                         <option value="1">Done</option>
@@ -263,99 +270,40 @@ const notificationRoute = () => {
                             <div
                                 class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative"
                             >
-                                <table
-                                    class="min-w-full divide-y divide-gray-300"
-                                >
-                                    <thead class="bg-gray-50">
+                                <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
+                                    <thead class="bg-gray-50 dark:bg-gray-800">
                                         <tr>
-                                            <th
-                                                scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                                            >
-                                                Officer
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                                            >
-                                                Duty
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                                            >
-                                                Odts Code
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                            >
-                                                Assigned At
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                            >
-                                                Status
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                                            />
+                                            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-green-400 sm:pl-6">Officer</th>
+                                            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-green-400 sm:pl-6">Task</th>
+                                            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-green-400 sm:pl-6">Odts Code</th>
+                                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-green-400">Assigned At</th>
+                                            <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-green-400">Status</th>
+                                            <th class="relative py-3.5 pl-3 pr-4 sm:pr-6" />
                                         </tr>
                                     </thead>
-                                    <tbody
-                                        v-if="assignedTasks.data.length != 0"
-                                        class="divide-y divide-gray-200 bg-white"
-                                    >
-                                        <tr v-for="task in assignedTasks.data" :key="task.id">
-                                            <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                                            >
-                                                {{ task.officer.name }}
-                                            </td>
-                                            <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                                            >
-                                                {{ task.task.name }}
-                                            </td>
-                                            <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                                            >
-                                                {{ task.odts_code }}
-                                            </td>
-                                            <td
-                                                class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"
-                                            >
-                                                {{ task.assigned_at }}
-                                            </td>
-                                            <td
-                                                class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"
-                                            >
+
+                                    <tbody v-if="assignedTasks.data.length != 0" class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-600">
+                                        <tr v-for="task in assignedTasks.data" :key="task.id" class="hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-200 dark:text-green-400 sm:pl-6">{{ task.officer.name }}</td>
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 dark:text-gray-300 dark:text-green-400 sm:pl-6">{{ task.task.name }}</td>
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 dark:text-gray-300 dark:text-green-400 sm:pl-6">{{ task.odts_code }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-gray-300 dark:text-green-400">{{ task.assigned_at }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-900 dark:text-gray-300 dark:text-green-400">
                                                 {{ task.is_done ? 'Done' : 'Not Done' }}
                                             </td>
-
-                                            <td
-                                                class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium space-x-2 sm:pr-6"
-                                            >
-                                                <PrimaryButton @click="openModalNotify(task)" class="bg-pink-600 hover:bg-pink-500">
-                                                    Notify Chief
-                                                </PrimaryButton>
+                                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium space-x-2 sm:pr-6">
+                                                <PrimaryButton @click="openModalNotify(task)" class="bg-pink-600 hover:bg-pink-500 text-white dark:text-white dark:bg-violet-900 dark:hover:bg-violet-700">Notify Chief</PrimaryButton>
                                             </td>
                                         </tr>
                                     </tbody>
-                                    <tbody v-else class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+
+                                    <tbody v-else class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
                                         <tr>
                                             <td colspan="100%" class="py-12">
                                                 <div class="flex flex-col items-center justify-center text-green-700 dark:text-green-400">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        class="size-16 mb-4">
-                                                        <path stroke-linecap="round"
-                                                            stroke-linejoin="round"
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                        stroke="currentColor" class="size-16 mb-4">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 
                                                             3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>

@@ -531,7 +531,7 @@ const notificationRoute = () => {
                         autocomplete="off"
                         placeholder="Search odts code..."
                         id="search"
-                        class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 sm:text-sm sm:leading-6"
                     />
                 </div>
                 <div v-if="logs.data.length != 0">

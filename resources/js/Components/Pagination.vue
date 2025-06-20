@@ -23,16 +23,16 @@ defineProps({
 
     <div class="max-w-7xl mx-auto py-6">
         <div class="max-w-none mx-auto">
-            <div class="bg-white overflow-hidden shadow sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow dark:bg-gray-800 sm:rounded-lg">
                 <div
-                    class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+                    class="bg-white px-4 py-3 flex items-center justify-between border-gray-200 dark:bg-gray-800 sm:px-6"
                 >
                     <div class="flex-1 flex justify-between sm:hidden" />
                     <div
                         class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
                     >
                         <div>
-                            <p class="text-sm text-gray-700">
+                            <p class="text-sm text-gray-700 dark:text-green-600">
                                 Showing
                                 <!-- space -->
                                 <span class="font-medium">{{ data.meta.from }}</span>
@@ -55,16 +55,19 @@ defineProps({
                             >
                                 <button
                                 @click.prevent="updatedPageNumber(link)"
-                                    v-for="(link, index) in data.meta.links"
-                                    :key="index"
-                                    :disabled="link.active || !link.url"
-                                    class="relative inline-flex items-center px-4 py-2 border text-sm font-medium"
-                                    :class="{
-                                        'z-10 bg-indigo-50 border-indigo-500 text-indigo-600': link.active,
-                                        'bg-white border-gray-300 text-gray-500 hover:bg-gray-50': !link.active,
-                                    }"
+                                v-for="(link, index) in data.meta.links"
+                                :key="index"
+                                :disabled="!link.url"
+                                class="relative inline-flex items-center px-4 py-2 border text-sm font-medium transition duration-150 ease-in-out"
+                                :class="{
+                                    'z-10 bg-green-600 text-white border-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600':
+                                    link.active,
+                                    'bg-white text-gray-600 border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700':
+                                    !link.active,
+                                    'cursor-not-allowed opacity-50': !link.url
+                                }"
                                 >
-                                    <span v-html="link.label"></span> <!-- render the data as HTML -->
+                                <span v-html="link.label"></span>
                                 </button>
                             </nav>
                         </div>
