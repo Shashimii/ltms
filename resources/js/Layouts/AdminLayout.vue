@@ -176,6 +176,12 @@ watch(
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('admin.users')"
+                            :active="route().current('admin.users')"
+                        >
+                            Users
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->

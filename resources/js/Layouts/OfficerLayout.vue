@@ -236,6 +236,18 @@ const refreshPage = () => {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('officer.notification.index')"
+                            :active="route().current('officer.notification.index')"
+                        >
+                            Notify Pending
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('officer.log')"
+                            :active="route().current('officer.log')"
+                        >
+                            Logs
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->

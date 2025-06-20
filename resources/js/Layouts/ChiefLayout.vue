@@ -249,6 +249,30 @@ const refreshPage = () => {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('chief.assigned-task.index')"
+                            :active="route().current('chief.assigned-task.index')"
+                        >
+                            Assigned Tasks
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('chief.notification.index')"
+                            :active="route().current('chief.notification.index')"
+                        >
+                            Notifications
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('chief.log')"
+                            :active="route().current('chief.log')"
+                        >
+                            Logs
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('chief.task.index')"
+                            :active="route().current('chief.task.index')"
+                        >
+                            Task List
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
