@@ -412,7 +412,7 @@ const notificationRoute = () => {
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
                 <div class="mb-4 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900">
@@ -448,7 +448,7 @@ const notificationRoute = () => {
                     </div>
                 </div>
 
-`               <div class="mb-8 overflow-hidden bg-gradient-to-r from-green-400 to-green-600 shadow-sm sm:rounded-lg">
+               <div class="mt-4 mb-8 overflow-hidden bg-gradient-to-r from-green-400 to-green-600 shadow-sm rounded-md lg:rounded-md">
                     <div class="p-6 text-gray-900">
                         <div class="sm:flex sm:items-center justify-between">
                             <div>
@@ -462,7 +462,7 @@ const notificationRoute = () => {
                                 </p>
                             </div>
                             
-                            <div class="space-x-4">
+                            <div class="mt-2 space-x-4">
                                 <PrimaryButton class="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white rounded"  @click="openModalTable()">
                                     View Table
                                 </PrimaryButton>

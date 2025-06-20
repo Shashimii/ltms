@@ -117,7 +117,7 @@ watch(
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
                 <div class="mb-8 sm:flex sm:items-center justify-start">
                     <div>
                         <h3
@@ -257,35 +257,37 @@ watch(
 
     <Modal :show="showCancelModal" @close="showCancelModal = false" maxWidth="lg" :closeable="true">
         <template #default>
-            <div class="p-6 w-[30rem]">
-                <div class="flex items-center justify-start space-x-4">
+            <div class="w-full max-w-[30rem] sm:w-[30rem] p-4 sm:p-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100">
-                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/>
                         </svg>
                     </div>
-                    
-                    <h2 class="text-lg font-semibold">
+
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
                         <div v-if="cancelForm.is_done">
-                            Cancel Not Done Notify ?
+                            Cancel Not Done Notify?
                         </div>
                         <div v-else>
-                            Cancel Done Notify ?
+                            Cancel Done Notify?
                         </div>
                     </h2>
                 </div>
 
-                <p class="mt-4 text-md text-gray-600 text-left">
+                <p class="mt-4 text-sm sm:text-md text-gray-700 dark:text-gray-300 text-left">
                     Are you sure you want to cancel notify
-                    <strong>{{ cancelForm.task_name }}</strong>
+                    <strong>{{ cancelForm.task_name }}</strong>?
                 </p>
-                <div class="mt-6 flex justify-end gap-4">
-                    <DangerButton @click="cancelNotify(cancelForm.id)" :disabled="cancelForm.processing">
+
+                <div class="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-3 sm:gap-4">
+                    <SecondaryButton @click="showCancelModal = false" class="w-full sm:w-auto">
+                        No, Don't Cancel Notify
+                    </SecondaryButton>
+                    <DangerButton @click="cancelNotify(cancelForm.id)" :disabled="cancelForm.processing" class="w-full sm:w-auto">
                         Cancel Notify
                     </DangerButton>
-                    <SecondaryButton @click="showCancelModal = false" class="btn btn-secondary">
-                        No Don't Cancel Notify
-                    </SecondaryButton>
                 </div>
             </div>
         </template>

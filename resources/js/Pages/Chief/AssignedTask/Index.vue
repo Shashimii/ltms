@@ -227,7 +227,7 @@ watch(
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900">
@@ -248,8 +248,8 @@ watch(
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-left sm:flex-row mt-6">
-                    <div class="relative text-sm text-gray-800 col-span-3">
+                <div class="flex flex-col justify-left sm:flex-row mt-6 gap-2">
+                    <div class="relative text-sm text-gray-800 w-full sm:max-w-xs">
                         <div
                             class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
                         >
@@ -262,13 +262,13 @@ watch(
                             autocomplete="off"
                             placeholder="Search task, odts..."
                             id="search"
-                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-600"
                         />
                     </div>
 
                     <select
                         v-model="officer_id"
-                        class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 sm:text-sm sm:leading-6"
                     >
                         <option value="">Filter by officer</option>
                         <option
@@ -282,7 +282,7 @@ watch(
 
                     <select
                         v-model="status_filter"
-                        class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 sm:text-sm sm:leading-6"
                     >
                         <option value="">Filter by status</option>
                         <option value="1">Done</option>
@@ -294,120 +294,97 @@ watch(
                     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div
                             class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
-                        >
-                            <div
-                                class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative"
-                            >
-                                <table
-                                    class="min-w-full divide-y divide-gray-300"
+                        >   
+                            <div class="hidden sm:block">
+                                <div
+                                    class=" shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative"
                                 >
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th
-                                                scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                                            >
-                                                Officer
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                                            >
-                                                Duty
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                                            >
-                                                Odts Code
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                            >
-                                                Assigned At
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                            >
-                                                Status
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                class="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                                            />
-                                        </tr>
-                                    </thead>
-                                    <tbody
-                                        v-if="assignedTasks.data.length != 0"
-                                        class="divide-y divide-gray-200 bg-white"
-                                    >   
-                                        <tr v-for="task in assignedTasks.data" :key="task.id">
-                                            <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                                            >
-                                                {{ task.officer.name }}
-                                            </td>
-                                            <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                                            >
-                                                {{ task.task.name }}
-                                            </td>
-                                            <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
-                                            >
-                                                {{ task.odts_code }}
-                                            </td>
-                                            <td
-                                                class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"
-                                            >
-                                                {{ task.assigned_at }}
-                                            </td>
-                                            <td
-                                                class="whitespace-nowrap px-3 py-4 text-sm font-medium text-gray-900"
-                                            >
-                                                {{ task.is_done ? 'Done' : 'Not Done' }}
-                                            </td>
-
-                                            <td
-                                                class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium space-x-2 sm:pr-6"
-                                            >
-                                            <PrimaryButton @click="openModalFormEdit(task)" class="bg-blue-600 hover:bg-blue-500">
-                                                Edit
-                                            </PrimaryButton>
-                                            <DangerButton @click="openDeleteModal(task)">
-                                                Delete
-                                            </DangerButton>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody v-else class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-                                        <tr>
-                                            <td colspan="100%" class="py-12">
-                                                <div class="flex flex-col items-center justify-center text-green-700 dark:text-green-400">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
-                                                        stroke="currentColor"
-                                                        class="size-16 mb-4">
-                                                        <path stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 
-                                                            3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                    <p class="text-2xl italic text-gray-600 dark:text-gray-300">No results found.</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    <!-- Table for medium and larger screens -->
+                                    <div class="overflow-hidden w-full rounded-lg">
+                                        <table class="min-w-full divide-y divide-gray-300">
+                                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                                <tr>
+                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Officer</th>
+                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Duty</th>
+                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">ODTS Code</th>
+                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Assigned At</th>
+                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
+                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-200 bg-white dark:bg-gray-800">
+                                                <tr v-for="task in assignedTasks.data" :key="task.id">
+                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.officer.name }}</td>
+                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.task.name }}</td>
+                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.odts_code }}</td>
+                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.assigned_at }}</td>
+                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.is_done ? 'Done' : 'Not Done' }}</td>
+                                                    <td class="px-3 py-4 space-x-2">
+                                                        <PrimaryButton @click="openModalFormEdit(task)">Edit</PrimaryButton>
+                                                        <DangerButton @click="openDeleteModal(task)">Delete</DangerButton>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <Pagination 
+                                    :data="assignedTasks" 
+                                    :updatedPageNumber="updatedPageNumber"
+                                />
                             </div>
-                            <Pagination 
-                                :data="assignedTasks" 
-                                :updatedPageNumber="updatedPageNumber"
-                            /> 
+
+                            <!-- Card style for small screens -->
+                            <div class="px-4 overflow-hidden block sm:hidden space-y-6">
+                                <div
+                                    v-for="task in assignedTasks.data"
+                                    :key="task.id"
+                                    class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-4 group transition hover:ring-2 hover:ring-green-500"
+                                >
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                                            {{ task.task.name }}
+                                        </h3>
+                                        <span
+                                            class="text-xs font-medium px-2.5 py-0.5 rounded-full"
+                                            :class="task.is_done ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'"
+                                        >
+                                            {{ task.is_done ? 'Done' : 'Not Done' }}
+                                        </span>
+                                        </div>
+
+                                        <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium">Officer</span>
+                                            <span class="text-right">{{ task.officer.name }}</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium">ODTS Code</span>
+                                            <span class="text-right">{{ task.odts_code }}</span>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium">Assigned At</span>
+                                            <span class="text-right">{{ task.assigned_at }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4 flex gap-2">
+                                        <PrimaryButton
+                                            class="flex-1 justify-center bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400"
+                                            @click="openModalFormEdit(task)"
+                                        >
+                                            Edit
+                                        </PrimaryButton>
+                                        <DangerButton class="flex-1 justify-center" @click="openDeleteModal(task)">
+                                            Delete
+                                        </DangerButton>
+                                    </div>
+                                </div>
+                                <Pagination 
+                                    :data="assignedTasks" 
+                                    :updatedPageNumber="updatedPageNumber"
+                                /> 
+                            </div>
                         </div>
                     </div>
                 </div>

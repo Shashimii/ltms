@@ -124,7 +124,7 @@ watch(
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl px-4 sm:px-8">
                 <div class="mb-8 sm:flex sm:items-center justify-start">
                     <div>
                         <h3

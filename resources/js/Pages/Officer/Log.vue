@@ -195,7 +195,7 @@ watch(
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl px-4 lg:px-8">
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900">
@@ -207,8 +207,8 @@ watch(
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-left sm:flex-row mt-6">
-                    <div class="relative text-sm text-gray-800 col-span-3">
+                <div class="flex flex-col justify-left sm:flex-row mt-6 gap-2">
+                    <div class="relative text-sm text-gray-800">
                         <div
                             class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
                         >
@@ -221,13 +221,13 @@ watch(
                             autocomplete="off"
                             placeholder="Search odts code..."
                             id="search"
-                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-600"
                         />
                     </div>
 
                     <select
                         v-model="activity_filter"
-                        class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 sm:text-sm sm:leading-6"
                     >
                         <option value="">Filter by activity</option>
                         <option value="Assigned">Assigned</option>
