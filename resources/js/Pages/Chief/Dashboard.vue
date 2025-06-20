@@ -461,12 +461,19 @@ const notificationRoute = () => {
                                     Vizualization of assigned tasks to the officers.
                                 </p>
                             </div>
-                            
-                            <div class="mt-2 space-x-4">
-                                <PrimaryButton class="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white rounded"  @click="openModalTable()">
+                            <div class="mt-2 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
+                                <PrimaryButton
+                                    class="hidden sm:inline-flex px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white rounded"
+                                    @click="openModalTable()"
+                                >
                                     View Table
                                 </PrimaryButton>
-                                <PrimaryButton class="px-4 py-2 bg-green-800 hover:bg-green-700 text-white rounded" @click="excelExport">
+
+                                <!-- Export to Excel -->
+                                <PrimaryButton
+                                    class="px-4 py-2 flex items-center justify-center bg-green-800 hover:bg-green-700 text-white rounded w-full sm:w-auto"
+                                    @click="excelExport"
+                                >
                                     Export to Excel
                                 </PrimaryButton>
                             </div>
