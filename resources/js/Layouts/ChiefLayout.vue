@@ -4,11 +4,12 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import Swal from 'sweetalert2';
-import { ref, watch, nextTick } from 'vue';
+import { ref, watch, nextTick, computed } from 'vue';
 import { Link, usePage, router } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 const page = usePage();
+const showButton = computed(() => page.url !== '/profile');
 
 watch(
   () => page.props.flash?.toast, // the value to watch
@@ -314,6 +315,7 @@ const refreshPage = () => {
                 <div class="mx-auto max-w-7xl px-4 py-6 flex items-center justify-between sm:px-6 lg:px-8">
                     <slot name="header" />
                 <button
+                    v-if="showButton"
                     @click="refreshPage"
                     :disabled="isRefreshing"
                     class="px-4 py-2 bg-violet-500 text-white rounded-md flex items-center gap-2 hover:bg-violet-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
