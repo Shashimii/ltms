@@ -196,7 +196,7 @@ watch(
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl px-4 sm:px-8">
                 <div class="mb-8 sm:flex sm:items-center justify-start">
                     <div>
                         <h3
@@ -209,8 +209,8 @@ watch(
                         </p>
                     </div>
                 </div>
-                <div class="w-full mb-8 grid grid-cols-4 gap-4">
-                    <div class="bg-blue-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
+                <div class="w-full mb-8 sm:flex-col space-y-2 lg:grid grid-cols-4 gap-4">
+                    <div class="mt-2 bg-blue-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
                         <p>Admins: </p>
                         <p>{{ countAdmin }}</p>
                     </div>

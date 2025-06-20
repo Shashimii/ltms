@@ -190,9 +190,9 @@ const deleteUser = (id) => {
         </template>
 
         <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="sm:flex sm:items-center">
-                    <div class="sm:flex-auto">
+            <div class="mx-auto max-w-7xl px-4 sm:px-8">
+                <div class="flex items-center">
+                    <div class="flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900">
                             System Users List
                         </h1>
@@ -211,7 +211,7 @@ const deleteUser = (id) => {
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-left sm:flex-row mt-6">
+                <div class="flex flex-col justify-left gap-2 sm:flex-row mt-6">
                     <div class="relative text-sm text-gray-800 col-span-3">
                         <div
                             class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
@@ -225,13 +225,13 @@ const deleteUser = (id) => {
                             autocomplete="off"
                             placeholder="Search name, email..."
                             id="search"
-                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-600"
                         />
                     </div>
 
                     <select
                         v-model="account_type"
-                        class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 sm:text-sm sm:leading-6"
                     >
                         <option value="">Filter by type</option>
                         <option value="2">System Admin</option>
@@ -245,9 +245,9 @@ const deleteUser = (id) => {
                         <div
                             class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
                         >
-                            <div
-                                class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative"
-                            >
+
+                        <div class="hidden sm:block">
+                            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative">
                                 <table
                                     class="min-w-full divide-y divide-gray-300"
                                 >
@@ -321,12 +321,59 @@ const deleteUser = (id) => {
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table>                                    
                             </div>
                             <Pagination 
                                 :data="paginationData" 
                                 :updatedPageNumber="updatedPageNumber"
                             /> 
+                        </div>
+
+                        <div class="block sm:hidden space-y-4 mt-4 px-4">
+                            <div
+                                v-for="user in users"
+                                :key="user.id"
+                                class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow p-4"
+                            >
+                                <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                    {{ user.name }}
+                                </h3>
+                                <span class="text-xs text-gray-500">{{ user.created_at }}</span>
+                                </div>
+
+                                <div class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Email:</span>
+                                    <span class="text-right">{{ user.email }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Account Type:</span>
+                                    <span class="text-right">
+                                    <span v-if="user.role === 2">System Admin</span>
+                                    <span v-else-if="user.role === 1">Legal Chief</span>
+                                    <span v-else>Officer</span>
+                                    </span>
+                                </div>
+                                </div>
+
+                                <div class="mt-4 flex gap-2">
+                                <PrimaryButton
+                                    class="flex-1 justify-center bg-blue-600 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400"
+                                    @click="openModalFormEdit(user)"
+                                >
+                                    Edit
+                                </PrimaryButton>
+                                <DangerButton class="flex-1 justify-center" @click="openDeleteModal(user)">
+                                    Delete
+                                </DangerButton>
+                                </div>
+                            </div>
+                            <Pagination 
+                                :data="paginationData" 
+                                :updatedPageNumber="updatedPageNumber"
+                                /> 
+                            </div>
                         </div>
                     </div>
                 </div>
