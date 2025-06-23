@@ -448,7 +448,7 @@ const notificationRoute = () => {
                     </div>
                 </div>
 
-               <div class="mt-4 mb-8 overflow-hidden bg-gradient-to-r from-green-400 to-green-600 shadow-sm rounded-md lg:rounded-md">
+               <div v-if="assignedTasks.length != 0" class="mt-4 mb-8 overflow-hidden bg-gradient-to-r from-green-400 to-green-600 shadow-sm rounded-md lg:rounded-md">
                     <div class="p-6 text-gray-900">
                         <div class="sm:flex sm:items-center justify-between">
                             <div>
@@ -480,28 +480,30 @@ const notificationRoute = () => {
                         </div>
                     </div>
                 </div>
-
-                <div class="mb-4 sm:flex sm:items-center">
-                    <div class="sm:flex-auto">
-                        <h1 class="text-xl font-semibold text-gray-900">
-                            Notifications
-                        </h1>
-                        <p class="mt-2 text-sm text-gray-700">
-                            Here, you can see the count of notify sent by officers.
-                        </p>
+                
+                <div v-if="requestCount != 0">
+                    <div class="mb-4 sm:flex sm:items-center">
+                        <div class="sm:flex-auto">
+                            <h1 class="text-xl font-semibold text-gray-900">
+                                Notifications
+                            </h1>
+                            <p class="mt-2 text-sm text-gray-700">
+                                Here, you can see the count of notify sent by officers.
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400 text-teal-900 font-semibold text-lg p-4 border border-teal-300 rounded shadow flex justify-between items-center space-x-4">
-                    <p class="text-sm sm:text-base">
-                        You have: <span class="text-red-600">{{ requestCount }}</span> Notifications
-                    </p>
-                    <PrimaryButton
-                        @click="notificationRoute"
-                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
-                    >
-                        View Notifications
-                    </PrimaryButton>
+                    <div class="bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400 text-teal-900 font-semibold text-lg p-4 border border-teal-300 rounded shadow flex justify-between items-center space-x-4">
+                        <p class="text-sm sm:text-base">
+                            You have: <span class="text-red-600">{{ requestCount }}</span> Notifications
+                        </p>
+                        <PrimaryButton
+                            @click="notificationRoute"
+                            class="inline-flex items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                        >
+                            View Notifications
+                        </PrimaryButton>
+                    </div>
                 </div>
 
                 <div class="mt-8 mb-8 sm:flex sm:items-center justify-start">
