@@ -5,6 +5,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import MagnifyingGlass from '@/Components/Icons/MagnifyingGlass.vue';
 import Pagination from '@/Components/Pagination.vue';
 import ModalTable from '@/Components/ModalTable.vue';
+import StatCard from '@/Components/StatCard.vue';
 
 import { Head, router, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, ref, watch, onMounted } from 'vue';
@@ -434,18 +435,51 @@ const notificationRoute = () => {
                 </div>
 
                 <div class="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                        <p>Officers Completed Tasks: </p>
-                        <p>{{ completedTasks }}</p>
-                    </div>
-                    <div class="bg-red-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                        <p>Officers Pending Tasks: </p>
-                        <p>{{ pendingTasks }}</p>
-                    </div>
-                    <div class="bg-blue-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                        <p>Officers: </p>
-                        <p>{{ officerCount }}</p>
-                    </div>
+                    <StatCard>
+                        <template #icon>
+                            <div class="p-4 bg-green-200 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-green-800">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                                </svg>
+                            </div>
+                        </template>
+                        <template #count>
+                            {{ completedTasks }}
+                        </template>
+                        <template #label>
+                            Completed Tasks
+                        </template>
+                    </StatCard>
+                    <StatCard>
+                        <template #icon>
+                            <div class="p-4 bg-red-200 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-red-800">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                                </svg>
+                            </div>
+                        </template>
+                        <template #count>
+                            {{ pendingTasks }}
+                        </template>
+                        <template #label>
+                            Pending Tasks
+                        </template>
+                    </StatCard>
+                    <StatCard>
+                        <template #icon>
+                            <div class="p-4 bg-blue-200 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-blue-800">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                                </svg>
+                            </div>
+                        </template>
+                        <template #count>
+                            {{ officerCount }}
+                        </template>
+                        <template #label>
+                            Officers
+                        </template>
+                    </StatCard>
                 </div>
 
                <div v-if="assignedTasks.length != 0" class="mt-4 mb-8 overflow-hidden bg-gradient-to-r from-green-400 to-green-600 shadow-sm rounded-md lg:rounded-md">
