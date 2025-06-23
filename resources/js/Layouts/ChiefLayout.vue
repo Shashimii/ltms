@@ -124,12 +124,12 @@ const refreshPage = () => {
                                 >
                                     Assigned Tasks
                                 </NavLink>
-                                <NavLink
+                                <!-- <NavLink
                                     :href="route('chief.notification.index')"
                                     :active="route().current('chief.notification.index')"
                                 >
                                     Notifications
-                                </NavLink>
+                                </NavLink> -->
                                 <NavLink
                                     :href="route('chief.log')"
                                     :active="route().current('chief.log')"
@@ -256,12 +256,12 @@ const refreshPage = () => {
                         >
                             Assigned Tasks
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink
+                        <!-- <ResponsiveNavLink
                             :href="route('chief.notification.index')"
                             :active="route().current('chief.notification.index')"
                         >
                             Notifications
-                        </ResponsiveNavLink>
+                        </ResponsiveNavLink> -->
                         <ResponsiveNavLink
                             :href="route('chief.log')"
                             :active="route().current('chief.log')"

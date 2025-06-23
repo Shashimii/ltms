@@ -515,7 +515,7 @@ const notificationRoute = () => {
                     </div>
                 </div>
                 
-                <div v-if="requestCount != 0">
+                <!-- <div v-if="requestCount != 0">
                     <div class="mb-4 sm:flex sm:items-center">
                         <div class="sm:flex-auto">
                             <h1 class="text-xl font-semibold text-gray-900">
@@ -538,7 +538,7 @@ const notificationRoute = () => {
                             View Notifications
                         </PrimaryButton>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="mt-8 mb-8 sm:flex sm:items-center justify-start">
                     <div class="sm:flex-auto">

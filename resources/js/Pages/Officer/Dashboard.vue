@@ -5,6 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import Pagination  from '@/Components/Pagination.vue';
 import Modal from '@/Components/Modal.vue';
+import StatCard from '@/Components/StatCard.vue';
 import { Head, usePage, useForm, router } from '@inertiajs/vue3';
 import { ref, computed, watch, onMounted, onBeforeUnmount} from 'vue';
 
@@ -183,17 +184,39 @@ const notificationRoute = () => {
                     </div>
                 </div>
                 <div class="w-full mb-8 grid lg:grid-cols-2 gap-4">
-                    <div class="bg-green-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                        <p>Total Completed Tasks: </p>
-                        <p>{{ completedTasks }}</p>
-                    </div>
-                    <div class="bg-red-500 text-white p-4 border-gray-300 rounded shadow flex justify-between">
-                        <p>Total Pending Tasks: </p>
-                        <p>{{ pendingTasks }}</p>
-                    </div>
+                    <StatCard>
+                        <template #icon>
+                            <div class="p-4 bg-green-200 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-green-800">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                                </svg>
+                            </div>
+                        </template>
+                        <template #count>
+                            {{ completedTasks }}
+                        </template>
+                        <template #label>
+                            Completed Tasks
+                        </template>
+                    </StatCard>
+                    <StatCard>
+                        <template #icon>
+                            <div class="p-4 bg-red-200 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-red-800">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                                </svg>
+                            </div>
+                        </template>
+                        <template #count>
+                            {{ pendingTasks }}
+                        </template>
+                        <template #label>
+                            Pending Tasks
+                        </template>
+                    </StatCard>
                 </div>
 
-                <div v-if="requestCount != 0">
+                <!-- <div v-if="requestCount != 0">
                     <div class="mb-4 sm:flex sm:items-center">
                         <div class="sm:flex-auto">
                             <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
@@ -223,7 +246,7 @@ const notificationRoute = () => {
                             View Notify Pending
                         </PrimaryButton>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="mt-8 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
@@ -283,7 +306,7 @@ const notificationRoute = () => {
                                                     <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">ODTS Code</th>
                                                     <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Assigned At</th>
                                                     <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
-                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Actions</th>
+                                                    <!-- <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Actions</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200 bg-white dark:bg-gray-800">
@@ -293,9 +316,9 @@ const notificationRoute = () => {
                                                     <td class="px-3 py-4 text-sm text-gray-900">{{ task.odts_code }}</td>
                                                     <td class="px-3 py-4 text-sm text-gray-900">{{ task.assigned_at }}</td>
                                                     <td class="px-3 py-4 text-sm text-gray-900">{{ task.is_done ? 'Done' : 'Not Done' }}</td>
-                                                    <td class="px-3 py-4 space-x-2">
+                                                    <!-- <td class="px-3 py-4 space-x-2">
                                                         <PrimaryButton @click="openModalNotify(task)" class="bg-pink-600 hover:bg-pink-500 text-white dark:text-white dark:bg-violet-900 dark:hover:bg-violet-700">Notify Chief</PrimaryButton>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -340,10 +363,10 @@ const notificationRoute = () => {
                                             <span class="text-right">{{ task.assigned_at }}</span>
                                         </div>
                                     </div>
-
+                                    <!-- 
                                     <div class="mt-4">
                                         <PrimaryButton @click="openModalNotify(task)"  class="w-full bg-pink-600 hover:bg-pink-500 text-white text-center dark:text-white dark:bg-violet-900 dark:hover:bg-violet-700 flex justify-center items-center">Notify Chief</PrimaryButton>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <Pagination 
                                     :data="assignedTasks" 
@@ -357,7 +380,7 @@ const notificationRoute = () => {
         </div>
     </OfficerLayout>
 
-    <Modal :show="showModalNotify" @close="showModalNotify = false" maxWidth="lg" :closeable="true">
+    <!-- <Modal :show="showModalNotify" @close="showModalNotify = false" maxWidth="lg" :closeable="true">
         <template #default>
             <div class="w-full max-w-[30rem] sm:w-[30rem] p-4 sm:p-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-start gap-4">
@@ -394,6 +417,6 @@ const notificationRoute = () => {
                 </div>
             </div>
         </template>
-    </Modal>
+    </Modal> -->
 
 </template>

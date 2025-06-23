@@ -117,12 +117,12 @@ const refreshPage = () => {
                                 >
                                     Dashboard
                                 </NavLink>
-                                <NavLink
+                                <!-- <NavLink
                                     :href="route('officer.notification.index')"
                                     :active="route().current('officer.notification.index')"
                                 >
                                     Notify Pending
-                                </NavLink>
+                                </NavLink> -->
                                 <NavLink
                                     :href="route('officer.log')"
                                     :active="route().current('officer.log')"
@@ -237,12 +237,12 @@ const refreshPage = () => {
                         >
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink
+                        <!-- <ResponsiveNavLink
                             :href="route('officer.notification.index')"
                             :active="route().current('officer.notification.index')"
                         >
                             Notify Pending
-                        </ResponsiveNavLink>
+                        </ResponsiveNavLink> -->
                         <ResponsiveNavLink
                             :href="route('officer.log')"
                             :active="route().current('officer.log')"
