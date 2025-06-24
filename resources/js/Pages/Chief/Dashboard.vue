@@ -32,7 +32,7 @@ let props = defineProps({
         required: true
     },
 
-    logs: {
+    histories: {
         type: Object,
         required: true,
     }
@@ -60,26 +60,6 @@ const officerCount = computed(() => {
 const requestCount = computed(() => {
     return requests.value.length;
 });
-
-// page reload instead of polling
-// const refreshData = () => {
-//     router.reload({
-//         preserveScroll: true,
-//         preserveState: true,
-//     });
-// };
-
-// let refreshInterval = null;
-
-// onMounted(() => {
-//     refreshInterval = setInterval(() => {
-//         refreshData();
-//     }, 10000);
-// });
-
-// onBeforeUnmount(() => {
-//   clearInterval(refreshInterval);
-// });
 
 let taskMap = computed(() => {
     const map = {};
@@ -347,7 +327,7 @@ const updatedPageNumber = (link) => {
     pageNumber.value = link.url.split('=')[1];
 }
 
-let logsUrl = computed(() => {
+let url = computed(() => {
     let url = new URL(route('chief.dashboard'));
     url.searchParams.set('page', pageNumber.value);
 
@@ -359,7 +339,7 @@ let logsUrl = computed(() => {
 });
 
 watch(
-    () => logsUrl.value,
+    () => url.value,
     (updatedUrl) => {
         router.visit(updatedUrl, {
             preserveScroll: true,
@@ -390,12 +370,8 @@ const assignedTaskRoute = () => {
     router.visit(route('chief.assigned-task.index'))
 }
 
-const logsRoute = () => {
-    router.visit(route('chief.log'))
-}
-
-const notificationRoute = () => {
-    router.visit(route('chief.notification.index'))
+const historyRoute = () => {
+    router.visit(route('chief.history'))
 }
 
 </script>
@@ -515,49 +491,24 @@ const notificationRoute = () => {
                     </div>
                 </div>
                 
-                <!-- <div v-if="requestCount != 0">
-                    <div class="mb-4 sm:flex sm:items-center">
-                        <div class="sm:flex-auto">
-                            <h1 class="text-xl font-semibold text-gray-900">
-                                Notifications
-                            </h1>
-                            <p class="mt-2 text-sm text-gray-700">
-                                Here, you can see the count of notify sent by officers.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400 text-teal-900 font-semibold text-lg p-4 border border-teal-300 rounded shadow flex justify-between items-center space-x-4">
-                        <p class="text-sm sm:text-base">
-                            You have: <span class="text-red-600">{{ requestCount }}</span> Notifications
-                        </p>
-                        <PrimaryButton
-                            @click="notificationRoute"
-                            class="inline-flex items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
-                        >
-                            View Notifications
-                        </PrimaryButton>
-                    </div>
-                </div> -->
-
                 <div class="mt-8 mb-8 sm:flex sm:items-center justify-start">
                     <div class="sm:flex-auto">
                         <h1
                             class="text-lg leading-6 font-medium text-gray-900"
                         >
-                            Today's Assigned Task Logs
+                            Recents
                         </h1>
                         <p class="mt-2 text-sm text-gray-500">
-                            All activities involving assigned tasks for today will be displayed here.
+                            All recent actions will be shown here.
                         </p>
                     </div>
 
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                         <PrimaryButton
-                            @click="logsRoute"
+                            @click="historyRoute"
                             class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
                         >
-                            View All Logs
+                            View History
                         </PrimaryButton>
                     </div>
                 </div>
@@ -577,27 +528,27 @@ const notificationRoute = () => {
                         class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 sm:text-sm sm:leading-6"
                     />
                 </div>
-                <div v-if="logs.data.length != 0">
+                <div v-if="histories.data.length != 0">
                     <div
-                        v-for="log in logs.data"
+                        v-for="history in histories.data"
                         class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
                     >
                         <div class="p-4 rounded-lg bg-white shadow dark:bg-gray-800 text-base text-gray-900 dark:text-gray-100 leading-relaxed border border-gray-200 dark:border-gray-700">
                             <div class="flex justify-between align-center">
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                    {{ log.created_at }}
+                                    {{ history.created_at }}
                                 </p>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                    Odts Code: {{ log.odts_code }} 
+                                    Odts Code: {{ history.odts_code }} 
                                 </p>
                             </div>
 
                             <p>
-                                <span :class="`${activityColor(log.activity)} px-2 py-1 rounded-md font-semibold text-sm inline-block mb-2`">
-                                    {{ formatActivity(log.activity) }}
+                                <span :class="`${activityColor(history.activity)} px-2 py-1 rounded-md font-semibold text-sm inline-block mb-2`">
+                                    {{ formatActivity(history.activity) }}
                                 </span>
                                 <br />
-                                <span v-html="formattedLogMessage(log)"></span>
+                                <span v-html="formattedLogMessage(history)"></span>
                             </p>
                         </div>
                     </div>
@@ -625,7 +576,7 @@ const notificationRoute = () => {
                 </div>
 
                 <Pagination 
-                    :data="logs" 
+                    :data="histories" 
                     :updatedPageNumber="updatedPageNumber"
                 /> 
             </div>

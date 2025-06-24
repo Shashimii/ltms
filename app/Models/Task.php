@@ -17,6 +17,9 @@ class Task extends Model
     public function assignedTask() {
         return $this->hasMany(AssignedTask::class, 'task_id');
     }
+    public function history() {
+        return $this->hasMany(History::class, 'task_id');
+    }
 
     // Search Query
     public function scopeSearch(Builder $query, Request $request)

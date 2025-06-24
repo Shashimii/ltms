@@ -124,17 +124,11 @@ const refreshPage = () => {
                                 >
                                     Assigned Tasks
                                 </NavLink>
-                                <!-- <NavLink
-                                    :href="route('chief.notification.index')"
-                                    :active="route().current('chief.notification.index')"
-                                >
-                                    Notifications
-                                </NavLink> -->
                                 <NavLink
-                                    :href="route('chief.log')"
-                                    :active="route().current('chief.log')"
+                                    :href="route('chief.history')"
+                                    :active="route().current('chief.history')"
                                 >
-                                    Logs
+                                    History
                                 </NavLink>
                                 <NavLink
                                     :href="route('chief.task.index')"
@@ -256,17 +250,11 @@ const refreshPage = () => {
                         >
                             Assigned Tasks
                         </ResponsiveNavLink>
-                        <!-- <ResponsiveNavLink
-                            :href="route('chief.notification.index')"
-                            :active="route().current('chief.notification.index')"
-                        >
-                            Notifications
-                        </ResponsiveNavLink> -->
                         <ResponsiveNavLink
-                            :href="route('chief.log')"
-                            :active="route().current('chief.log')"
+                            :href="route('chief.history')"
+                            :active="route().current('chief.history')"
                         >
-                            Logs
+                            History
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('chief.task.index')"

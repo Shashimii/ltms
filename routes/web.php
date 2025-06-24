@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssignedTaskController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestListController;
@@ -51,7 +52,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'chief'])->group(function () {
     // Single
     Route::get('/chief/dashboard', [DashboardController::class, 'index'])->name('chief.dashboard');
-    Route::get('/chief/log', [LogController::class, 'index'])->name('chief.log');
+    Route::get('/chief/history', [HistoryController::class, 'index'])->name('chief.history');
+    Route::put('/chief/assigned-task/done', [AssignedTaskController::class, 'done'])->name('chief.assigned-task.done');
+    Route::put('/chief/assigned-task/undone', [AssignedTaskController::class, 'undone'])->name('chief.assigned-task.undone');
 
     // Multi
     Route::resource('/chief/task', TaskListController::class)->names('chief.task');

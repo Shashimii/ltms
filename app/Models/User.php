@@ -25,6 +25,10 @@ class User extends Authenticatable
         return $this->hasMany(AssignedTask::class, 'officer_id');
     }
 
+    public function history() {
+        return $this->hasMany(History::class, 'officer_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

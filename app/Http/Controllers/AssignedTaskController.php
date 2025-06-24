@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateAssignedTaskRequest;
 use App\Http\Resources\AssignedTaskResource;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
-use App\Models\ActivityLog;
+use App\Models\History;
 use App\Models\AssignedTask;
 use App\Models\User;
 use App\Models\Task;
@@ -43,24 +43,16 @@ class AssignedTaskController extends Controller
     public function store(StoreAssignedTaskRequest $request)
     {
         $auth = auth()->user();
-        $officer_id = $request->officer_id;
-        $officer = User::find($request->officer_id);
-        $task = Task::find($request->task_id);
 
         if ($auth->role === User::ROLE_CHIEF) {
             AssignedTask::create($request->validated());
 
-            ActivityLog::create([
+            History::create([
                 'task_id' => $request->task_id,
-                'chief_id' => auth()->id(),
-                'officer_id' => $officer_id,
-                'chief_name' => $auth->name,
-                'officer_name' => $officer->name,
+                'officer_id' => $request->officer_id,
                 'odts_code' => $request->odts_code,
-                'task_name' => $task->name,
+                'assigned_at' => $request->assigned_at,
                 'activity' => 'Assigned',
-                'description' => $auth->name . ' assigned "' . $task->name . '" to "' . $officer->name .'"'
-
             ]);
 
             return redirect()->back()->with('toast', [
@@ -75,32 +67,20 @@ class AssignedTaskController extends Controller
     public function update(UpdateAssignedTaskRequest $request, AssignedTask $assignedTask)
     {
         $auth = auth()->user();
-        $officer = User::findOrFail($assignedTask->officer_id);
-        $task = Task::findOrFail($assignedTask->task_id);
 
         if ($auth->role === User::ROLE_CHIEF) { 
 
-            ActivityLog::create([
+            History::create([
                 'task_id' => $assignedTask->task_id,
-                'chief_id' => auth()->id(),
                 'officer_id' => $assignedTask->officer_id,
-                'chief_name' => $auth->name,
-                'officer_name' => $officer->name,
-                'odts_code_old' => $assignedTask->odts_code,
+                'old_odts_code' => $assignedTask->odts_code,
+                'old_assigned_at' => $assignedTask->assigned_at,
                 'odts_code' => $request->odts_code,
-                'task_name' => $task->name,
-                'assigned_at_old' => $assignedTask->assigned_at,
                 'assigned_at' => $request->assigned_at,
-                'is_done_old' => $assignedTask->is_done,
-                'is_done' => $request->is_done,
-                'activity' => 'Edited',
-                'description' => $auth->name . ' make changes to "' . $task->name . '" assigned to "' . $officer->name .'" check new odts code "' . $request->odts_code .'"' 
+                'activity' => 'Edited'
             ]);
 
-            $validated = $request->validated();
-            $validated['request_status'] = 0;   // remove all the existing notify related to the task
-
-            $assignedTask->update($validated);
+            $assignedTask->update($request->validated());
 
             return redirect()->back()->with('toast', [
                 'message' => 'Edited Successfully.',
@@ -114,28 +94,76 @@ class AssignedTaskController extends Controller
     public function destroy(AssignedTask $assignedTask)
     {
         $auth = auth()->user();
-        $officer = User::findOrFail($assignedTask->officer_id);
-        $task = Task::findOrFail($assignedTask->task_id);
 
         if ($auth->role === User::ROLE_CHIEF) {
             $assignedTask->delete();
 
-            ActivityLog::create([
+            History::create([
                 'task_id' => $assignedTask->task_id,
-                'chief_id' => auth()->id(),
                 'officer_id' => $assignedTask->officer_id,
-                'chief_name' => $auth->name,
-                'officer_name' => $officer->name,
                 'odts_code' => $assignedTask->odts_code,
-                'task_name' => $task->name,
+                'assigned_at' => $assignedTask->assigned_at,
                 'activity' => 'Deleted',
-                'description' => $auth->name . ' deleted "' . $task->name . '" assigned to "' . $officer->name .'"'
             ]);
 
             return redirect()->back()->with('toast', [
                 'message' => 'Deleted Successfully.',
                 'type' => 'warning'
-            ]); 
+            ]);
+        }
+
+        abort(403);        
+    }
+
+    public function done(Request $request)
+    {
+        $auth = auth()->user();
+        $assignedTask = AssignedTask::findOrFail($request->id);
+        
+        if ($auth->role === User::ROLE_CHIEF) {
+            $assignedTask->update([
+                'is_done' => $request->is_done
+            ]);
+
+            History::create([
+                'task_id' => $assignedTask->task_id,
+                'officer_id' => $assignedTask->officer_id,
+                'odts_code' => $assignedTask->odts_code,
+                'assigned_at' => $assignedTask->assigned_at,
+                'activity' => 'Done',
+            ]);
+
+            return redirect()->back()->with('toast', [
+                'message' => 'Marked as Done.',
+                'type' => 'success'
+            ]);
+        }
+
+        abort(403);        
+    }
+
+        public function undone(Request $request)
+    {
+        $auth = auth()->user();
+        $assignedTask = AssignedTask::findOrFail($request->id);
+        
+        if ($auth->role === User::ROLE_CHIEF) {
+            $assignedTask->update([
+                'is_done' => $request->is_done
+            ]);
+
+            History::create([
+                'task_id' => $assignedTask->task_id,
+                'officer_id' => $assignedTask->officer_id,
+                'odts_code' => $assignedTask->odts_code,
+                'assigned_at' => $assignedTask->assigned_at,
+                'activity' => 'Undone',
+            ]);
+
+            return redirect()->back()->with('toast', [
+                'message' => 'Marked as Undone.',
+                'type' => 'success'
+            ]);
         }
 
         abort(403);        

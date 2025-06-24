@@ -8,6 +8,7 @@ use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\ActivityLogResource;
 use App\Models\AssignedTask;
+use App\Models\History;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\ActivityLog;
@@ -26,15 +27,15 @@ class DashboardController extends Controller
             $assignedTasks = AssignedTaskResource::collection(AssignedTask::all());
             $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])->latest()->get());
 
-            $logSearchQuery = ActivityLog::search($request);
-            $logs = ActivityLogResource::collection($logSearchQuery->latest()->paginate(4));
+            $query = History::search($request);
+            $histories = ActivityLogResource::collection($query->latest()->paginate(3));
 
             return Inertia::render('Chief/Dashboard', [
                 'officers' => $officers,
                 'tasks' => $tasks,
                 'assignedTasks' => $assignedTasks,
                 'requests' => $requests,
-                'logs' => $logs,
+                'histories' => $histories,
                 'search' => $request->search ?? '',
             ]);
         }
