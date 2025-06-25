@@ -37,29 +37,6 @@ const pendingTasks = computed(() => {
     return props.assignedTaskCount.data.filter(task => !task.is_done).length;
 });
 
-const requestCount = computed(() => {
-    return requests.value.length;
-});
-
-// page reload instead of polling
-// const refreshData = () => {
-//     router.reload({
-//         preserveScroll: true,
-//         preserveState: true,
-//     });
-// };
-
-// let refreshInterval = null;
-
-// onMounted(() => {
-//     refreshInterval = setInterval(() => {
-//         refreshData();
-//     }, 10000);
-// });
-
-// onBeforeUnmount(() => {
-//   clearInterval(refreshInterval);
-// });
 
 // searchbar
 let pageNumber = ref(1),
@@ -216,38 +193,6 @@ const notificationRoute = () => {
                     </StatCard>
                 </div>
 
-                <!-- <div v-if="requestCount != 0">
-                    <div class="mb-4 sm:flex sm:items-center">
-                        <div class="sm:flex-auto">
-                            <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
-                                Notify Pending
-                            </h1>
-                            <p class="mt-2 text-sm text-gray-700 dark:text-green-300">
-                                Here you can see how many notify on pedning you’ve sent to the chief.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="bg-gradient-to-r from-teal-200 via-teal-300 to-teal-400 text-teal-900 font-semibold text-lg p-4 border border-teal-300 rounded shadow flex justify-between items-center space-x-4">
-                        <p class="text-sm sm:text-base">
-                            You have: <span class="text-red-600">{{ requestCount }}</span> Pending Notify
-                        </p>
-                        <PrimaryButton
-                            @click="notificationRoute"
-                            class="inline-flex items-center justify-center
-                                rounded-md px-4 py-2 text-sm font-medium
-                                text-white shadow-sm transition-colors duration-200
-                                bg-teal-600 hover:bg-teal-700 focus:outline-none
-                                focus:ring-2 focus:ring-teal-500 focus:ring-offset-2
-                                focus:ring-offset-gray-100
-                                dark:bg-green-600 dark:hover:bg-green-500
-                                dark:focus:ring-green-400 dark:focus:ring-offset-gray-800"
-                        >
-                            View Notify Pending
-                        </PrimaryButton>
-                    </div>
-                </div> -->
-
                 <div class="mt-8 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
                         <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
@@ -306,19 +251,40 @@ const notificationRoute = () => {
                                                     <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">ODTS Code</th>
                                                     <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Assigned At</th>
                                                     <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
-                                                    <!-- <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Actions</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200 bg-white dark:bg-gray-800">
                                                 <tr v-for="task in assignedTasks.data" :key="task.id">
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.officer.name }}</td>
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.task.name }}</td>
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.odts_code }}</td>
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.assigned_at }}</td>
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.is_done ? 'Done' : 'Not Done' }}</td>
-                                                    <!-- <td class="px-3 py-4 space-x-2">
-                                                        <PrimaryButton @click="openModalNotify(task)" class="bg-pink-600 hover:bg-pink-500 text-white dark:text-white dark:bg-violet-900 dark:hover:bg-violet-700">Notify Chief</PrimaryButton>
-                                                    </td> -->
+                                                    <td class="px-3 py-4 text-sm text-gray-900">
+                                                        <p class="bg-teal-200 text-teal-800 font-semibold px-2 py-1 rounded inline-block">
+                                                            {{ task.officer.name }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="px-3 py-4 text-sm text-gray-900">
+                                                        <p class="bg-orange-200 text-orange-800 font-semibold px-2 py-1 rounded inline-block">
+                                                            {{ task.task.name }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="px-3 py-4 text-sm text-gray-900">
+                                                        <p class="bg-gray-200 text-gray-800 font-semibold px-2 py-1 rounded inline-block">
+                                                            {{ task.odts_code }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="px-3 py-4 text-sm text-gray-900">
+                                                        <p class="bg-pink-200 text-pink-800 font-semibold px-2 py-1 rounded inline-block">
+                                                            {{ task.assigned_at }}
+                                                        </p>
+                                                    </td>
+                                                    <td v-if="task.is_done" class="px-3 py-4 text-sm text-gray-900">
+                                                        <p class="bg-green-200 text-green-800 font-semibold px-2 py-1 rounded inline-block">
+                                                            Done
+                                                        </p>
+                                                    </td>
+                                                    <td v-else class="px-3 py-4 text-sm text-gray-900">
+                                                        <p class="bg-red-200 text-red-800 font-semibold px-2 py-1 rounded inline-block">
+                                                            Not Done
+                                                        </p>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -335,7 +301,7 @@ const notificationRoute = () => {
                                 <div
                                     v-for="task in assignedTasks.data"
                                     :key="task.id"
-                                    class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-4 group transition hover:ring-2 hover:ring-green-500"
+                                    class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-4"
                                 >
                                     <div class="flex justify-between items-center mb-2">
                                         <h3 class="text-lg font-semibold text-gray-800 dark:text-white">

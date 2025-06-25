@@ -69,7 +69,7 @@ Route::middleware(['auth', 'chief'])->group(function () {
 // Action Officer
 Route::middleware(['auth', 'officer'])->group(function () {
     Route::get('/officer/dashboard', [DashboardController::class, 'index'])->name('officer.dashboard');
-    Route::get('/officer/log', [LogController::class, 'index'])->name('officer.log');
+    Route::get('/officer/history', [HistoryController::class, 'index'])->name('officer.history');
 
     Route::resource('/officer/task', TaskListController::class)->names('officer.task');
     Route::resource('/officer/request', RequestListController::class)->names('officer.request');

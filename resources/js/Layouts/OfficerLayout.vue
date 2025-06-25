@@ -117,17 +117,11 @@ const refreshPage = () => {
                                 >
                                     Dashboard
                                 </NavLink>
-                                <!-- <NavLink
-                                    :href="route('officer.notification.index')"
-                                    :active="route().current('officer.notification.index')"
-                                >
-                                    Notify Pending
-                                </NavLink> -->
                                 <NavLink
-                                    :href="route('officer.log')"
-                                    :active="route().current('officer.log')"
+                                    :href="route('officer.history')"
+                                    :active="route().current('officer.history')"
                                 >
-                                    Logs
+                                    History
                                 </NavLink>
                             </div>
                         </div>
@@ -237,17 +231,11 @@ const refreshPage = () => {
                         >
                             Dashboard
                         </ResponsiveNavLink>
-                        <!-- <ResponsiveNavLink
-                            :href="route('officer.notification.index')"
-                            :active="route().current('officer.notification.index')"
-                        >
-                            Notify Pending
-                        </ResponsiveNavLink> -->
                         <ResponsiveNavLink
-                            :href="route('officer.log')"
-                            :active="route().current('officer.log')"
+                            :href="route('officer.history')"
+                            :active="route().current('officer.history')"
                         >
-                            Logs
+                            History
                         </ResponsiveNavLink>
                     </div>
 

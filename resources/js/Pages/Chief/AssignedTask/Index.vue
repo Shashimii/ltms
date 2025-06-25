@@ -381,11 +381,36 @@ watch(
                                                 </thead>
                                                 <tbody class="divide-y divide-gray-200 bg-white dark:bg-gray-800">
                                                     <tr v-for="task in assignedTasks.data" :key="task.id">
-                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.officer.name }}</td>
-                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.task.name }}</td>
-                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.odts_code }}</td>
-                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.assigned_at }}</td>
-                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.is_done ? 'Done' : 'Not Done' }}</td>
+                                                        <td class="px-3 py-4 text-sm text-gray-900">
+                                                            <p class="bg-teal-200 text-teal-800 font-semibold px-2 py-1 rounded inline-block">
+                                                                {{ task.officer.name }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="px-3 py-4 text-sm text-gray-900">
+                                                            <p class="bg-orange-200 text-orange-800 font-semibold px-2 py-1 rounded inline-block">
+                                                                {{ task.task.name }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="px-3 py-4 text-sm text-gray-900">
+                                                            <p class="bg-gray-200 text-gray-800 font-semibold px-2 py-1 rounded inline-block">
+                                                                {{ task.odts_code }}
+                                                            </p>
+                                                        </td>
+                                                        <td class="px-3 py-4 text-sm text-gray-900">
+                                                            <p class="bg-pink-200 text-pink-800 font-semibold px-2 py-1 rounded inline-block">
+                                                                {{ task.assigned_at }}
+                                                            </p>
+                                                        </td>
+                                                        <td v-if="task.is_done" class="px-3 py-4 text-sm text-gray-900">
+                                                            <p class="bg-green-200 text-green-800 font-semibold px-2 py-1 rounded inline-block">
+                                                                Done
+                                                            </p>
+                                                        </td>
+                                                        <td v-else class="px-3 py-4 text-sm text-gray-900">
+                                                            <p class="bg-red-200 text-red-800 font-semibold px-2 py-1 rounded inline-block">
+                                                                Not Done
+                                                            </p>
+                                                        </td>
                                                         <td class="px-3 py-4 flex items-center space-x-2">
                                                             <div class="flex items-center" v-if="!task.is_done">
                                                                 <button @click="openDoneModal(task)" :disabled="doneForm.processing" class="text-green-700 hover:text-green-400" title="Mark as Done">
