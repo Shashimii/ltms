@@ -24,6 +24,9 @@ class HistoryResource extends JsonResource
             'activity' => $this->activity,
             'old_assigned_at' => $this->old_assigned_at ? Carbon::parse($this->old_assigned_at)->format('m-d-Y') : null,
             'assigned_at' => $this->assigned_at ? Carbon::parse($this->assigned_at)->format('m-d-Y') : null,
+            'created_at' => $this->created_at
+                ? Carbon::parse($this->created_at)->format('M d Y h:ia')
+                : null,
         ];
 
     }

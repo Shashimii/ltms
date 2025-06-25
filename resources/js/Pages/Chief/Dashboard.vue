@@ -466,6 +466,12 @@ const historyRoute = () => {
                     >
                         <div class="p-4 rounded-lg bg-white shadow dark:bg-gray-800 text-base text-gray-900 dark:text-gray-100 leading-relaxed border border-gray-200 dark:border-gray-700">
                             <div v-if="history.activity === 'Assigned'" class="flex-col space-y-4">
+                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    <p>{{ history.created_at }}</p>
+                                </div>
                                 <div class="flex justify-between">
                                     <span :class="activityColor(history.activity)">
                                         {{ history.activity }}
@@ -509,6 +515,12 @@ const historyRoute = () => {
                                 </div>
                             </div>
                             <div v-if="history.activity === 'Edited'" class="flex-col space-y-4">
+                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    <p>{{ history.created_at }}</p>
+                                </div>
                                 <div class="flex justify-between">
                                     <span :class="activityColor(history.activity)">
                                         {{ history.activity }}
@@ -589,6 +601,12 @@ const historyRoute = () => {
                                 </div>
                             </div>
                             <div v-if="history.activity === 'Deleted'" class="flex-col space-y-4">
+                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    <p>{{ history.created_at }}</p>
+                                </div>
                                 <div class="flex justify-between">
                                     <span :class="activityColor(history.activity)">
                                         {{ history.activity }}
@@ -632,6 +650,12 @@ const historyRoute = () => {
                                 </div>
                             </div>
                             <div v-if="history.activity === 'Done'" class="flex-col space-y-4">
+                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    <p>{{ history.created_at }}</p>
+                                </div>
                                 <div class="flex justify-between">
                                     <span :class="activityColor(history.activity)">
                                         {{ history.activity }}
@@ -675,6 +699,12 @@ const historyRoute = () => {
                                 </div>
                             </div>
                             <div v-if="history.activity === 'Undone'" class="flex-col space-y-4">
+                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    <p>{{ history.created_at }}</p>
+                                </div>
                                 <div class="flex justify-between">
                                     <span :class="activityColor(history.activity)">
                                         {{ history.activity }}
