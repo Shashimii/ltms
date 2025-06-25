@@ -19,11 +19,11 @@ class HistoryResource extends JsonResource
             'id' => $this->id,
             'task' => TaskResource::make($this->whenLoaded('task')),
             'officer' => UserResource::make($this->whenLoaded('officer')),
+            'old_odts_code' => $this->old_odts_code,
             'odts_code' => $this->odts_code,
             'activity' => $this->activity,
-            'created_at' => Carbon::parse($this->created_at)
-                ->timezone('Asia/Manila')
-                ->format('F j, Y h:i A'),
+            'old_assigned_at' => $this->old_assigned_at ? Carbon::parse($this->old_assigned_at)->format('m-d-Y') : null,
+            'assigned_at' => $this->assigned_at ? Carbon::parse($this->assigned_at)->format('m-d-Y') : null,
         ];
 
     }

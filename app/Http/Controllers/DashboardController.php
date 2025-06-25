@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AssignedTaskResource;
+use App\Http\Resources\HistoryResource;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
-use App\Http\Resources\ActivityLogResource;
 use App\Models\AssignedTask;
 use App\Models\History;
 use App\Models\Task;
 use App\Models\User;
-use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -28,7 +27,7 @@ class DashboardController extends Controller
             $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])->latest()->get());
 
             $query = History::search($request);
-            $histories = ActivityLogResource::collection($query->latest()->paginate(3));
+        $histories = HistoryResource::collection($query->with(['officer', 'task'])->latest()->paginate(3));
 
             return Inertia::render('Chief/Dashboard', [
                 'officers' => $officers,
