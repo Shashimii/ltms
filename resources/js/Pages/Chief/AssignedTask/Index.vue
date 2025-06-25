@@ -362,62 +362,81 @@ watch(
 
                 <div class="mt-8 flex flex-col">
                     <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div
-                            class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
-                        >   
+                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">   
                             <div class="hidden sm:block">
-                                <div
-                                    class=" shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative"
-                                >
-                                    <!-- Table for medium and larger screens -->
-                                    <div class="overflow-hidden w-full rounded-lg">
-                                        <table class="min-w-full divide-y divide-gray-300">
-                                            <thead class="bg-gray-50 dark:bg-gray-700">
-                                                <tr>
-                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Officer</th>
-                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Duty</th>
-                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">ODTS Code</th>
-                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Assigned At</th>
-                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
-                                                    <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="divide-y divide-gray-200 bg-white dark:bg-gray-800">
-                                                <tr v-for="task in assignedTasks.data" :key="task.id">
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.officer.name }}</td>
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.task.name }}</td>
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.odts_code }}</td>
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.assigned_at }}</td>
-                                                    <td class="px-3 py-4 text-sm text-gray-900">{{ task.is_done ? 'Done' : 'Not Done' }}</td>
-                                                    <td class="px-3 py-4 flex items-center space-x-2">
-                                                        <div class="flex items-center" v-if="!task.is_done">
-                                                            <button @click="openDoneModal(task)" :disabled="editForm.processing" class="text-green-700 hover:text-green-400" title="Mark as Done">
+                                <div v-if="assignedTasks.data.length != 0">
+                                    <div class=" shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative">
+                                        <!-- Table for medium and larger screens -->
+                                        <div class="overflow-hidden w-full rounded-lg">
+                                            <table class="min-w-full divide-y divide-gray-300">
+                                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                                    <tr>
+                                                        <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Officer</th>
+                                                        <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Duty</th>
+                                                        <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">ODTS Code</th>
+                                                        <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Assigned At</th>
+                                                        <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
+                                                        <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-gray-200 bg-white dark:bg-gray-800">
+                                                    <tr v-for="task in assignedTasks.data" :key="task.id">
+                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.officer.name }}</td>
+                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.task.name }}</td>
+                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.odts_code }}</td>
+                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.assigned_at }}</td>
+                                                        <td class="px-3 py-4 text-sm text-gray-900">{{ task.is_done ? 'Done' : 'Not Done' }}</td>
+                                                        <td class="px-3 py-4 flex items-center space-x-2">
+                                                            <div class="flex items-center" v-if="!task.is_done">
+                                                                <button @click="openDoneModal(task)" :disabled="editForm.processing" class="text-green-700 hover:text-green-400" title="Mark as Done">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                            <div class="flex items-center" v-if="task.is_done">
+                                                                <button @click="openUndoneModal(task)" :disabled="editForm.processing" class="text-violet-700 hover:text-violet-400" title="Mark as Undone">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                            <button @click="openModalFormEdit(task)" :disabled="editForm.processing" class="text-blue-700 hover:text-blue-400" title="Edit Task">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                                                 </svg>
                                                             </button>
-                                                        </div>
-                                                        <div class="flex items-center" v-if="task.is_done">
-                                                            <button @click="openUndoneModal(task)" :disabled="editForm.processing" class="text-violet-700 hover:text-violet-400" title="Mark as Undone">
+                                                            <button @click="openDeleteModal(task)" :disabled="editForm.processing" class="text-red-700 hover:text-red-400" title="Delete Task">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                                 </svg>
                                                             </button>
-                                                        </div>
-                                                        <button @click="openModalFormEdit(task)" :disabled="editForm.processing" class="text-blue-700 hover:text-blue-400" title="Edit Task">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                            </svg>
-                                                        </button>
-                                                        <button @click="openDeleteModal(task)" :disabled="editForm.processing" class="text-red-700 hover:text-red-400" title="Delete Task">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                                            </svg>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else>
+                                    <div class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-green-800">
+                                        <div class="p-4 rounded-lg bg-white shadow dark:bg-green-800 text-base text-green-900 dark:text-green-100 leading-relaxed border border-green-200 dark:border-green-700">
+                                            <div class="mt-6 flex flex-col items-center justify-center text-green-700 dark:text-green-400">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.5"
+                                                    stroke="currentColor"
+                                                    class="size-16">
+                                                <path stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 
+                                                        3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+
+                                                <p class="text-2xl italic">No results found.</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <Pagination 
@@ -427,49 +446,97 @@ watch(
                             </div>
 
                             <!-- Card style for small screens -->
-                            <div class="px-4 overflow-hidden block sm:hidden space-y-6">
-                                <div
-                                    v-for="task in assignedTasks.data"
-                                    :key="task.id"
-                                    class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-4 group transition hover:ring-2 hover:ring-green-500"
-                                >
-                                    <div class="flex justify-between items-center mb-2">
-                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
-                                            {{ task.task.name }}
-                                        </h3>
-                                        <span
-                                            class="text-xs font-medium px-2.5 py-0.5 rounded-full"
-                                            :class="task.is_done ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'"
-                                        >
-                                            {{ task.is_done ? 'Done' : 'Not Done' }}
-                                        </span>
+                            <div class="px-4 overflow-hidden block sm:hidden">
+                                <div v-if="assignedTasks.data != 0" class="space-y-6">
+                                    <div
+                                        v-for="task in assignedTasks.data"
+                                        :key="task.id"
+                                        class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-4"
+                                    >
+                                        <div class="mb-8 flex-col flex-start space-y-2">
+                                            <span
+                                                class="text-xs font-medium px-2.5 py-0.5 rounded-full"
+                                                :class="task.is_done ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'"
+                                            >
+                                                {{ task.is_done ? 'Done' : 'Not Done' }}
+                                            </span>
+                                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                                                {{ task.task.name }}
+                                            </h3>
                                         </div>
 
-                                        <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-medium">Officer</span>
-                                            <span class="text-right">{{ task.officer.name }}</span>
+                                        <div class="space-y-2 text-sm dark:text-gray-300">
+                                            <div class="flex flex-col">
+                                                <span class="font-semibold text-gray-700">Officer</span>
+                                                <span class="font-semibold text-lg">{{ task.officer.name }}</span>
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <span class="font-semibold text-gray-700">ODTS Code</span>
+                                                <span class="font-semibold text-lg">{{ task.odts_code }}</span>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex flex-col">
+                                                    <span class="font-semibold text-gray-700">Assigned At</span>
+                                                    <span class="font-semibold text-lg">{{ task.assigned_at }}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-medium">ODTS Code</span>
-                                            <span class="text-right">{{ task.odts_code }}</span>
-                                        </div>
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-medium">Assigned At</span>
-                                            <span class="text-right">{{ task.assigned_at }}</span>
+
+                                        <div class="mt-4 grid-cols-3 space-y-2">
+                                            <div class="flex items-center" v-if="!task.is_done">
+                                                <button @click="openDoneModal(task)" :disabled="doneForm.processing" class="w-full p-2 bg-green-600 hover:bg-green-700 text-white flex justify-center items-center gap-2 rounded" title="Mark as Done">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                                                    </svg>
+                                                    Mark as Done
+                                                </button>
+                                            </div>
+                                            <div class="flex items-center" v-if="task.is_done">
+                                                <button @click="openUndoneModal(task)" :disabled="undoneForm.processing" class="w-full p-2 bg-violet-600 hover:bg-violet-700 text-white flex justify-center items-center gap-2 rounded" title="Mark as Undone">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                    Mark as Undone
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <button @click="openModalFormEdit(task)" :disabled="editForm.processing" class="w-full p-2 bg-blue-600 hover:bg-blue-700 text-white flex justify-center items-center gap-2 rounded" title="Edit Task">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                    </svg>
+                                                    Edit Task
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <button @click="openDeleteModal(task)" :disabled="deleteForm.processing" class="w-full p-2 bg-red-600 hover:bg-red-700 text-white flex justify-center items-center gap-2 rounded">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                    </svg>
+                                                    Delete Task
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div v-else>
+                                    <div class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-green-800">
+                                        <div class="p-4 rounded-lg bg-white shadow dark:bg-green-800 text-base text-green-900 dark:text-green-100 leading-relaxed border border-green-200 dark:border-green-700">
+                                            <div class="mt-6 flex flex-col items-center justify-center text-green-700 dark:text-green-400">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.5"
+                                                    stroke="currentColor"
+                                                    class="size-16">
+                                                <path stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 
+                                                        3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
 
-                                    <div class="mt-4 flex gap-2">
-                                        <PrimaryButton
-                                            class="flex-1 justify-center bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400"
-                                            @click="openModalFormEdit(task)"
-                                        >
-                                            Edit
-                                        </PrimaryButton>
-                                        <DangerButton class="flex-1 justify-center" @click="openDeleteModal(task)">
-                                            Delete
-                                        </DangerButton>
+                                                <p class="text-2xl italic">No results found.</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <Pagination 
@@ -721,7 +788,7 @@ watch(
 
     <Modal :show="showModalDelete" @close="showModalDelete = false" maxWidth="lg" :closeable="true">
         <template #default>
-            <div class="p-6 w-[30rem]">
+            <div class="p-6">
                 <div class="flex items-center justify-start space-x-4">
                     <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100">
                         <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
@@ -754,7 +821,7 @@ watch(
 
     <Modal :show="showModalDone" @close="showModalDone = false" maxWidth="lg" :closeable="true">
         <template #default>
-            <div class="p-6 w-[30rem]">
+            <div class="p-6">
                 <div class="flex items-center justify-start space-x-4">
                     <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-100">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-green-600">
@@ -787,7 +854,7 @@ watch(
 
     <Modal :show="showModalUndone" @close="showModalUndone = false" maxWidth="lg" :closeable="true">
         <template #default>
-            <div class="p-6 w-[30rem]">
+            <div class="p-6">
                 <div class="flex items-center justify-start space-x-4">
                     <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-red-600">

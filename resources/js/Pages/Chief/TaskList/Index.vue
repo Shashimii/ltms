@@ -364,7 +364,7 @@ watch(
 
     <Modal :show="showModalDelete" @close="showModalDelete = false" maxWidth="lg" :closeable="true">
         <template #default>
-            <div class="p-6 w-[30rem]">
+            <div class="p-6">
                 <div class="flex items-center justify-start space-x-4">
                     <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100">
                         <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
