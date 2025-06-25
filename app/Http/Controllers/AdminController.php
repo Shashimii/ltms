@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\HistoryResource;
+use App\Models\History;
 use App\Models\User;
-use App\Models\ActivityLog;
-use App\Http\Resources\ActivityLogResource;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,15 +18,16 @@ class AdminController extends Controller
         $officers = UserResource::collection(User::where('role', 0)->get());
         $users = UserResource::collection(User::all());
 
-        $logSearchQuery = ActivityLog::search($request);
-        $logs = ActivityLogResource::collection($logSearchQuery->latest()->paginate(10));
+        $query = History::search($request);
+        $histories = HistoryResource::collection($query->with(['officer', 'task'])->latest()->paginate(10));
 
         return Inertia::render('Admin/Dashboard', [
             'admins' => $admins,
             'chiefs' => $chiefs,
             'officers' => $officers,
             'users' => $users,
-            'logs' => $logs,
+            'histories' => $histories,
+            'rangeFilter' => $request->filter ?? 'Today',
             'search' => $request->search ?? '',
         ]);
     }
