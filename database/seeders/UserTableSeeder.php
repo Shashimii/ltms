@@ -22,17 +22,17 @@ class UserTableSeeder extends Seeder
                 'role' => 2
             ],
             [
-                'name' => 'Minji',
-                'email' => 'minji@gmail.com',
+                'name' => 'Michelle',
+                'email' => 'michellebesa0@gmail.com',
                 'password' => bcrypt('password'),
                 'role' => 1
             ],
-            [
-                'name' => 'Haerin',
-                'email' => 'haerin@gmail.com',
-                'password' => bcrypt('password'),
-                'role' => 0
-            ]
+            // [
+            //     'name' => 'Haerin',
+            //     'email' => 'haerin@gmail.com',
+            //     'password' => bcrypt('password'),
+            //     'role' => 0
+            // ]
         ];
 
         foreach ($users as $user) {
