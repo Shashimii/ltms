@@ -21,7 +21,7 @@ const props = defineProps({
 });
 
 const users = computed(() => props.users.data);
-const paginationData = props.users;
+const paginationData = computed(() => props.users);
 
 // searchbar
 let pageNumber = ref(1),
