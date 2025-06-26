@@ -239,7 +239,8 @@ const notificationRoute = () => {
                         >   
                             <div class="hidden sm:block">
                                 <div
-                                    class=" shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative"
+                                    v-if="assignedTasks.data.length != 0"
+                                    class="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative"
                                 >
                                     <!-- Table for medium and larger screens -->
                                     <div class="overflow-hidden w-full rounded-lg">
@@ -290,6 +291,27 @@ const notificationRoute = () => {
                                         </table>
                                     </div>
                                 </div>
+                                <div v-else>
+                                    <div class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-green-800">
+                                        <div class="p-4 rounded-lg bg-white shadow dark:bg-green-800 text-base text-green-900 dark:text-green-100 leading-relaxed border border-green-200 dark:border-green-700">
+                                            <div class="mt-6 flex flex-col items-center justify-center text-green-700 dark:text-green-400">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.5"
+                                                    stroke="currentColor"
+                                                    class="size-16">
+                                                <path stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 
+                                                        3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+
+                                                <p class="text-2xl italic">No results found.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <Pagination 
                                     :data="assignedTasks" 
                                     :updatedPageNumber="updatedPageNumber"
@@ -299,6 +321,7 @@ const notificationRoute = () => {
                             <!-- Card style for small screens -->
                             <div class="px-4 overflow-hidden block sm:hidden space-y-6">
                                 <div
+                                    v-if="assignedTasks.data.length != 0"
                                     v-for="task in assignedTasks.data"
                                     :key="task.id"
                                     class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-4"
@@ -329,10 +352,27 @@ const notificationRoute = () => {
                                             <span class="text-right">{{ task.assigned_at }}</span>
                                         </div>
                                     </div>
-                                    <!-- 
-                                    <div class="mt-4">
-                                        <PrimaryButton @click="openModalNotify(task)"  class="w-full bg-pink-600 hover:bg-pink-500 text-white text-center dark:text-white dark:bg-violet-900 dark:hover:bg-violet-700 flex justify-center items-center">Notify Chief</PrimaryButton>
-                                    </div> -->
+                                </div>
+                                <div v-else>
+                                    <div class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-green-800">
+                                        <div class="p-4 rounded-lg bg-white shadow dark:bg-green-800 text-base text-green-900 dark:text-green-100 leading-relaxed border border-green-200 dark:border-green-700">
+                                            <div class="mt-6 flex flex-col items-center justify-center text-green-700 dark:text-green-400">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke-width="1.5"
+                                                    stroke="currentColor"
+                                                    class="size-16">
+                                                <path stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 
+                                                        3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+
+                                                <p class="text-2xl italic">No results found.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <Pagination 
                                     :data="assignedTasks" 
