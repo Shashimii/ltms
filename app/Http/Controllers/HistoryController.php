@@ -19,7 +19,7 @@ class HistoryController extends Controller
 
             return Inertia::render('Chief/History', [
                 'histories' => $histories,
-                'rangeFilter' => $request->filter ?? 'Today',
+                'rangeFilter' => $request->filter ?? 'today',
                 'activityFilter' => $request->activity_filter ?? '',
                 'search' => $request->search ?? '',
             ]); 
@@ -31,7 +31,7 @@ class HistoryController extends Controller
 
             return Inertia::render('Officer/History', [
                 'histories' => $histories,
-                'rangeFilter' => $request->filter ?? 'Today',
+                'rangeFilter' => $request->filter ?? 'today',
                 'activityFilter' => $request->activity_filter ?? '',
                 'search' => $request->search ?? '',
             ]); 

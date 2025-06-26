@@ -31,10 +31,6 @@ class History extends Model
 
       if ($filter === 'today') {
         $query->whereRaw("DATE(CONVERT_TZ(created_at, '+00:00', '+08:00')) = ?", [$now->toDateString()]);
-      } elseif ($filter === 'week') {
-        $startOfWeek = $now->copy()->startOfWeek()->toDateString();
-        $endOfWeek = $now->copy()->endOfWeek()->toDateString();
-        $query->whereRaw("DATE(CONVERT_TZ(created_at, '+00:00', '+08:00')) BETWEEN ? AND ?", [$startOfWeek, $endOfWeek]);
       } elseif ($filter === 'month') {
         $query->whereRaw("MONTH(CONVERT_TZ(created_at, '+00:00', '+08:00')) = ? AND YEAR(CONVERT_TZ(created_at, '+00:00', '+08:00')) = ?", [$now->month, $now->year]);
       }

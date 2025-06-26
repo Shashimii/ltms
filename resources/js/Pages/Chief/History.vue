@@ -157,9 +157,9 @@ watch(
                         v-model="rangeFilter"
                         class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 sm:text-sm sm:leading-6"
                     >
-                        <option value="">All</option>
-                        <option value="Today">Today</option>
-                        <option value="Month">This Month</option>
+                        <option value="all">All</option>
+                        <option value="today">Today</option>
+                        <option value="month">This Month</option>
                     </select>
                 </div>
 
