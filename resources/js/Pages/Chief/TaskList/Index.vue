@@ -159,10 +159,10 @@ watch(
             <div class="mx-auto max-w-7xl px-4 sm:px-8">
                 <div class="flex items-center">
                     <div class="flex-auto">
-                        <h1 class="text-xl font-semibold text-gray-900">
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
                             Tasks List
                         </h1>
-                        <p class="mt-2 text-sm text-gray-700">
+                        <p class="mt-2 text-sm text-gray-700 dark:text-green-700">
                             A list of all Registered Tasks.
                         </p>
                     </div>
@@ -180,7 +180,7 @@ watch(
                 <div class="flex flex-col justify-left sm:flex-row mt-6">
                     <div class="relative text-sm text-gray-800 col-span-3">
                         <div
-                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
+                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500 dark:text-green-100"
                         >
                             <MagnifyingGlass />
                         </div>
@@ -191,7 +191,7 @@ watch(
                             autocomplete="off"
                             placeholder="Search..."
                             id="search"
-                            class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white dark:placeholder-white sm:text-sm sm:leading-6"
                         />
                     </div>
                 </div>
@@ -207,11 +207,11 @@ watch(
                                 <table
                                     class="min-w-full divide-y divide-gray-300"
                                 >
-                                    <thead class="bg-gray-50">
+                                    <thead class="bg-gray-50 dark:bg-gray-700">
                                         <tr>
                                             <th
                                                 scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                                class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white"
                                             >
                                                 Task Name
                                             </th>
@@ -223,11 +223,11 @@ watch(
                                     </thead>
                                     <tbody
                                         v-if="tasks.data.length != 0"
-                                        class="divide-y divide-gray-200 bg-white"
+                                        class="divide-y divide-gray-200 bg-white dark:bg-gray-800"
                                     >
-                                        <tr v-for="task in tasks.data" :key="task.id">
+                                        <tr v-for="task in tasks.data" :key="task.id" class="transition duration-300 hover:bg-gray-100 dark:hover:bg-black">
                                             <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 {{ task.name }}
                                             </td>
@@ -286,11 +286,11 @@ watch(
             <form @submit.prevent="saveTask">
                 <div>
                     <h3
-                        class="text-lg leading-6 font-medium text-gray-900"
+                        class="text-lg leading-6 font-medium text-gray-900 dark:text-green-500"
                     >
                         Task Information
                     </h3>
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-green-700">
                         Use this form to add new task.
                     </p>
                 </div>
@@ -327,11 +327,11 @@ watch(
             <form @submit.prevent="updateTask(editForm.id)">
                 <div>
                     <h3
-                        class="text-lg leading-6 font-medium text-gray-900"
+                        class="text-lg leading-6 font-medium text-gray-900 dark:text-green-500"
                     >
                         Task Information
                     </h3>
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-green-700">
                         Use this form to edit existing task.
                     </p>
                 </div>
@@ -340,7 +340,7 @@ watch(
 
                     <div class="col-span-6">
                         <InputLabel for="task_name" value="Task Name" />
-                        <p class="text-sm text-gray-600 text-left">
+                        <p class="text-sm text-gray-600 text-left dark:text-green-700">
                             modifying the task name will not affect the logs.
                         </p>
                         <TextInput 
@@ -376,12 +376,12 @@ watch(
                         </svg>
                     </div>
                     
-                    <h2 class="text-lg font-semibold">Delete Task ?</h2>
+                    <h2 class="text-lg font-semibold dark:text-green-500">Delete Task ?</h2>
                 </div>
 
-                <p class="mt-4 text-md text-gray-600 text-left">
+                <p class="mt-4 text-md text-gray-600 text-left dark:text-white">
                     Are you sure you want to delete the task 
-                    <strong class="text-black">{{ deleteForm.name }}</strong>
+                    <strong class="text-black dark:text-green-500">{{ deleteForm.name }}</strong>
                     ? This will also remove all related records and assigned tasks.
                 </p>
                 <div class="mt-6 flex justify-end gap-4">
