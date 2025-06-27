@@ -30,14 +30,6 @@ const formatDateValue = (dateValue: any) => {
   return `${dateValue.year}-${String(dateValue.month).padStart(2, '0')}-${String(dateValue.day).padStart(2, '0')}`;
 };
 
-// Initialize date value
-// onMounted(() => {
-//   if (model.modelValue) {
-//     // Safely cast to any to avoid type issues
-//     value.value = parseDate(model.modelValue) as any;
-//   }
-// });
-
 // watch instead when used on modal
 watch(
   () => model.modelValue,
@@ -61,7 +53,7 @@ watch(value, (newValue) => {
       <Button
         variant="outline"
         :class="cn(
-          'w-full mt-1 h-[43px] justify-start text-left font-normal',
+          'w-full mt-1 h-[43px] justify-start text-left font-normal dark:bg-green-800 dark:text-white',
           !value && 'text-muted-foreground',
         )"
       >
@@ -69,7 +61,7 @@ watch(value, (newValue) => {
         {{ modelValue ? df.format(value?.toDate?.(getLocalTimeZone())) : "Pick a date" }}
       </Button>
     </PopoverTrigger>
-    <PopoverContent class="w-auto p-0 z-50">
+    <PopoverContent class="w-auto p-0 z-50 dark:bg-black dark:text-white">
       <Calendar v-model="value" initial-focus />
     </PopoverContent>
   </Popover>

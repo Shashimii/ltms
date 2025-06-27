@@ -298,12 +298,12 @@ watch(
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl px-4 lg:px-8">
-                <div class="sm:flex sm:items-center">
+                <div class="sm:flex sm:items-center ">
                     <div class="sm:flex-auto">
-                        <h1 class="text-xl font-semibold text-gray-900">
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
                             Assigned Tasks List
                         </h1>
-                        <p class="mt-2 text-sm text-gray-700">
+                        <p class="mt-2 text-sm text-gray-700 dark:text-green-700">
                             A list of all Assigned Task.
                         </p>
                     </div>
@@ -321,7 +321,7 @@ watch(
                 <div class="flex flex-col justify-left sm:flex-row mt-6 gap-2">
                     <div class="relative text-sm text-gray-800 w-full sm:max-w-xs">
                         <div
-                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
+                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500 dark:text-green-100"
                         >
                             <MagnifyingGlass />
                         </div>
@@ -332,13 +332,13 @@ watch(
                             autocomplete="off"
                             placeholder="Search task, odts..."
                             id="search"
-                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-600"
+                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white sm:text-sm sm:leading-6"
                         />
                     </div>
 
                     <select
                         v-model="officer_id"
-                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white sm:text-sm sm:leading-6"
                     >
                         <option value="">Filter by officer</option>
                         <option
@@ -352,7 +352,7 @@ watch(
 
                     <select
                         v-model="status_filter"
-                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white sm:ml-5 sm:text-sm sm:leading-6"
                     >
                         <option value="">Filter by status</option>
                         <option value="1">Done</option>
@@ -581,11 +581,11 @@ watch(
             <form @submit.prevent="saveAssignedTask">
                 <div>
                     <h3
-                        class="text-lg leading-6 font-medium text-gray-900"
+                        class="text-lg leading-6 font-medium text-gray-900 dark:text-green-500"
                     >
                         Task Information
                     </h3>
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-green-700">
                         Use this form to assign new task.
                     </p>
                 </div>
@@ -593,16 +593,11 @@ watch(
                 <div class="mt-6 grid grid-cols-6 gap-6">
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label
-                        for="officer_id"
-                        class="block text-sm font-medium text-gray-700"
-                        >
-                            Officer
-                        </label>
+                        <InputLabel for="officer_id" value="Officer" />
                         <select
                             v-model="createForm.officer_id"
                             id="officer_id"
-                            class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white sm:text-sm"
                             :class="{'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': createForm.errors.officer_id}"
                         >
                             <option value="">
@@ -621,16 +616,11 @@ watch(
 
                     
                     <div class="col-span-6 sm:col-span-3">
-                        <label
-                        for="task_id"
-                        class="block text-sm font-medium text-gray-700"
-                        >
-                            Task
-                        </label>
+                        <InputLabel for="task_id" value="Task" />
                         <select
                             v-model="createForm.task_id"
                             id="task_id"
-                            class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white sm:text-sm"
                             :class="{'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300': createForm.errors.task_id}"
                         >
                             <option value=""> 
@@ -660,10 +650,9 @@ watch(
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label
-                            class="block text-sm font-medium text-gray-700"
-                            >Assign Date</label
-                        >
+                        <label class="block text-sm font-medium text-gray-700 dark:text-green-500">
+                            Assign Date
+                        </label>
                         <Datepicker v-model="createForm.assigned_at" />
                         <InputError class="mt-2" :message="createForm.errors.assigned_at" />
                     </div>
@@ -671,7 +660,7 @@ watch(
                     <div class="col-span-6 sm:col-span-3">
                         <label for="is_done" class="flex items-center">
                             <Checkbox id="is_done" name="is_done" v-model:checked="createForm.is_done" />
-                            <span class="ms-2 text-sm text-gray-600">
+                            <span class="ms-2 text-sm text-gray-600 dark:text-green-500">
                                 Task is Already Done.
                             </span>
                         </label>

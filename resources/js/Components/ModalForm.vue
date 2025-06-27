@@ -56,10 +56,10 @@ watch(
                         class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-3xl"
                         @click.stop
                     >
-                        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 dark:bg-gray-800">
                             <slot name="main" />
                         </div>
-                        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse dark:bg-gray-700 sm:px-6">
                             <div class="mt-6 flex items-center justify-end gap-4">
                                 <slot name="footer" />
                             </div>
