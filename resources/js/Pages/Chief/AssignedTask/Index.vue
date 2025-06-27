@@ -372,7 +372,7 @@ watch(
                                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                                     <tr>
                                                         <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Officer Name</th>
-                                                        <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Task name</th>
+                                                        <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white max-w-xs">Task Name</th>
                                                         <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">ODTS Code</th>
                                                         <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Assignment Date</th>
                                                         <th class="px-3 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
@@ -380,13 +380,13 @@ watch(
                                                     </tr>
                                                 </thead>
                                                 <tbody class="divide-y divide-gray-200 bg-white dark:bg-gray-800">
-                                                    <tr v-for="task in assignedTasks.data" :key="task.id">
+                                                    <tr v-for="task in assignedTasks.data" :key="task.id" class="transition duration-300 hover:bg-gray-100">
                                                         <td class="px-3 py-4 text-sm text-gray-900">
                                                             <p class="bg-teal-200 text-teal-800 font-semibold px-2 py-1 rounded inline-block">
                                                                 {{ task.officer.name }}
                                                             </p>
                                                         </td>
-                                                        <td class="px-3 py-4 text-sm text-gray-900">
+                                                        <td class="px-3 py-4 text-sm text-gray-900 max-w-xs">
                                                             <p class="bg-orange-200 text-orange-800 font-semibold px-2 py-1 rounded inline-block">
                                                                 {{ task.task.name }}
                                                             </p>
