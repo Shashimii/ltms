@@ -683,11 +683,11 @@ watch(
             <form @submit.prevent="updateAssignedTask(editForm.id)">
                 <div>
                     <h3
-                        class="text-lg leading-6 font-medium text-gray-900"
+                        class="text-lg leading-6 font-medium text-gray-900 dark:text-green-500"
                     >
                         Task Information
                     </h3>
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-green-600">
                         Use this form to edit existing task.
                     </p>
                 </div>
@@ -695,13 +695,8 @@ watch(
                 <div class="mt-6 grid grid-cols-6 gap-6">
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label
-                        for="officer_id"
-                        class="block text-sm font-medium text-gray-700"
-                        >
-                            Officer
-                        </label>
-                        <p class="text-sm text-gray-600 text-left">
+                        <InputLabel for="officer_id" value="Officer" />
+                        <p class="text-sm text-gray-600 text-left dark:text-green-600">
                             Assigning officer can't be changed after assignment.
                         </p>
                         <select
@@ -726,13 +721,8 @@ watch(
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label
-                        for="task_id"
-                        class="block text-sm font-medium text-gray-700"
-                        >
-                            Task
-                        </label>
-                        <p class="text-sm text-gray-600 text-left">
+                        <InputLabel for="task_id" value="Task" />
+                        <p class="text-sm text-gray-600 text-left dark:text-green-600">
                             Task can't be changed once assigned.
                         </p>
                         <select
@@ -769,20 +759,18 @@ watch(
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label class="block text-sm font-medium text-gray-700">
-                            Assign Date
-                        </label>
+                        <InputLabel for="officer_id" value="Officer" />
                         <Datepicker v-model="editForm.assigned_at" />
                         <InputError class="mt-2" :message="editForm.errors.assigned_at" />
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <p class="text-sm text-gray-600 text-left">
+                        <p class="text-sm text-gray-600 text-left dark:text-green-500">
                             Task status can't be changed after assignment.
                         </p>
                         <label for="is_done" class="flex items-center">
                             <Checkbox id="is_done" name="is_done" v-model:checked="editForm.is_done" disabled />
-                            <span class="ms-2 text-sm text-gray-600">
+                            <span class="ms-2 text-sm text-gray-600 dark:text-green-600">
                                 Task is Already Done.
                             </span>
                         </label>
@@ -810,7 +798,7 @@ watch(
                         </svg>
                     </div>
                     
-                    <h2 class="text-lg font-semibold">Delete Assigned Task ?</h2>
+                    <h2 class="text-lg font-semibold dark:text-gray-200">Delete Assigned Task ?</h2>
                 </div>
 
                 <div class="flex-col space-y-2">
@@ -821,7 +809,7 @@ watch(
 
                         <p>Task Name</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-orange-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-orange-400 dark:text-gray-200">
                         {{ deleteForm.task }}
                     </p>
 
@@ -832,7 +820,7 @@ watch(
 
                         <p>Assigned to Officer</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-teal-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-teal-400 dark:text-gray-200">
                         {{ deleteForm.officer }}
                     </p>
 
@@ -842,9 +830,9 @@ watch(
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
                         </svg>
 
-                        <p>ODTS Code</p>
+                        <p class="dark:text-gray-200">ODTS Code</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-gray-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-gray-400 dark:text-gray-200">
                         {{ deleteForm.odts_code }}
                     </p>
 
@@ -855,7 +843,7 @@ watch(
 
                         <p>Assignment Date</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-pink-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-pink-400 dark:text-gray-200">
                         {{ deleteForm.assigned_at }}
                     </p>
 
@@ -866,7 +854,7 @@ watch(
 
                         <p>Task Status</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-blue-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-blue-400 dark:text-gray-200">
                         {{ deleteForm.is_done ? 'Done' : 'Not Done' }}
                     </p>
                 </div>
@@ -914,7 +902,7 @@ watch(
 
                         <p>Task Name</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-orange-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-orange-400 dark:text-gray-200">
                         {{ doneForm.task }}
                     </p>
 
@@ -925,7 +913,7 @@ watch(
 
                         <p>Assigned to Officer</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-teal-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-teal-400 dark:text-gray-200">
                         {{ doneForm.officer }}
                     </p>
 
@@ -937,7 +925,7 @@ watch(
 
                         <p>ODTS Code</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-gray-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-gray-400 dark:text-gray-200">
                         {{ doneForm.odts_code }}
                     </p>
 
@@ -948,7 +936,7 @@ watch(
 
                         <p>Assignment Date</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-pink-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-pink-400 dark:text-gray-200">
                         {{ doneForm.assigned_at }}
                     </p>
                 </div>
@@ -996,7 +984,7 @@ watch(
 
                         <p>Task Name</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-orange-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-orange-400 dark:text-gray-200">
                         {{ undoneForm.task }}
                     </p>
 
@@ -1007,7 +995,7 @@ watch(
 
                         <p>Assigned to Officer</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-teal-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-teal-400 dark:text-gray-200">
                         {{ undoneForm.officer }}
                     </p>
 
@@ -1019,7 +1007,7 @@ watch(
 
                         <p>ODTS Code</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-gray-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-gray-400 dark:text-gray-200">
                         {{ undoneForm.odts_code }}
                     </p>
 
@@ -1030,7 +1018,7 @@ watch(
 
                         <p>Assignment Date</p>
                     </p>
-                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-pink-400">
+                    <p class="text-xl font-semibold ps-4 ms-3 border-l-2 border-pink-400 dark:text-gray-200">
                         {{ undoneForm.assigned_at }}
                     </p>
                 </div>
