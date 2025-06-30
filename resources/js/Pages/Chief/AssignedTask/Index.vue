@@ -891,7 +891,7 @@ watch(
                         </svg>
                     </div>
                     
-                    <h2 class="text-lg font-semibold">Mark as Done ?</h2>
+                    <h2 class="text-lg font-semibold dark:text-gray-200">Mark as Done ?</h2>
                 </div>
 
                 <div class="flex-col space-y-2">
@@ -973,7 +973,7 @@ watch(
                         </svg>
                     </div>
                     
-                    <h2 class="text-lg font-semibold">Mark as Undone ?</h2>
+                    <h2 class="text-lg font-semibold dark:text-gray-200">Mark as Undone ?</h2>
                 </div>
 
                 <div class="flex-col space-y-2">

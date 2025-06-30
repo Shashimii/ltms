@@ -404,7 +404,7 @@ const historyRoute = () => {
                             </div>
                             <div class="mt-2 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
                                 <PrimaryButton
-                                    class="hidden sm:inline-flex px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white rounded"
+                                    class="hidden sm:inline-flex px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white rounded dark:bg-pink-600 dark:hover:bg-pink-700"
                                     @click="openModalTable()"
                                 >
                                     View Table
@@ -412,7 +412,7 @@ const historyRoute = () => {
 
                                 <!-- Export to Excel -->
                                 <PrimaryButton
-                                    class="px-4 py-2 flex items-center justify-center bg-green-800 hover:bg-green-700 text-white rounded w-full sm:w-auto"
+                                    class="px-4 py-2 flex items-center justify-center bg-green-800 hover:bg-green-700 text-white rounded w-full dark:bg-green-700 dark:hover:bg-green-800 sm:w-auto"
                                     @click="excelExport"
                                 >
                                     Export to Excel

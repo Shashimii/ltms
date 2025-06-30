@@ -255,7 +255,7 @@ const notificationRoute = () => {
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200 bg-white dark:bg-gray-800">
-                                                <tr v-for="task in assignedTasks.data" :key="task.id" class="transition duration-300 hover:bg-gray-100">
+                                                <tr v-for="task in assignedTasks.data" :key="task.id" class="transition duration-300 hover:bg-black">
                                                     <td class="px-3 py-4 text-sm text-gray-900">
                                                         <p class="bg-teal-200 text-teal-800 font-semibold px-2 py-1 rounded inline-block">
                                                             {{ task.officer.name }}

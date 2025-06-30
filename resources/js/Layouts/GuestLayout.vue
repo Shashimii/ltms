@@ -12,8 +12,11 @@ import { Link } from '@inertiajs/vue3';
 
             <!-- Form Box -->
             <div
-                class="sm:mt-32 w-full px-6 py-8 overflow-hidden sm:bg-gradient-to-tr from-green-300 to-green-500 sm:shadow-md sm:pt-16 sm:w-[30rem] sm:rounded-lg dark:bg-gray-800"
-            >
+                  class="sm:mt-32 w-full px-6 py-8 overflow-hidden 
+                        sm:bg-gradient-to-tr from-green-300 to-green-500 
+                        sm:shadow-md sm:pt-16 sm:w-[30rem] sm:rounded-lg 
+                        dark:bg-gray-800 dark:from-none dark:to-none dark:bg-none">
+            
                 <slot />
             </div>
         </div>
