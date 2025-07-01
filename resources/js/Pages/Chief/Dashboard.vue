@@ -807,7 +807,7 @@ const historyRoute = () => {
                         <h1 class="text-xl font-semibold text-gray-900">
                             Excel Table
                         </h1>
-                        <button @click="showModalTable = false" class="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <button @click="showModalTable = false" class="p-1 rounded hover:bg-gray-200 dark:hover:bg-green-400 dark:text-black">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
@@ -818,7 +818,7 @@ const historyRoute = () => {
                     </p>
                 </div>
             </div>
-            <div class="overflow-x-auto max-h-[60rem]" @mousedown="startDrag" ref="mapTable">
+            <div class="overflow-x-auto max-h-[40rem]" @mousedown="startDrag" ref="mapTable">
                 <table class="min-w-full divide-y divide-gray-300 bg-white border border-gray-300 rounded-lg shadow">
                     <thead class="bg-gray-100">
                         <tr class="divide-x divide-gray-300">
@@ -846,7 +846,7 @@ const historyRoute = () => {
                             <td 
                                 v-for="officer in officers" 
                                 :key="officer.id" 
-                                class="px-4 py-2 text-center"
+                                class="px-4 py-2 text-center text-black"
                                 :class="{ 'bg-green-200': getAssignedDuty(officer.id, duty.id).length > 0 }"
                             >
                                 <div v-if="getAssignedDuty(officer.id, duty.id).length > 0">

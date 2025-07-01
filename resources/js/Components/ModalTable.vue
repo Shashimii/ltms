@@ -42,7 +42,7 @@ watch(
             />
 
             <!-- Modal content -->
-            <div class="flex min-h-full items-center justify-center p-4 sm:p-16 text-center">
+            <div class="flex min-h-full items-center justify-center py-4 px-4 text-center">
                 <transition
                 enter-active-class="ease-out duration-300"
                 enter-from-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
