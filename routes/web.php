@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskListController;
+use App\Http\Controllers\OfficerListController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,7 @@ Route::middleware(['auth', 'chief'])->group(function () {
 
     // Multi
     Route::resource('/chief/task', TaskListController::class)->names('chief.task');
+    Route::resource('/chief/officer', OfficerListController::class)->names('chief.officer');
     Route::resource('/chief/assigned-task', AssignedTaskController::class)->names('chief.assigned-task');
 });
 

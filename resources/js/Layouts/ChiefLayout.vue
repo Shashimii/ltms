@@ -140,16 +140,22 @@ onMounted(() => {
                                     Assigned Tasks
                                 </NavLink>
                                 <NavLink
-                                    :href="route('chief.history')"
-                                    :active="route().current('chief.history')"
+                                    :href="route('chief.officer.index')"
+                                    :active="route().current('chief.officer.index')"
                                 >
-                                    History
+                                    Officer List
                                 </NavLink>
                                 <NavLink
                                     :href="route('chief.task.index')"
                                     :active="route().current('chief.task.index')"
                                 >
                                     Task List
+                                </NavLink>
+                                <NavLink
+                                    :href="route('chief.history')"
+                                    :active="route().current('chief.history')"
+                                >
+                                    History
                                 </NavLink>
                             </div>
                         </div>
@@ -283,16 +289,22 @@ onMounted(() => {
                             Assigned Tasks
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
-                            :href="route('chief.history')"
-                            :active="route().current('chief.history')"
+                            :href="route('chief.officer.index')"
+                            :active="route().current('chief.officer.index')"
                         >
-                            History
+                            Officer List
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('chief.task.index')"
                             :active="route().current('chief.task.index')"
                         >
                             Task List
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('chief.history')"
+                            :active="route().current('chief.history')"
+                        >
+                            History
                         </ResponsiveNavLink>
                     </div>
 
