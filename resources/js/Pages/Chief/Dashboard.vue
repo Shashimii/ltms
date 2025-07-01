@@ -53,6 +53,10 @@ const pendingTasks = computed(() => {
     return assignedTasks.filter(task => !task.is_done).length;
 });
 
+const allTasks = computed(() => {
+    return assignedTasks.length;
+});
+
 const officerCount = computed(() => {
     return officers.length;
 })
@@ -341,7 +345,7 @@ const historyRoute = () => {
                     </div>
                 </div>
 
-                <div class="w-full grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="w-full grid sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <StatCard>
                         <template #icon>
                             <div class="p-4 bg-green-200 rounded">
@@ -361,7 +365,7 @@ const historyRoute = () => {
                         <template #icon>
                             <div class="p-4 bg-red-200 rounded">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-red-800">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                                 </svg>
                             </div>
                         </template>
@@ -370,6 +374,21 @@ const historyRoute = () => {
                         </template>
                         <template #label>
                             Pending Tasks
+                        </template>
+                    </StatCard>
+                    <StatCard>
+                        <template #icon>
+                            <div class="p-4 bg-violet-200 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-violet-800">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                                </svg>
+                            </div>
+                        </template>
+                        <template #count>
+                            {{ allTasks }}
+                        </template>
+                        <template #label>
+                            Total Tasks
                         </template>
                     </StatCard>
                     <StatCard>
@@ -456,7 +475,7 @@ const historyRoute = () => {
                         autocomplete="off"
                         placeholder="Search odts code..."
                         id="search"
-                        class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white sm:text-sm sm:leading-6"
+                        class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white dark:placeholder-white sm:text-sm sm:leading-6"
                     />
                 </div>
                 <div v-if="histories.data.length != 0">
