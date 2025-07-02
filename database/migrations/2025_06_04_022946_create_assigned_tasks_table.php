@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
             $table->string('odts_code');
             $table->date('assigned_at');
+            // $table->tinyInteger('division'); will implement if the database user received.
             $table->tinyInteger('request_status')->default(0);
             $table->boolean('is_done')->default(false);
             $table->timestamps();
