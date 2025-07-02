@@ -73,6 +73,7 @@ class RegisteredUserController extends Controller
         }
 
         $user->save();
+        DB::table('sessions')->where('user_id', $user->id)->delete();
 
         return redirect()->back()->with('toast', [
             'message' => 'Edited Successfully.',

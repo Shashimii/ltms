@@ -27,7 +27,7 @@ class DashboardController extends Controller
             $requests = AssignedTaskResource::collection(AssignedTask::whereIn('request_status', [1, 2])->latest()->get());
 
             $query = History::search($request);
-        $histories = HistoryResource::collection($query->with(['officer', 'task'])->latest()->paginate(3));
+            $histories = HistoryResource::collection($query->with(['officer', 'task'])->latest()->paginate(3));
 
             return Inertia::render('Chief/Dashboard', [
                 'officers' => $officers,
@@ -58,6 +58,6 @@ class DashboardController extends Controller
             ]);
         }
 
-        abort(403);
+        dd('Shibal');
     }
 }

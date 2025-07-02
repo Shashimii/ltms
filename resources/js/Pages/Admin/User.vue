@@ -286,7 +286,7 @@ const deleteUser = (id) => {
                                     <tbody
                                         class="divide-y divide-gray-200 bg-white dark:bg-gray-800"
                                     >
-                                        <tr v-for="user in users" :key="user.id">
+                                        <tr v-for="user in users" :key="user.id" class="transition duration-300 hover:bg-gray-100 dark:hover:bg-black">
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white"
                                             >
@@ -540,11 +540,8 @@ const deleteUser = (id) => {
                     </div>
                     <div class="col-span-3">
                         <InputLabel for="update_role" value="Account Type" />
-                        <p class="text-sm text-gray-600 text-left">
-                            The account type cannot be modified after registration.
-                        </p>
                         <select
-                            disabled
+
                             v-model="editForm.role"
                             id="update_role"
                             class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
