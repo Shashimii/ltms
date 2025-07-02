@@ -355,7 +355,7 @@ const deleteUser = (id) => {
                                     <span class="font-medium">Account Type:</span>
                                     <span class="text-right">
                                     <span v-if="user.role === 2">System Admin</span>
-                                    <span v-else-if="user.role === 1">Legal Chief</span>
+                                    <span v-else-if="user.role === 1">Chief</span>
                                     <span v-else>Officer</span>
                                     </span>
                                 </div>
@@ -457,7 +457,7 @@ const deleteUser = (id) => {
                         >
                             <option value="">Select Account Type</option>
                             <option value="2">System Admin</option>
-                            <option value="1">Legal Chief</option>
+                            <option value="1">Chief</option>
                             <option value="0">Officer</option>                            
                         </select>
                         <InputError :message="createForm.errors.role"/> 
@@ -552,7 +552,7 @@ const deleteUser = (id) => {
                         >
                             <option value="">Select Account Type</option>
                             <option value="2">System Admin</option>
-                            <option value="1">Legal Chief</option>
+                            <option value="1">Chief</option>
                             <option value="0">Officer</option>                            
                         </select>
                         <InputError :message="editForm.errors.role"/> 
