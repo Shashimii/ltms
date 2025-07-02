@@ -210,21 +210,23 @@ watch(
                         </p>
                     </div>
                 </div>
-                <div class="relative text-sm text-gray-800 col-span-3">
-                    <div
-                        class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
-                    >
-                        <MagnifyingGlass />
-                    </div>
+                <div class="flex flex-col justify-left sm:flex-row mt-6 gap-2">
+                    <div class="relative text-sm text-gray-800 col-span-3">
+                        <div
+                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500 dark:text-green-100"
+                        >
+                            <MagnifyingGlass />
+                        </div>
 
-                    <input
-                        v-model="search"
-                        type="text"
-                        autocomplete="off"
-                        placeholder="Search odts code..."
-                        id="search"
-                        class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+                        <input
+                            v-model="search"
+                            type="text"
+                            autocomplete="off"
+                            placeholder="Search odts code..."
+                            id="search"
+                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-600 dark:placeholder-white"
+                        />
+                    </div>
                 </div>
                 <div v-if="histories.data.length != 0">
                     <div
@@ -233,7 +235,7 @@ watch(
                     >
                         <div class="p-4 rounded-lg bg-white shadow dark:bg-gray-800 text-base text-gray-900 dark:text-gray-100 leading-relaxed border border-gray-200 dark:border-gray-700">
                             <div v-if="history.activity === 'Assigned'" class="flex-col space-y-4">
-                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                <div class="font-semibold text-sm text-gray-600 dark:text-green-600 flex items-center justify-start space-x-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
@@ -282,7 +284,7 @@ watch(
                                 </div>
                             </div>
                             <div v-if="history.activity === 'Edited'" class="flex-col space-y-4">
-                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                <div class="font-semibold text-sm text-gray-600 dark:text-green-600 flex items-center justify-start space-x-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
@@ -368,7 +370,7 @@ watch(
                                 </div>
                             </div>
                             <div v-if="history.activity === 'Deleted'" class="flex-col space-y-4">
-                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                <div class="font-semibold text-sm text-gray-600 dark:text-green-600 flex items-center justify-start space-x-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
@@ -417,7 +419,7 @@ watch(
                                 </div>
                             </div>
                             <div v-if="history.activity === 'Done'" class="flex-col space-y-4">
-                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                <div class="font-semibold text-sm text-gray-600 dark:text-green-600 flex items-center justify-start space-x-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
@@ -466,7 +468,7 @@ watch(
                                 </div>
                             </div>
                             <div v-if="history.activity === 'Undone'" class="flex-col space-y-4">
-                                <div class="font-semibold text-sm text-gray-600 flex items-center justify-start space-x-2">
+                                <div class="font-semibold text-sm text-gray-600 dark:text-green-600 flex items-center justify-start space-x-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
