@@ -193,10 +193,10 @@ const deleteUser = (id) => {
             <div class="mx-auto max-w-7xl px-4 sm:px-8">
                 <div class="flex items-center">
                     <div class="flex-auto">
-                        <h1 class="text-xl font-semibold text-gray-900">
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-green-500">
                             System Users List
                         </h1>
-                        <p class="mt-2 text-sm text-gray-700">
+                        <p class="mt-2 text-sm text-gray-700 dark:text-green-700">
                             A list of all Users of the System.
                         </p>
                     </div>
@@ -212,9 +212,9 @@ const deleteUser = (id) => {
                 </div>
 
                 <div class="flex flex-col justify-left gap-2 sm:flex-row mt-6">
-                    <div class="relative text-sm text-gray-800 col-span-3">
+                    <div class="relative text-sm text-gray-800 w-full sm:max-w-xs">
                         <div
-                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
+                            class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500 dark:text-green-100"
                         >
                             <MagnifyingGlass />
                         </div>
@@ -223,15 +223,15 @@ const deleteUser = (id) => {
                             v-model="search"
                             type="text"
                             autocomplete="off"
-                            placeholder="Search name, email..."
+                            placeholder="Search task, odts..."
                             id="search"
-                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:text-white dark:ring-gray-600"
+                            class="w-full block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white dark:placeholder-white sm:text-sm sm:leading-6"
                         />
                     </div>
 
                     <select
                         v-model="account_type"
-                        class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:ml-5 sm:text-sm sm:leading-6"
+                       class="block rounded-lg border-0 py-2 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 dark:ring-green-500 dark:focus:ring-green-500 dark:bg-green-800 dark:text-white sm:ml-5 sm:text-sm sm:leading-6"
                     >
                         <option value="">Filter by type</option>
                         <option value="2">System Admin</option>
@@ -251,29 +251,29 @@ const deleteUser = (id) => {
                                 <table
                                     class="min-w-full divide-y divide-gray-300"
                                 >
-                                    <thead class="bg-gray-50">
+                                    <thead class="bg-gray-50 dark:bg-gray-700">
                                         <tr>
                                             <th
                                                 scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 Name
                                             </th>
                                             <th
                                                 scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 Email
                                             </th>
                                             <th
                                                 scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 Account Type
                                             </th>
                                             <th
                                                 scope="col"
-                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 Added At
                                             </th>
@@ -284,28 +284,28 @@ const deleteUser = (id) => {
                                         </tr>
                                     </thead>
                                     <tbody
-                                        class="divide-y divide-gray-200 bg-white"
+                                        class="divide-y divide-gray-200 bg-white dark:bg-gray-800"
                                     >
                                         <tr v-for="user in users" :key="user.id">
                                             <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 {{ user.name }}
                                             </td>
                                             <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 {{ user.email }}
                                             </td>
                                             <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 <span v-if="user.role === 2">System Admin</span>
                                                 <span v-if="user.role === 1">Legal Chief</span>
                                                 <span v-if="user.role === 0">Officer</span>
                                             </td>
                                             <td
-                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 {{ user.created_at }}
                                             </td>
