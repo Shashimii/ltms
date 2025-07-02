@@ -40,13 +40,13 @@ class AuthenticatedSessionController extends Controller
 
         switch ($user->role) {
             case User::ROLE_ADMIN:
-                return redirect()->intended(route('admin.dashboard', absolute: false));
+                return redirect()->route('officer.dashboard');
 
             case User::ROLE_CHIEF:
-                return redirect()->intended(route('chief.dashboard', absolute: false));
+                return redirect()->route('chief.dashboard');
 
             case User::ROLE_OFFICER:
-                return redirect()->intended(route('officer.dashboard', absolute: false));
+                return redirect()->route('officer.dashboard');
 
             default:
                 abort(403);
