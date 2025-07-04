@@ -235,7 +235,7 @@ const deleteUser = (id) => {
                     >
                         <option value="">Filter by type</option>
                         <option value="2">System Admin</option>
-                        <option value="1">Legal Chief</option>
+                        <option value="1">Chief</option>
                         <option value="0">Officer</option>
                     </select>
                 </div>
@@ -301,7 +301,7 @@ const deleteUser = (id) => {
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white"
                                             >
                                                 <span v-if="user.role === 2">System Admin</span>
-                                                <span v-if="user.role === 1">Legal Chief</span>
+                                                <span v-if="user.role === 1">Chief</span>
                                                 <span v-if="user.role === 0">Officer</span>
                                             </td>
                                             <td

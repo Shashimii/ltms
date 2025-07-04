@@ -203,10 +203,10 @@ watch(
                         <h3
                             class="text-lg leading-6 font-medium text-gray-900 dark:text-green-500"
                         >
-                            System Logs
+                            System History
                         </h3>
                         <p class="mt-1 text-sm text-gray-500 dark:text-green-700">
-                            All actions related to assigned tasks will be shown here.
+                            Actions done on the system shown here. 
                         </p>
                     </div>
                 </div>
